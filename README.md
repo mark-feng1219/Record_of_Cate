@@ -1,18 +1,7 @@
-<center><font face="楷体" size=6>项目接口设计规范</font></center>  
-
-* * * * * * *   
-<style>
-.table
-{
-    width: auto;
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
+# 项目接口设计规范
 
 ### 一、整体项目浏览：(假设用户都是正常人)
-<img src="./picture/整体项目.jpg">  
+![img](https://img-community.csdnimg.cn/images/41e9e9e2e7a449f88312f1c109a49ee8.jpg "#left")
 
 (注：以后形容某个特定页面以坐标来形容，如：(1,10))  
 
@@ -20,65 +9,41 @@
 
 1.用户表——user_info(用户id是微信号经过MD5的结果)  
 
-<div class="table">
-
 |用户id/食珍录账号| 用户昵称 |head_image_path| 用户性别 | 获赞数 | 关注数 | 粉丝数 |
 |:--:| :-----: | :----: |:-:| :----: | :--: | :--: |
 | char(20) | char(20) |char(100)| char(5) | int |int| int |
 |1|小明|h8kes7m9/head_image/cool.jpg|男|12|5|2|
 |2|小华|h8kek6d9/head_image/beautiful.jpg|女|20|6|12|
 
-</div>
-
 2.笔记表——note  
-
-<div class="table">
 
 |笔记id| 发表用户id | 发表时间 | 内容 | 配图路径 | 点赞数 |
 |:--:| :-----: | :----: | :----: | :--: | :--: |
 | int | char(20) | DATETIME | text |char(30)| int |
 
-</div>
-
 3.评论表——评论设置不可点赞
-
-<div class="table">
 
 |评论id|发表用户id|发表时间|内容|
 |:-:|:-:|:-:|:--:|
 |int|char(20)|DATETIME|text|
 
-</div>
-
-4.follow表——全码  
-
-<div class="table">
+4.follow表(全码)  
 
 |博主id|粉丝id|
 |:-:|:-:|
 |char(20)|char(20)|
 
-</div>
-
 5.跟评表(全码)  
-
-<div class="table">
 
 |笔记id|评论id|
 |:-:|:-:|
 |int|int|
 
-</div>
-
-6.用户点赞笔记表——user_support_note(全码)(因为要实现帮我点餐(做推荐)需要从用户点赞的笔记中寻找蛛丝马迹)
-
-<div class="table">
+6.用户点赞笔记表(全码)——user_support_note(因为要实现帮我点餐(做推荐)需要从用户点赞的笔记中寻找蛛丝马迹)
 
 |笔记id| 用户id |
 |:--:| :-----: |
 | int | char(20) |
-
-</div>  
 
 ### 三、后端路由  
 
@@ -106,7 +71,7 @@ def process():
 |interface_3|opt=modify_user_sex&<br>user_id="h8kes7m9"&<br>new_sex=男|modify_user_sex|修改user表的sex|空|
 |interface_4|opt=surf_other&<br>user_id="h8kes7m9"&<br>choice="note/support"|return_other|返回别人的笔记/点赞|空|
 
-2.第二条路由：https://127.0.0.1:5000/note
+2.第二条路由：https://127.0.0.1:5000/note  
 python代码:  
 
 ```python  
@@ -115,13 +80,13 @@ python代码:
 需要实现的函数功能表单：
 |接口编号| 参数| 函数名称 | 解释 | 实现细节 |
 |:--: | :-----: | :----: | :----: | :--: |
-|interface_4| opt=select_newest | return_newest | 返回所关注的用户中最新的用户动态 | 使用pymysql先查询folllow表得出自己关注的用户,再查询note表得出最新动态|
-|interface_5| opt=select_FocusUser_newest&<br>user_id:"h8kes7m9" | return_user_newest | 返回选中的用户最新的用户动态 | 使用pymysql直接查询note表得出最新动态 |
-|interface_6|opt=newest_16&<br>user_id="h8kes7m9"|return_newest_16|返回最新的16条笔记,因为不能你一打开推荐,后端就真的返回所有的笔记数据,而应该一点一点返回|空|
-|interface_7|opt=next_36&<br>user_id="h8kes7m9"|return_next_36|返回接下来的36条笔记,当用户在“刷推荐”时可能再次触发上拉刷新,需要返回再接下来的36条笔记|空|
-|interface_8|opt=select_key_words&<br>key_words="卤肉卷"|return_key_words|返回标签为key_words的笔记|使用pymysql直接查询note表返回所有笔记|
-|interface_9|opt=upload_user_note&<br>user_id="h8kes7m9"&<br>note_id="129093893"&<br>image_path="h8kes7m9/129093893/picture_1.jpg"&<br>content="不会还有人没吃过福大学生街的×××吧"|return_user_note|上传用户的笔记| 使用pymysql插入用户笔记于note表中 |
-|interface_10|opt=operate_note&<br>note_id="1690324587"&<br>choice="insert/delete"|operate_note|对笔记执行点赞或取消点赞操作|空|
+|interface_5| opt=select_newest | return_newest | 返回所关注的用户中最新的用户动态 | 使用pymysql先查询folllow表得出自己关注的用户,再查询note表得出最新动态|
+|interface_6| opt=select_FocusUser_newest&<br>user_id:"h8kes7m9" | return_user_newest | 返回选中的用户最新的用户动态 | 使用pymysql直接查询note表得出最新动态 |
+|interface_7|opt=newest_16&<br>user_id="h8kes7m9"|return_newest_16|返回最新的16条笔记,因为不能你一打开推荐,后端就真的返回所有的笔记数据,而应该一点一点返回|空|
+|interface_8|opt=next_36&<br>user_id="h8kes7m9"|return_next_36|返回接下来的36条笔记,当用户在“刷推荐”时可能再次触发上拉刷新,需要返回再接下来的36条笔记|空|
+|interface_9|opt=select_key_words&<br>key_words="卤肉卷"|return_key_words|返回标签为key_words的笔记|使用pymysql直接查询note表返回所有笔记|
+|interface_10|opt=upload_user_note&<br>user_id="h8kes7m9"&<br>note_id="129093893"&<br>image_path="h8kes7m9/129093893/picture_1.jpg"&<br>content="不会还有人没吃过福大学生街的×××吧"|return_user_note|上传用户的笔记| 使用pymysql插入用户笔记于note表中 |
+|interface_11|opt=operate_note&<br>note_id="1690324587"&<br>choice="insert/delete"|operate_note|对笔记执行点赞或取消点赞操作|空|
 
 3.第三条路由：https://127.0.0.1:5000/comment  
 python代码:  
@@ -132,8 +97,8 @@ python代码:
 需要实现的函数功能表单：
 |接口编号| 参数| 函数名称 | 解释 |实现细节|
 |:--:| :-----: | :----: | :----: |:-:|
-|interface_11| opt=select_comment&<br>note_id=168295073 | return_note_comment | 返回对应笔记的所有评论 | 空 |
-|interface_12|opt=insert_comment&<br>note_id=168295073&<br>user_id="h8kes7m9"&<br>timestamp="1781213041"| insert_note_comment | 对选定的笔记插入评论 | 空 |
+|interface_12| opt=select_comment&<br>note_id=168295073 | return_note_comment | 返回对应笔记的所有评论 | 空 |
+|interface_13|opt=insert_comment&<br>note_id=168295073&<br>user_id="h8kes7m9"&<br>timestamp="1781213041"| insert_note_comment | 对选定的笔记插入评论 | 空 |
 
 4.第四条路由：https://127.0.0.1:5000/help  
 python代码:  
@@ -145,7 +110,7 @@ python代码:
 需要实现的函数功能表单：
 |接口编号| 参数| 函数名称 | 解释 | 实现细节 |
 |:--:| :-----: | :----: | :----: |:-:|
-|interface_13|opt=help&<br>user_id="h8kes7m9"|return_suggestion|返回给用户点餐的建议|提示：要使用user_support_note和使用Random函数,可以自由发挥|
+|interface_14|opt=help&<br>user_id="h8kes7m9"|return_suggestion|返回给用户点餐的建议|提示：要使用user_support_note和使用Random函数,可以自由发挥|
 
 ### 四、前端请求  
 
@@ -158,7 +123,7 @@ a.默认情况——没有点击任何关注的用户的头像时,返回最新�
 wx.request({
     url: 'http://127.0.0.1:5000/note',  //访问失败,不检验域名则成功
     data: {
-    "opt":"select_newest"    // 接口编号:interface_4
+    "opt":"select_newest"    // 接口编号:interface_5
     },
     header: { 'content-type': 'application/json' },
     success: function(res) {  //接口调用成功的回调函数
@@ -179,7 +144,7 @@ b.选择特定用户的情况——点击了一个关注的用户头像,返回TA
 wx.request({
     url: 'http://127.0.0.1:5000/note',  //访问失败,设置不检验域名则成功
     data: {
-    "opt":"select_FocusUser_newest",   // 接口编号:interface_5
+    "opt":"select_FocusUser_newest",   // 接口编号:interface_6
     "user_id":"h8kes7m9"
     },
     header: { 'content-type': 'application/json' },
@@ -203,7 +168,7 @@ a.没有触发上拉刷新时——仅返回最新的16条笔记(有点问题,�
 wx.request({
     url: 'http://127.0.0.1:5000/note',
     data: {
-    "opt":"newest_16",   // 接口编号:interface_6
+    "opt":"newest_16",   // 接口编号:interface_7
     "user_id":"h8kes7m9"
     },
     header: { 'content-type': 'application/json' },
@@ -224,7 +189,7 @@ b.触发上拉刷新时——返回之后的36条笔记,如果再次触发,再�
 wx.request({
     url: 'http://127.0.0.1:5000/note',
     data: {
-    "opt":"next_36",   // 接口编号:interface_7
+    "opt":"next_36",   // 接口编号:interface_8
     "user_id":"h8kes7m9"
     },
     header: { 'content-type': 'application/json' },
@@ -247,7 +212,7 @@ c.对某条笔记进行点赞/取消点赞
 wx.request({
     url: 'http://127.0.0.1:5000/note',
     data: {
-    "opt":"operate_note",   // 接口编号:interface_10
+    "opt":"operate_note",   // 接口编号:interface_11
     "note_id":"1690324587",
     "choice":"insert/delete"
     },
@@ -272,7 +237,7 @@ d.点进去笔记——展示笔记以及评论
 wx.request({
     url: 'http://127.0.0.1:5000/comment',
     data: {
-    "opt":"select_comment",  // 接口编号:interface_11
+    "opt":"select_comment",  // 接口编号:interface_12
     "note_id":"168295073"
     },
     header: { 'content-type': 'application/json' },
@@ -297,7 +262,7 @@ e.评论笔记——写评论
 wx.request({
     url: 'http://127.0.0.1:5000/comment',
     data: {
-    "opt":"insert_comment",  // 接口编号:interface_12
+    "opt":"insert_comment",  // 接口编号:interface_13
     "note_id":"168295073",
     "user_id":"h8kes7m9",
     "timestamp":"1781213041"
@@ -349,7 +314,7 @@ wx.request({
 wx.request({
     url: 'http://127.0.0.1:5000/note',
     data: {
-    "opt":"select_key_words",      //接口编号:interface_8
+    "opt":"select_key_words",      //接口编号:interface_9
     "key_words":"卤肉卷"
     },
     header: { 'content-type': 'application/json' },
@@ -373,7 +338,7 @@ wx.request({
 wx.request({
     url: 'http://127.0.0.1:5000/help',  //访问失败,设置不检验域名则成功
     data: {
-    "opt":"help",      //接口编号:interface_13
+    "opt":"help",      //接口编号:interface_14
     "user_id":"h8kes7m9"
     },
     header: { 'content-type': 'application/json' },
@@ -404,7 +369,7 @@ wx.container({笔记图片存到微信云托管对象存储中→记录下图片
 wx.request({
     url: 'http://127.0.0.1:5000/note',
     data: {
-    "opt":"upload_user_note",     //接口编号:interface_9
+    "opt":"upload_user_note",     //接口编号:interface_10
     "user_id":"h8kes7m9",
     "note_id":"129093893",
     "image_path":"h8kes7m9/129093893/picture_1.jpg"
