@@ -85,8 +85,9 @@ python代码:
 |interface_7|opt=newest_16&<br>user_id="h8kes7m9"|return_newest_16|返回最新的16条笔记,因为不能你一打开推荐,后端就真的返回所有的笔记数据,而应该一点一点返回|空|
 |interface_8|opt=next_36&<br>user_id="h8kes7m9"|return_next_36|返回接下来的36条笔记,当用户在“刷推荐”时可能再次触发上拉刷新,需要返回再接下来的36条笔记|空|
 |interface_9|opt=select_key_words&<br>key_words="卤肉卷"|return_key_words|返回标签为key_words的笔记|使用pymysql直接查询note表返回所有笔记|
-|interface_10|opt=upload_user_note&<br>user_id="h8kes7m9"&<br>note_id="129093893"&<br>image_path="h8kes7m9/129093893/picture_1.jpg"&<br>content="不会还有人没吃过福大学生街的×××吧"|return_user_note|上传用户的笔记| 使用pymysql插入用户笔记于note表中 |
+|interface_10|opt=upload_user_note&<br>user_id="h8kes7m9"&<br>note_id="129093893"&<br>image_path="×××"&<br>content="×××"|insert_user_note|上传用户的笔记| 使用pymysql插入用户笔记于note表中 |
 |interface_11|opt=operate_note&<br>note_id="1690324587"&<br>choice="insert/delete"|operate_note|对笔记执行点赞或取消点赞操作|空|
+|interface_15|opt=delete_user_note&<br>user_id="h8kes7m9"&<br>note_id="129093893"|delete_user_note|对笔记执行删除操作|空|
 
 3.第三条路由：https://127.0.0.1:5000/comment  
 python代码:  
@@ -364,6 +365,7 @@ wx.request({
 a.用户发布笔记——既要上传用户的笔记,又要将用户发布的笔记存到本地缓存之中  
 
 解释:这里的note_id是时间戳,因为我假设不会有人同一时刻发布笔记
+
 ```JavaScript
 wx.container({笔记图片存到微信云托管对象存储中→记录下图片路径})
 wx.request({
@@ -374,6 +376,33 @@ wx.request({
     "note_id":"129093893",
     "image_path":"h8kes7m9/129093893/picture_1.jpg"
     "content":"不会还有人没吃过福大学生街的×××吧"
+    },
+    header: { 'content-type': 'application/json' },
+    success: function(res) {  //接口调用成功的回调函数
+    console.log('success') // 收到https服务成功后返回
+    console.log(res)
+    },
+    fail: function() {  //接口调用失败的回调函数
+    console.log('failure')  // 发生网络错误等情况触发
+    },
+    complete: function() {  //接口调用结束的回调函数(调用成功、失败都会执行)
+    console.log('complete')  // 成功或者失败后触发
+    }
+    })
+```
+
+b.用户删除自己的笔记——既要上传用户删除笔记的动作,又要将用户删除笔记的动作存到本地缓存之中  
+
+解释:这里的note_id是时间戳,因为我假设不会有人同一时刻发布笔记
+
+```JavaScript
+wx.container({笔记图片存到微信云托管对象存储中→记录下图片路径})
+wx.request({
+    url: 'http://127.0.0.1:5000/note',
+    data: {
+    "opt":"delete_user_note",    //接口编号:interface_15
+    "user_id":"h8kes7m9",
+    "note_id":"129093893",
     },
     header: { 'content-type': 'application/json' },
     success: function(res) {  //接口调用成功的回调函数
@@ -474,4 +503,10 @@ wx.request({
 1.答你所问：  
 
 (1) 问：微信小程序要怎么上传图片呢？
-> 答：微信云托管有两个存储工具,一个是MySQL,用于存储普通的数值型和字符串型数据;一个是对象存储,用来存储图片,视频,Excel文件等。而上传存储图片有两种方式：a.微信小程序上传照片给Flask后端,Flask后端将图片存储在微信云托管的对象存储中。b.微信小程序直接通过代码上传存储到微信云托管的对象存储中。所以这里使用最简单的方式——b方案。  
+> 答：微信云托管有两个存储工具,一个是MySQL,用于存储普通的数值型和字符串型数据;一个是对象存储,用来存储图片,视频,Excel文件等。而上传存储图片有两种方式：a.微信小程序上传照片给Flask后端,Flask后端将图片存储在微信云托管的对象存储中。b.微信小程序直接通过代码上传存储到微信云托管的对象存储中。所以这里使用最简单的方式——b方案。但是Flask会将图片存放的路径存储在MySQL之中。
+
+(2) 问：微信小程序后端Flask模板代码在哪里？
+> 答：https://github.com/WeixinCloud/wxcloudrun-flask
+
+(3) 问：微信云托管如果不用一键部署,要怎么连接它的MySQL？
+> 答：在「服务设置」中补全以下环境变量,MYSQL_ADDRESS,MYSQL_PASSWORD,MYSQL_USERNAME
