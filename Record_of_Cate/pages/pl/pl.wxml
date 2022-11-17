@@ -1,0 +1,4 @@
+<view>
+<textarea placeholder="看着太美味了......"></textarea>
+<button style="background-color:darkorange;width: 220px;">发表</button>
+</view>

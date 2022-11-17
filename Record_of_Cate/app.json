@@ -1,41 +1,54 @@
 {
-  "pages":[
-    "pages/home/home",
-    "pages/note/note",
-    "pages/user/user"
+  "pages": [
+    "pages/szlindex/szlindex",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/bwdc/bwdc",
+    "pages/bj/bj",
+    "pages/my/my",
+    "pages/pl/pl",
+    "pages/search/search",
+    "pages/zy/zy",
+    "pages/dc/dc",
+    "pages/publishnote/publishnote",
+    "pages/personinfo/personinfo"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle":"black"
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFC359",
+    "navigationBarTitleText": "食珍录",
+    "navigationBarTextStyle": "black"
   },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json",
   "tabBar": {
-    "color": "#999",
-        "selectedColor": "#3D98FF",
-        "backgroundColor": "#fff",
-        "borderStyle": "white",
+    "color": "#FFC359",
+    "backgroundColor": "#0C2F6A",
+    "selectedColor": "#FFC359",
     "list": [
       {
-        "selectedIconPath": "images/icon/Home.png",
-        "iconPath": "images/icon/Home.png",
-        "pagePath": "pages/home/home",
-        "text": "首页"
+        "pagePath": "pages/szlindex/szlindex",
+        "text": "首页",
+        "iconPath": "images/首页 (1).png",
+        "selectedIconPath": "images/首页.png"
       },
       {
-        "selectedIconPath": "images/icon/note.png",
-        "iconPath": "images/icon/note.png",
-        "pagePath": "pages/note/note",
-        "text": "笔记"
+        "pagePath": "pages/dc/dc",
+        "text": "帮我点餐",
+        "iconPath": "images/帮我点餐图标.png",
+        "selectedIconPath": "images/美食 (1).png"
       },
       {
-        "selectedIconPath": "images/icon/User.png",
-        "iconPath": "images/icon/User.png",
-        "pagePath": "pages/user/user",
-        "text": "个人"
+        "pagePath": "pages/zy/zy",
+        "text": "笔记",
+        "iconPath": "images/组 4.png",
+        "selectedIconPath": "images/资讯.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "images/组 5.png",
+        "selectedIconPath": "images/我的.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

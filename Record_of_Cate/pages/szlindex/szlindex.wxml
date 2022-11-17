@@ -1,0 +1,116 @@
+<view>
+    <!-- Tab布局 -->
+    <view class='navBox'>
+        <view class='titleBox' bindtap='titleClick' data-idx='0'>
+            <text class="{{0 == currentIndex ? 'fontColorBox' : ''}}">关注</text>
+            <hr class="{{0 == currentIndex ? 'lineBox' : 'notLineBox'}}" />
+        </view>
+        <view class='titleBox' bindtap='titleClick' data-idx='1'>
+            <text class="{{1 == currentIndex ? 'fontColorBox1' : ''}}">推荐</text>
+            <hr class="{{1 == currentIndex ? 'lineBox' : 'notLineBox'}} " />
+        </view>
+
+
+    </view>
+    <!-- 内容布局 -->
+    <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
+        <swiper-item class='swiperTtemBox'>
+            <!-- <view>装备内容</view> -->
+
+  <view class="gz">
+
+  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>
+  </view>
+  <view style="margin-top: 30px;">
+  <image src="/images/sw.jpg"></image>
+  </view>
+
+
+        </swiper-item>
+        <swiper-item class='swiperTtemBox'>
+          <view class="container" style="height: 220px;">
+    <view class="left" bindtap="jump1" style="height: 220px;background-color: white;border-radius: 5%;">
+      <view class="tp">
+        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
+      </view>
+      <view id="wz">{{msg1}}</view>
+      <view style="color: darkgray;">
+      <view style="float: left; ">
+        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+      </view>
+        <view style="float: right;">
+          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
+          
+         
+        </view>   
+      </view>     
+
+
+    </view>
+<view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
+    <view class="right" bindtap="jump2" style="height: 220px;background-color: white;border-radius: 5%;">
+      <view class="tp">
+        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
+      </view>
+      <view id="wz">{{msg2}}</view>
+      <view style="color: darkgray;">
+      <view style="float: left;">
+        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+      </view>
+        <view style="float: right;">
+          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
+         
+        </view>   
+      </view>   
+      
+
+    </view>
+  </view>
+
+  <view class="container" style="height: 220px;margin-top: 10px;">  
+    <view class="left" bindtap="jump3" style="height: 220px;background-color: white;border-radius: 5%;">
+      <view class="tp">
+        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
+      </view>
+      <view id="wz">{{msg3}}</view>
+      <view style="color: darkgray;">
+      <view style="float: left;">
+        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+      </view>
+        <view style="float: right;">
+          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
+         
+        </view>   
+      </view>   
+     
+    </view>
+    <view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
+    <view class="right" bindtap="jump4" style="height: 220px;background-color: white;border-radius: 5%;">
+      <view class="tp">
+        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
+      </view>
+      <view id="wz">{{msg4}}</view>
+      <view style="color: darkgray;">
+      <view style="float: left;">
+        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+      </view>
+        <view style="float: right;">
+          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
+         
+        </view>   
+      </view>   
+      
+
+    </view>
+  </view>
+
+  <view style="height:150rpx;"></view>
+        </swiper-item>
+    </swiper>
+</view>

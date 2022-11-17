@@ -1,0 +1,101 @@
+page {
+  background-color: #FFF4D9;
+}
+.user_info_wrap {
+  height: 45vh;
+  overflow: hidden;
+  background-color: var(--themeColor);
+  position: relative;
+}
+
+.user_info_wrap .user_btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 40%;
+  border: 1rpx solid #FFC359;
+  color: #FFC359;
+  font-size: 42rpx;
+  padding: 30rpx;
+  border-radius: 10rpx;
+}
+.user_content {
+  position: relative;
+}
+.user_content .user_main {
+  padding-bottom: 100rpx;
+  color: #666;
+  position: absolute;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -50rpx;
+}
+
+.user_content .user_main .app_info_wrap {
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+.user_content .user_main .app_info_wrap .app_info_item {
+  padding: 30rpx ;
+  border-bottom: 1rpx solid #ccc;
+  border-radius: 10px;
+}
+
+
+.header-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  position: absolute;
+  left: 30rpx;
+  top: 100rpx;
+  overflow: hidden;
+  width: 160rpx;
+  height: 160rpx;
+  margin-top: 50rpx;
+  margin-bottom: 40rpx;
+  border-radius: 50%;
+}
+.nickname {
+  position: absolute;
+  left: 210rpx;
+  top: 160rpx;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+}
+.motto {
+  position: absolute;
+  left: 210rpx;
+  top: 230rpx;
+  font-size: 12px;
+  font-weight: 100;
+  color: #666;
+}
+.functiontext{
+  position: absolute;
+  left: 3%;
+  top: 45%;
+  font-size: 16px;
+  font-weight: 900;
+  color: rgb(0, 0, 0);
+}
+.btn2{
+  width: 150px;
+  font-size: 20px;
+  font-weight: 500;
+  position: absolute;
+  border-radius: 25px;
+  letter-spacing: 2px;
+  top: 75%;
+  color:white;
+  background-color: #FFC359;
+}
+
+ 
+

@@ -1,0 +1,56 @@
+<view>
+    <!-- Tab布局 -->
+    <view class='navBox'>
+        <view class='titleBox' bindtap='titleClick' data-idx='0'>
+            <text class="{{0 == currentIndex ? 'fontColorBox' : ''}}">笔记</text>
+            <hr class="{{0 == currentIndex ? 'lineBox' : 'notLineBox'}}" />
+        </view>
+        <view class='titleBox' bindtap='titleClick' data-idx='1'>
+            <text class="{{1 == currentIndex ? 'fontColorBox1' : ''}}">点赞</text>
+            <hr class="{{1 == currentIndex ? 'lineBox' : 'notLineBox'}} " />
+        </view>
+    </view>
+    <!-- 内容布局 -->
+    <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
+        <swiper-item class='swiperTtemBox'>
+            <!-- <view>装备内容</view> -->
+
+            <view class="container">
+ <view wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item">
+  
+  <view class="number-wrapper">
+   <text class="name">{{cardTeam.name}}</text>
+   <view class="count-wrapper" style="margin-top: 10px;">
+    <text class="count">{{cardTeam.count}}</text>
+   </view>
+    <view class="details">
+   <!-- <navigator url="../details/details?goodsId={{index}}">查看详情</navigator> -->
+   </view>
+  </view>
+  <image class="img" src="{{cardTeam.imgsrc}}" mode="scaleToFill" ></image>
+ </view>
+</view>
+
+            
+
+
+        </swiper-item>
+        <swiper-item class='swiperTtemBox'>
+          <view class="container">
+ <view wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item">
+  
+  <view class="number-wrapper">
+   <text class="name">{{cardTeam.name}}</text>
+   <view class="count-wrapper" style="margin-top: 10px;">
+    <text class="count">{{cardTeam.count}}</text>
+   </view>
+    <view class="details">
+   <!-- <navigator url="../details/details?goodsId={{index}}">查看详情</navigator> -->
+   </view>
+  </view>
+  <image class="img" src="{{cardTeam.imgsrc}}" mode="scaleToFill"></image>
+ </view>
+</view>
+        </swiper-item>
+    </swiper>
+</view>

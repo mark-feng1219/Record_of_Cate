@@ -1,0 +1,5 @@
+<view>
+  <image src="/images/sw.jpg" style="border-radius: 50%;height: 190px; width: 200px;position: absolute;margin-top: 150px;margin-left: 56px;"></image>
+<image src="/images/bj.png" style="height: 460px;"></image>
+
+</view>
