@@ -108,7 +108,7 @@ titleClick: function (e) {
         }
         //console.log('百分比 : ' + bfb);
         //-------------------------------
-        var num = Math.floor(bfb) * 2 + 2; //个数
+        var num = Math.floor(bfb) * 2 + 2; //个数 
         var numtol = Math.floor(num * 4); //总框
         var panlwidth = widths - numtol;
         console.log('dd : ' + panlwidth);

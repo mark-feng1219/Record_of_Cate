@@ -3,7 +3,6 @@
     "pages/szlindex/szlindex",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/bwdc/bwdc",
     "pages/bj/bj",
     "pages/my/my",
     "pages/pl/pl",
@@ -11,7 +10,9 @@
     "pages/zy/zy",
     "pages/dc/dc",
     "pages/publishnote/publishnote",
-    "pages/personinfo/personinfo"
+    "pages/personinfo/personinfo",
+    "pages/privacypolicy/privacypolicy",
+    "pages/help/help"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -37,7 +38,7 @@
         "selectedIconPath": "images/美食 (1).png"
       },
       {
-        "pagePath": "pages/zy/zy",
+        "pagePath": "pages/bj/bj",
         "text": "笔记",
         "iconPath": "images/组 4.png",
         "selectedIconPath": "images/资讯.png"

@@ -60,7 +60,7 @@ titleClick: function (e) {
   onLoad(options) {
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
-      backgroundColor: '#F86125',
+      //backgroundColor: '#F86125',
       animation: {
         duration: 400,
         timingFunc: 'easeIn'

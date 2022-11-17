@@ -1,4 +1,4 @@
-// pages/bwdc/bwdc.js
+// pages/privacypolicy/privacypolicy.js
 Page({
 
   /**

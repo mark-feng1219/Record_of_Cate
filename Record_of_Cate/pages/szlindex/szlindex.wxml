@@ -10,7 +10,7 @@
             <hr class="{{1 == currentIndex ? 'lineBox' : 'notLineBox'}} " />
         </view>
 
-
+        
     </view>
     <!-- 内容布局 -->
     <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
@@ -50,7 +50,7 @@
          
         </view>   
       </view>     
-
+     
 
     </view>
 <view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
