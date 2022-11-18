@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    volumes:
+      - .:/app
+    ports:
+      - '27081:80'
+    container_name: wxcloud_wxcloudrun-flask
+    labels:
+      - wxPort=27082
+      - hostPort=27081
+      - wxcloud=wxcloudrun-flask
+      - role=container
+    environment:
+      - MYSQL_USERNAME=rest
+      - MYSQL_PASSWORD=test123!
+      - MYSQL_ADDRESS=sh-cynosdbmysql-grp-fe9hll88.sql.tencentcdb.com:27015
+      - MYSQL_USERNAME=test
+networks:
+  default:
+    external:
+      name: wxcb0
