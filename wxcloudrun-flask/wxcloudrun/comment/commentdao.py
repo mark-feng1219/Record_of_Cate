@@ -3,23 +3,24 @@ from wxcloudrun import db
 from wxcloudrun.model import dbComment
 from sqlalchemy.exc import OperationalError
 
-# 初始化日志
-logger = logging.getLogger('log')
+logger = logging.getLogger('log')     # 初始化日志
 
-def select_comment():
+'''
+对数据库的所有操作
+'''
+def select_comment(note_id):
     try:
-        return dbComment.query.filter(dbComment)
+        # return note_id
+        return dbComment.query.filter(dbComment.publishAt_note_id == str(note_id)).all()
     except OperationalError as e:
-        return "select_comment failure"
+        logger.info("select_comment_by_id errorMsg= {} ".format(e))
+        return None
 
-# def query_counterbyid(id):
-#     """
-#     根据ID查询Counter实体
-#     :param id: Counter的ID
-#     :return: Counter实体
-#     """
-#     try:
-#         return Counters.query.filter(Counters.id == id).first()
-#     except OperationalError as e:
-#         logger.info("query_counterbyid errorMsg= {} ".format(e))
-#         return None
+def insert_comment(new_comment):
+    try:
+        db.session.add(new_comment)
+        db.session.commit()
+        return "success"
+    except OperationalError as e:
+        logger.info("insert_comment errorMsg= {} ".format(e))
+        return "failure"
