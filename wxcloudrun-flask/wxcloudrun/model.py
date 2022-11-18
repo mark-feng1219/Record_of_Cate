@@ -31,17 +31,20 @@ class dbComment(db.Model):
     comment_publisher_id = db.Column('comment_publisher_id', db.String(20), nullable=False, primary_key=True)
     comment_publish_time = db.Column('comment_publish_time', db.TIMESTAMP, nullable=False, default=datetime.now())
     comment_content = db.Column('comment_content', db.Text, nullable=True)
-    publishAt_note_id = db.Column('publishAt_note_id',db.String(20),nullable=False)
+    publishAt_note_id = db.Column('publishAt_note_id', db.String(20), nullable=False)
+
 
 class dbFollow(db.Model):
     __tablename__ = 'follow'
-    blogger_id = db.Column('blogger_id',db.String(20),nullable=False)
-    fans_id = db.Column('fans_id',db.String(20),nullable=False)
+    blogger_id = db.Column('blogger_id', db.String(20), nullable=False, primary_key=True)
+    fans_id = db.Column('fans_id', db.String(20), nullable=False, primary_key=True)
+
 
 class dbSupport(db.Model):
-    __tablename__ ='user_likes_note'
-    note_id = db.Column('note_id',db.String(20),nullable=False)
-    user_id = db.Column('user_id',db.String(20),nullable=False)
+    __tablename__ = 'user_likes_note'
+    note_id = db.Column('note_id', db.String(20), nullable=False, primary_key=True)
+    user_id = db.Column('user_id', db.String(20), nullable=False, primary_key=True)
+
 
 class Counters(db.Model):
     # 设置结构体表格名称
