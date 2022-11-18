@@ -72,7 +72,7 @@ python代码:
 |路由路径| 参数| 函数名称 | 解释 | 实现细节 |
 |:--: | :-----: | :----: | :----: | :--: |
 |/note/select_newest|  | return_newest | 返回所关注的用户中最新的用户动态 | 使用pymysql先查询folllow表得出自己关注的用户,再查询note表得出最新动态|
-|/note/select_FocusUser_newest| user_id:"h8kes7m9" | return_user_newest | 返回选中的用户最新的用户动态 | 使用pymysql直接查询note表得出最新动态 |
+|/note/FocusUser_newest| user_id:"h8kes7m9" | return_user_newest | 返回选中的用户最新的用户动态 | 使用pymysql直接查询note表得出最新动态 |
 |/note/newest_16|user_id="h8kes7m9"|return_newest_16|返回最新的16条笔记,因为不能你一打开推荐,后端就真的返回所有的笔记数据,而应该一点一点返回|空|
 |/note/next_36|user_id="h8kes7m9"|return_next_36|返回接下来的36条笔记,当用户在“刷推荐”时可能再次触发上拉刷新,需要返回再接下来的36条笔记|空|
 |/note/select_key_words|key_words="卤肉卷"|return_key_words|返回标签为key_words的笔记|使用pymysql直接查询note表返回所有笔记|
