@@ -19,27 +19,21 @@
 
 |笔记id| 发表用户id | 发表时间 | 内容 | 配图路径 | 点赞数 |
 |:--:| :-----: | :----: | :----: | :--: | :--: |
-| int | char(20) | DATETIME | text |char(30)| int |
+| char(20) | char(20) | DATETIME | text |char(30)| int |
 
 3.评论表——评论设置不可点赞
 
-|评论id|发表用户id|发表时间|内容|
-|:-:|:-:|:-:|:--:|
-|int|char(20)|DATETIME|text|
+|评论id|发表用户id|发表时间|内容|发表所在的笔记id|
+|:-:|:-:|:-:|:--:|:--:|
+|char(20)|char(20)|DATETIME|text|char(20)|
 
-4.follow表(全码)  
+4.关注表(全码)  
 
 |博主id|粉丝id|
 |:-:|:-:|
 |char(20)|char(20)|
 
-5.跟评表(全码)  
-
-|笔记id|评论id|
-|:-:|:-:|
-|int|int|
-
-6.用户点赞笔记表(全码)——user_support_note(因为要实现帮我点餐(做推荐)需要从用户点赞的笔记中寻找蛛丝马迹)
+5.用户点赞笔记表(全码)——user_support_note(因为要实现帮我点餐(做推荐)需要从用户点赞的笔记中寻找蛛丝马迹)
 
 |笔记id| 用户id |
 |:--:| :-----: |
@@ -51,9 +45,6 @@
 python代码:  
 
 ```python  
-def user_login(user_id)
-def modify_user_name()
-def modify_user_sex()
 @app.route("/user", methods=["GET,POST"])
 def process(): 
     if opt == "user_login":  # 查
@@ -64,12 +55,12 @@ def process():
         modify_user_sex()
 ```
 需要实现的函数功能表单：
-|接口编号| 参数| 函数名称 | 解释 | 实现细节 |
+|路由路径| 参数| 函数名称 | 解释 | 实现细节 |
 |:--: | :-----: | :----: | :----: | :--: |
-|interface_1|opt=user_login&<br>user_id="h8kes7m9"|user_login| 如果用户第一次登录,就将用户的id记录在user表中并返回用户信息;如果不是第一次登录,查询user表并返回用户信息 |空|
-|interface_2|opt=modify_user_name&<br>user_id="h8kes7m9"&<br>new_name="枳鱼"|modify_user_name|修改user表的name|空|
-|interface_3|opt=modify_user_sex&<br>user_id="h8kes7m9"&<br>new_sex=男|modify_user_sex|修改user表的sex|空|
-|interface_4|opt=surf_other&<br>user_id="h8kes7m9"&<br>choice="note/support"|return_other|返回别人的笔记/点赞|空|
+|/user/user_login|user_id="h8kes7m9"|user_login| 如果用户第一次登录,就将用户的id记录在user表中并返回用户信息;如果不是第一次登录,查询user表并返回用户信息 |空|
+|/user/modify_user_name|user_id="h8kes7m9"&<br>new_name="枳鱼"|modify_user_name|修改user表的name|空|
+|/user/modify_user_sex|user_id="h8kes7m9"&<br>new_sex=男|modify_user_sex|修改user表的sex|空|
+|/user/surf_other|user_id="h8kes7m9"&<br>choice="note/support"|return_other|返回别人的笔记/点赞|空|
 
 2.第二条路由：https://127.0.0.1:5000/note  
 python代码:  
@@ -78,16 +69,16 @@ python代码:
 @app.route("/note", methods=["GET,POST"])
 ```
 需要实现的函数功能表单：
-|接口编号| 参数| 函数名称 | 解释 | 实现细节 |
+|路由路径| 参数| 函数名称 | 解释 | 实现细节 |
 |:--: | :-----: | :----: | :----: | :--: |
-|interface_5| opt=select_newest | return_newest | 返回所关注的用户中最新的用户动态 | 使用pymysql先查询folllow表得出自己关注的用户,再查询note表得出最新动态|
-|interface_6| opt=select_FocusUser_newest&<br>user_id:"h8kes7m9" | return_user_newest | 返回选中的用户最新的用户动态 | 使用pymysql直接查询note表得出最新动态 |
-|interface_7|opt=newest_16&<br>user_id="h8kes7m9"|return_newest_16|返回最新的16条笔记,因为不能你一打开推荐,后端就真的返回所有的笔记数据,而应该一点一点返回|空|
-|interface_8|opt=next_36&<br>user_id="h8kes7m9"|return_next_36|返回接下来的36条笔记,当用户在“刷推荐”时可能再次触发上拉刷新,需要返回再接下来的36条笔记|空|
-|interface_9|opt=select_key_words&<br>key_words="卤肉卷"|return_key_words|返回标签为key_words的笔记|使用pymysql直接查询note表返回所有笔记|
-|interface_10|opt=upload_user_note&<br>user_id="h8kes7m9"&<br>note_id="129093893"&<br>image_path="×××"&<br>content="×××"|insert_user_note|上传用户的笔记| 使用pymysql插入用户笔记于note表中 |
-|interface_11|opt=operate_note&<br>note_id="1690324587"&<br>choice="insert/delete"|operate_note|对笔记执行点赞或取消点赞操作|空|
-|interface_15|opt=delete_user_note&<br>user_id="h8kes7m9"&<br>note_id="129093893"|delete_user_note|对笔记执行删除操作|空|
+|/note/select_newest|  | return_newest | 返回所关注的用户中最新的用户动态 | 使用pymysql先查询folllow表得出自己关注的用户,再查询note表得出最新动态|
+|/note/select_FocusUser_newest| user_id:"h8kes7m9" | return_user_newest | 返回选中的用户最新的用户动态 | 使用pymysql直接查询note表得出最新动态 |
+|/note/newest_16|user_id="h8kes7m9"|return_newest_16|返回最新的16条笔记,因为不能你一打开推荐,后端就真的返回所有的笔记数据,而应该一点一点返回|空|
+|/note/next_36|user_id="h8kes7m9"|return_next_36|返回接下来的36条笔记,当用户在“刷推荐”时可能再次触发上拉刷新,需要返回再接下来的36条笔记|空|
+|/note/select_key_words|key_words="卤肉卷"|return_key_words|返回标签为key_words的笔记|使用pymysql直接查询note表返回所有笔记|
+|/note/upload_user_note|user_id="h8kes7m9"&<br>note_id="129093893"&<br>image_path="×××"&<br>content="×××"|insert_user_note|上传用户的笔记| 使用pymysql插入用户笔记于note表中 |
+|/note/operate_note|note_id="1690324587"&<br>choice="insert/delete"|operate_note|对笔记执行点赞或取消点赞操作|空|
+|/note/delete_user_note|user_id="h8kes7m9"&<br>note_id="129093893"|delete_user_note|对笔记执行删除操作|空|
 
 3.第三条路由：https://127.0.0.1:5000/comment  
 python代码:  
@@ -96,10 +87,10 @@ python代码:
 @app.route("/comment", methods=["GET,POST"])
 ```
 需要实现的函数功能表单：
-|接口编号| 参数| 函数名称 | 解释 |实现细节|
+|路由路径| 参数| 函数名称 | 解释 |实现细节|
 |:--:| :-----: | :----: | :----: |:-:|
-|interface_12| opt=select_comment&<br>note_id=168295073 | return_note_comment | 返回对应笔记的所有评论 | 空 |
-|interface_13|opt=insert_comment&<br>note_id=168295073&<br>user_id="h8kes7m9"&<br>timestamp="1781213041"| insert_note_comment | 对选定的笔记插入评论 | 空 |
+|/comment/select_comment| note_id=168295073 | return_note_comment | 返回对应笔记的所有评论 | 空 |
+|/comment/insert_comment| note_id=168295073&<br>user_id="h8kes7m9"&<br>timestamp="1781213041"| insert_note_comment | 对选定的笔记插入评论 | 空 |
 
 4.第四条路由：https://127.0.0.1:5000/help  
 python代码:  
@@ -109,9 +100,9 @@ python代码:
 ```
 
 需要实现的函数功能表单：
-|接口编号| 参数| 函数名称 | 解释 | 实现细节 |
+|路由路径| 参数| 函数名称 | 解释 | 实现细节 |
 |:--:| :-----: | :----: | :----: |:-:|
-|interface_14|opt=help&<br>user_id="h8kes7m9"|return_suggestion|返回给用户点餐的建议|提示：要使用user_support_note和使用Random函数,可以自由发挥|
+|/help| user_id="h8kes7m9" |return_suggestion|返回给用户点餐的建议|提示：要使用user_support_note和使用Random函数,可以自由发挥|
 
 ### 四、前端请求  
 
@@ -122,9 +113,9 @@ a.默认情况——没有点击任何关注的用户的头像时,返回最新�
 
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/note',  //访问失败,不检验域名则成功
+    url: 'http://127.0.0.1:5000/note/select_newest',  //访问失败,不检验域名则成功
     data: {
-    "opt":"select_newest"    // 接口编号:interface_5
+
     },
     header: { 'content-type': 'application/json' },
     success: function(res) {  //接口调用成功的回调函数
@@ -143,9 +134,8 @@ b.选择特定用户的情况——点击了一个关注的用户头像,返回TA
 
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/note',  //访问失败,设置不检验域名则成功
+    url: 'http://127.0.0.1:5000/note/select_FocusUser_newest',
     data: {
-    "opt":"select_FocusUser_newest",   // 接口编号:interface_6
     "user_id":"h8kes7m9"
     },
     header: { 'content-type': 'application/json' },
@@ -211,9 +201,8 @@ c.对某条笔记进行点赞/取消点赞
 解释：此时需要把点赞的记录保存在本地缓存中,以便用户查看自己点赞的数据时可以快速呈现,同时要把点赞的记录上传到后端,以便给用户做个性化点餐。
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/note',
+    url: 'http://127.0.0.1:5000/note/support_note',
     data: {
-    "opt":"operate_note",   // 接口编号:interface_11
     "note_id":"1690324587",
     "choice":"insert/delete"
     },
@@ -236,9 +225,8 @@ d.点进去笔记——展示笔记以及评论
 解释：调用本地缓存展示该条笔记图片和内容,同时用此笔记的id发送给后端,请求关于此条笔记的所有评论,并展示在页面上
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/comment',
+    url: 'http://127.0.0.1:5000/comment/select_comment',
     data: {
-    "opt":"select_comment",  // 接口编号:interface_12
     "note_id":"168295073"
     },
     header: { 'content-type': 'application/json' },
@@ -261,9 +249,8 @@ e.评论笔记——写评论
 
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/comment',
+    url: 'http://127.0.0.1:5000/comment/insert_comment',
     data: {
-    "opt":"insert_comment",  // 接口编号:interface_13
     "note_id":"168295073",
     "user_id":"h8kes7m9",
     "timestamp":"1781213041"
@@ -288,9 +275,8 @@ f.点开别人的主页——只能请求后端
 
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/user',
+    url: 'http://127.0.0.1:5000/user/surf_other',
     data: {
-    "opt":"surf_other",      // 接口编号:interface_4
     "user_id":"h8kes7m9",
     "choice":"note/support"
     },
@@ -313,9 +299,8 @@ wx.request({
 解释：输入关键词,敲击回车或点击搜索图标,返回关键词给后端,后端搜索标签为关键词的笔记
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/note',
+    url: 'http://127.0.0.1:5000/note/select_key_words',
     data: {
-    "opt":"select_key_words",      //接口编号:interface_9
     "key_words":"卤肉卷"
     },
     header: { 'content-type': 'application/json' },
@@ -339,7 +324,6 @@ wx.request({
 wx.request({
     url: 'http://127.0.0.1:5000/help',  //访问失败,设置不检验域名则成功
     data: {
-    "opt":"help",      //接口编号:interface_14
     "user_id":"h8kes7m9"
     },
     header: { 'content-type': 'application/json' },
@@ -369,9 +353,8 @@ a.用户发布笔记——既要上传用户的笔记,又要将用户发布的�
 ```JavaScript
 wx.container({笔记图片存到微信云托管对象存储中→记录下图片路径})
 wx.request({
-    url: 'http://127.0.0.1:5000/note',
+    url: 'http://127.0.0.1:5000/note/upload_user_note',
     data: {
-    "opt":"upload_user_note",     //接口编号:interface_10
     "user_id":"h8kes7m9",
     "note_id":"129093893",
     "image_path":"h8kes7m9/129093893/picture_1.jpg"
@@ -398,9 +381,8 @@ b.用户删除自己的笔记——既要上传用户删除笔记的动作,又�
 ```JavaScript
 wx.container({笔记图片存到微信云托管对象存储中→记录下图片路径})
 wx.request({
-    url: 'http://127.0.0.1:5000/note',
+    url: 'http://127.0.0.1:5000/note/delete_user_note',
     data: {
-    "opt":"delete_user_note",    //接口编号:interface_15
     "user_id":"h8kes7m9",
     "note_id":"129093893",
     },
@@ -423,13 +405,14 @@ wx.request({
 
 (1) 登录界面(未登录)——立即登录  
 
-解释:第一次登录后端会记录用户的id,并返回用户的信息,包括用户的昵称,食珍录账号,获赞数，性别等。不登录时login_state变为false;登录时会使login_state变为true,此时笔记(用户自己的)可以调用本地缓存实现页面渲染,在此之前需要检查用户的笔记缓存是否为空。  
+a.用户登录  
+
+解释:第一次登录后端会记录用户的id,并返回用户的信息,包括用户的昵称,食珍录账号,获赞数，性别等。
 
 ```JavaScript
 wx.request({
-    url: 'http://127.0.0.1:5000/user',
+    url: 'http://127.0.0.1:5000/user/login',
     data: {
-    "opt":"user_login",   //接口编号:interface_1
     "user_id":"h8kes7m9"   // 用户微信号经过MD5码转换再使用substring(8,16)
     },
     header: { 'content-type': 'application/json' },
@@ -445,6 +428,8 @@ wx.request({
     }
     })
 ```
+b.用户登出(暂议)
+
 (2) 我的界面(已登录)——使用本地缓存  
 
 (3) 编辑资料
@@ -510,3 +495,6 @@ wx.request({
 
 (3) 问：微信云托管如果不用一键部署,要怎么连接它的MySQL？
 > 答：在「服务设置」中补全以下环境变量,MYSQL_ADDRESS,MYSQL_PASSWORD,MYSQL_USERNAME
+
+(4) 问：一个软件工程项目要怎么跑起来
+> 答：先跑数据库，再跑后端，最后跑前端。
