@@ -1,0 +1,26 @@
+/* pages/details/details.wxss */
+.setting{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.name {
+  font-size: 38rpx;
+  font-weight: 350;
+  padding-top: 4%;
+  padding-left: 3%;
+  overflow: hidden;
+  letter-spacing: 0.2px;
+ }
+ .title{
+  font-size: 40rpx;
+  font-weight: 550;
+  margin-top: 3%;
+  letter-spacing: 0.8px;
+ }
+ .content{
+  font-size: 30rpx;
+  font-weight: 350;
+  margin-top: 5%;
+  letter-spacing: 0.8px;
+ }

@@ -1,6 +1,6 @@
 Page {
   /* 全局样式 */
-  /* background-color: rgb(248, 190, 124); */
+  background-color: #FFF4D9;
   /* background: rgb(244, 245, 249); */
   height: 100%;
   position: fixed;
@@ -9,7 +9,7 @@ Page {
 .fontColorBox,
 .fontColorBox1 {
   /* 文字默认颜色 */
-  color: black;
+  color: #FFC359;
 }
 
 .navBox {
@@ -43,7 +43,7 @@ Page {
 
 .lineBox {
   /* 选中底线样式 */
-  background: rgb(43, 44, 45);
+  background: #FFC359;
   margin-top: 16rpx;
   border-radius: 4rpx;
 }
@@ -61,8 +61,39 @@ Page {
   /* background: white; */
   font-size: 28rpx;
 }
-
-
+.nickname {
+  position: absolute;
+  left: 220rpx;
+  top: 80rpx;
+  font-size: 17px;
+  font-weight: 500;
+  color: rgb(0, 0, 0);
+}
+.motto {
+  position: absolute;
+  left: 220rpx;
+  top: 150rpx;
+  font-size: 12px;
+  font-weight: 100;
+  color: #666;
+}
+.header-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.avatar {
+  position: absolute;
+  left: 30rpx;
+  top: 5rpx;
+  overflow: hidden;
+  width: 160rpx;
+  height: 160rpx;
+  margin-top: 50rpx;
+  margin-bottom: 40rpx;
+  border-radius: 50%;
+}
 
 page {
   width: 100%;

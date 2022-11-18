@@ -7,7 +7,7 @@ Page({
    */
   data: {
     msg1:'这个卤肉卷太绝了，吃了还想吃',
-    msg2:'不会还有人没吃过吧',
+    msg2:'这个卤肉卷太绝了，吃了还想吃',
     msg3:'这个卤肉卷太绝了，吃了还想吃',
     msg4:'这个卤肉卷太绝了，吃了还想吃 ',
     value:0
@@ -60,8 +60,8 @@ titleClick: function (e) {
    */
   onLoad(options) {
     wx.setNavigationBarTitle({
-      title: '别人主页'
-      
+      title: ' ',
+      backgroundColor: '#FFF4D9',
     });
   },
 

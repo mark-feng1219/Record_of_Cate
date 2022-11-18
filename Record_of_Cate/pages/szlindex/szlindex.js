@@ -52,6 +52,14 @@ Page({
       }
     })
   },
+  getUrl: function (e) {
+    // var id = e.currentTarget.dataset.id;//获取到绑定的数据
+    //跳转传值
+    wx.navigateTo({
+      // url: '/pages/zy/zy?id=' + id,
+      url: '/pages/zy/zy',
+    })
+  },
 
 
 
@@ -84,7 +92,7 @@ titleClick: function (e) {
     //修改导航栏颜色
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
-      //backgroundColor: '#F86125',
+      backgroundColor: '#FFC359',
       animation: {
         duration: 400,
         timingFunc: 'easeIn'

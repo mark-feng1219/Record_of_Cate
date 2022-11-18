@@ -1,2 +1,24 @@
 <!--pages/publishnote/publishnote.wxml-->
-<text>pages/publishnote/publishnote.wxml</text>
+<form bindsubmit="onSubmit">
+  <view class="align-items">
+    <view class="imagebox" wx:for="{{info.licensePicUrls}}" >
+      <image data-src="{{item}}" src="{{item}}" wx:if="{{imgShow}}" bindtap="previewImage" ></image>
+    </view>
+    <view class="img-list align-items flex-column space-center" bindtap='buttonclick'>
+      <button class="btn1">
+      <view class="hui">添加照片</view></button>
+    </view>
+  </view>
+  <view class="input-view1">
+    <input class="title" name="title"
+      placeholder="输入标题" placeholder-class="input1-place" maxlength="10" foucs cursor-spacing="10px" style="margin-top: 10px;">
+      </input>
+  </view>
+  <view class="input-view2">
+    <textarea class="content" name="content"
+      placeholder="输入文章内容" placeholder-class="input2-place" maxlength="300" foucs cursor-spacing="10px" style="margin-top: 10px;"></textarea>
+  </view>
+  <button class="btn2" form-type="submit">提交</button>
+</form>
+
+

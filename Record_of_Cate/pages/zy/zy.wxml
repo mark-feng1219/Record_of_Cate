@@ -1,19 +1,15 @@
-<view style="margin-top: 20px;">
-<image src="/images/sw.jpg" style="width: 50px;height: 50px; border-radius: 50%;"></image>
-<view style="margin-right: 100px;float: right;font-size: 14px;color: gray;">
-  <view >叫什么迷茫自</view>
-<view>食珍录账号：123456</view>
-<view><text>999</text>\n<text>244</text>\n<text>122</text></view>
-<view><text>获赞</text>\n<text>粉丝</text>\n<text>关注</text></view>
-</view>
-<view style="float: right;margin-right: -150px;">
-<button style="width: 75px;font-size: 12px;position: absolute;border-radius: 15%;color:white;background-color: rgb(238, 177, 10);">关注</button>
-</view>
-</view>
+
+<view class="header-info">
+    <!--如果只是展示头像、昵称，可以使用<open-data/>组件  -->      
+    <image class="avatar" src="/images/头像1.jpg"></image>
+    <view class="nickname" >暖啊榆</view> 
+    <!--格言  -->
+    <view class="motto">食珍录账号：123456789</view>
+  </view>
 
 <view>
     <!-- Tab布局 -->
-    <view class='navBox' style="margin-top: 30px;">
+    <view class='navBox' style="margin-top: 275rpx;">
         <view class='titleBox' bindtap='titleClick' data-idx='0'>
             <text class="{{0 == currentIndex ? 'fontColorBox' : ''}}">笔记</text>
             <hr class="{{0 == currentIndex ? 'lineBox' : 'notLineBox'}}" />
@@ -38,7 +34,7 @@
       <view id="wz">{{msg1}}</view>
       <view style="color: darkgray;">
       <view style="float: left; ">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
@@ -49,7 +45,7 @@
      
 
     </view>
-<view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
+<view style="width: 10px;height: 220px;color: rgb(243, 180, 84);"> </view>
     <view class="right" bindtap="jump2" style="height: 220px;background-color: white;border-radius: 5%;">
       <view class="tp">
         <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
@@ -57,7 +53,7 @@
       <view id="wz">{{msg2}}</view>
       <view style="color: darkgray;">
       <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
@@ -77,7 +73,7 @@
       <view id="wz">{{msg3}}</view>
       <view style="color: darkgray;">
       <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
@@ -94,7 +90,7 @@
       <view id="wz">{{msg4}}</view>
       <view style="color: darkgray;">
       <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;margin-left: 1%;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
@@ -122,7 +118,7 @@
       <view id="wz">{{msg1}}</view>
       <view style="color: darkgray;">
       <view style="float: left; ">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
@@ -141,7 +137,7 @@
       <view id="wz">{{msg2}}</view>
       <view style="color: darkgray;">
       <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
@@ -161,7 +157,7 @@
       <view id="wz">{{msg3}}</view>
       <view style="color: darkgray;">
       <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
@@ -178,7 +174,7 @@
       <view id="wz">{{msg4}}</view>
       <view style="color: darkgray;">
       <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
+        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
       </view>
         <view style="float: right;">
           <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>

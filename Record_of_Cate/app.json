@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/szlindex/szlindex",
+    "pages/index/index",
+    "pages/logs/logs",
     "pages/bj/bj",
     "pages/my/my",
     "pages/pl/pl",
@@ -10,7 +12,8 @@
     "pages/publishnote/publishnote",
     "pages/personinfo/personinfo",
     "pages/privacypolicy/privacypolicy",
-    "pages/help/help"
+    "pages/help/help",
+    "pages/details/details"
   ],
   "window": {
     "backgroundTextStyle": "light",

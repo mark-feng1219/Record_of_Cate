@@ -174,39 +174,30 @@ page {
  }
  
  .item .number-wrapper {
- 
   padding-top: 25rpx;
+  margin-left: 2%;
   flex-direction: column;
   justify-content: space-between;
- }
- 
- .item .ok {
-  width: 60px;
-  height: 100%;
-  padding-right: 20rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #98f5ff;
  }
  
  .item .img {
   width: 150rpx;
   height: 150rpx;
   padding: 20rpx;
+
  }
  
  .number-wrapper .name {
-  margin: 10rpx 10rpx 10rpx 10rpx;
-  font-size: 39rpx;
+  font-size: 34rpx;
+  font-weight: 600;
   overflow: hidden;
  }
  
  .number-wrapper .count-wrapper {
   display: flex;
-  align-items: center;
   margin-left: 10rpx;
   font-size: 25rpx;
+  font-weight: 250;
  }
  
  .number-wrapper .count-wrapper .decrease-btn {
@@ -226,7 +217,11 @@ page {
   margin-left: 250rpx;
   font-size: 30rpx;
  }
- 
+ .icon-img{
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
  /* 搜索框样式 */
  
  .view-search {
@@ -254,6 +249,8 @@ page {
   height: 60rpx;
  }
  .details{
- font-size: 36rpx;
+  margin-top: 8%;
+ font-size: 30rpx;
+ margin-left: 10rpx;
  color:#ffa959ce;
  }

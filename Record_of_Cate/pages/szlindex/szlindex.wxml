@@ -9,6 +9,8 @@
             <text class="{{1 == currentIndex ? 'fontColorBox1' : ''}}">推荐</text>
             <hr class="{{1 == currentIndex ? 'lineBox' : 'notLineBox'}} " />
         </view>
+
+        
     </view>
     <!-- 内容布局 -->
     <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
@@ -17,7 +19,7 @@
 
   <view class="gz">
 
-  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image bindtap="getUrl" src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t

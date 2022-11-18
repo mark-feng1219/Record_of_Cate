@@ -1,15 +1,10 @@
-
-    <navigator  bindtap='share' hover-class="none">
-      <image src="/images/bj.png" style="height: 460px;"></image>
-      <view class="advision" style="float: left;margin-left: 35%;">
-  <button class="btn1" bindtap="goto2" >点我</button>
+<image src="/images/bj.png" style="height: 460px;width: 100%;"></image>
+    <navigator url='/pages/dc/dc' bindtap='share' hover-class="none">
+      <view class="advision" style="float: left;margin-left: 35%;"><button class="btn1"  >点我</button>
       </view>
   </navigator>
-  
-
   <view class='share'  wx:if="{{shareshow}}"> 
     <view class="advision" style="float: left;margin-left: 35%;">
-  <image src="/images/sw.jpg" style="display: {{isShowads}};border-radius: 50%;height: 190px; width: 200px;position: absolute;margin-top: -310px;margin-left: -55px;"></image>
+      <image src="/images/sw.jpg" style="border-radius: 50%;height: 190px; width: 200px;position: absolute;margin-top: -310px;margin-left: -55px;"></image>
     </view>
-    
   </view>

@@ -1,1 +1,48 @@
 /* pages/publishnote/publishnote.wxss */
+
+.input1-place{
+  /*placeholder样式类*/
+  color: palevioletred;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 500;
+}
+.input2-place{
+  /*placeholder样式类*/
+  color: rgb(3, 0, 1);
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 300;
+}
+.btn1{
+  width: 150px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 25px;
+  letter-spacing: 2px;
+  margin-top: 30px;
+  color:white;
+  background-color: #FFC359;
+}
+.btn2{
+  width: 150px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 25px;
+  letter-spacing: 2px;
+  margin-top: 30px;
+  color:white;
+  background-color: #FFC359;
+}
+.imagebox{
+  display: flex;
+  justify-content: center;
+}
+.input-view1{
+  display: flex;
+  justify-content: center;
+}
+.input-view2{
+  display: flex;
+  justify-content: center;
+}

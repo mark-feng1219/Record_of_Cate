@@ -18,20 +18,18 @@
             <view class="container">
  <view wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item">
   
-  <view class="number-wrapper">
+  <view class="number-wrapper" style="margin-left: 2%;">
    <text class="name">{{cardTeam.name}}</text>
    <view class="count-wrapper" style="margin-top: 10px;">
-    <text class="count">{{cardTeam.count}}</text>
+    <navigator class="count" url="../zy/zy">{{cardTeam.count}}</navigator>
    </view>
     <view class="details">
-   <!-- <navigator url="../details/details?goodsId={{index}}">查看详情</navigator> -->
+   <navigator url="../details/details">查看笔记详情</navigator> 
    </view>
   </view>
-  <image class="img" src="{{cardTeam.imgsrc}}" mode="scaleToFill" ></image>
+  <image class="img" style="margin-left: 45%;"src="{{cardTeam.imgsrc}}" mode="scaleToFill" ></image>
  </view>
 </view>
-
-            
 
 
         </swiper-item>
@@ -39,16 +37,16 @@
           <view class="container">
  <view wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item">
   
-  <view class="number-wrapper">
+  <view class="number-wrapper" style="margin-left: 2%;">
    <text class="name">{{cardTeam.name}}</text>
-   <view class="count-wrapper" style="margin-top: 10px;">
-    <text class="count">{{cardTeam.count}}</text>
+   <view class="count-wrapper" style="margin-top: 5px;">
+    <navigator class="count" url="../zy/zy">{{cardTeam.count}}</navigator>
    </view>
-    <view class="details">
-   <!-- <navigator url="../details/details?goodsId={{index}}">查看详情</navigator> -->
+    <view class="details" >
+   <navigator url="../details/details?goodsId={{index}}" >查看笔记详情</navigator> 
    </view>
   </view>
-  <image class="img" src="{{cardTeam.imgsrc}}" mode="scaleToFill"></image>
+  <image class="img" style="margin-left: 45%;" src="{{cardTeam.imgsrc}}" mode="scaleToFill"></image>
  </view>
 </view>
         </swiper-item>

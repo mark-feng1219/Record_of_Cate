@@ -1,0 +1,18 @@
+<!--pages/details/details.wxml-->
+<view wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam">
+<view>
+  <image src="{{cardTeam.imgdetailsrc}}" style=" width: 100%;height: 460px;"></image>
+</view>
+
+<view class="setting" style="margin-left: 4%;">
+  <image src="{{cardTeam.headportrait}}" style="margin-top: 4%; width: 80rpx; height: 80rpx;border-radius: 50%;"></image>
+  <navigator class="count" url="../zy/zy" class="name">{{cardTeam.name}}</navigator>
+</view>
+<view style="margin-top: 1em; margin-left: 5%;">
+  <text class="title">{{cardTeam.title}}</text>
+  <view class="weui-article__p" style="text-indent: 0.5em; margin-top: 0.5em;margin-right: 5%;">
+    <text class="content">{{cardTeam.content}}</text>
+  </view>
+</view>
+
+</view>

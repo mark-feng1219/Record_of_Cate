@@ -14,6 +14,7 @@ Page({
   onShow: function() {
 
   },
+  
   share:function(){
     var that = this;
     var shareshow = that.data.shareshow 

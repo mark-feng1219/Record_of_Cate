@@ -8,33 +8,33 @@ Page({
   data: {
     cardTeams: [{
      "viewid": "1",
-     "imgsrc": "/images/sw.jpg",
+     "imgsrc": "/images/笔记详情照片.jpg",
      
-     "count": "食珍录",
-     "name": "内容",
+     "count": "暖啊榆",
+     "name": "这是什么菜",
     }, {
      "viewid": "2",
-     "imgsrc": "/images/sw.jpg",
+     "imgsrc": "/images/笔记详情照片.jpg",
      
-     "count": "食珍录",
-     "name": "内容",
+     "count": "暖啊榆",
+     "name": "这是什么菜",
     }, {
      "viewid": "3",
-     "imgsrc": "/images/sw.jpg",
+     "imgsrc": "/images/笔记详情照片.jpg",
      
-     "count": "食珍录",
-     "name": "内容",
+     "count": "暖啊榆",
+     "name": "这是什么菜",
     }, {
      "viewid": "4",
-     "imgsrc": "/images/sw.jpg",
+     "imgsrc": "/images/笔记详情照片.jpg",
      
-     "count": "食珍录",
-     "name": "内容",
+     "count": "暖啊榆",
+     "name": "这是什么菜",
     }
     ]
    },
 
-   // 切换swiper-item触发bindchange事件
+   // 切换笔记详情照片iper-item触发bindchange事件
   pagechange: function (e) {
     // 通过touch判断，改变tab的下标值
     if ("touch" === e.detail.source) {
@@ -60,7 +60,7 @@ titleClick: function (e) {
   onLoad(options) {
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
-      //backgroundColor: '#F86125',
+      backgroundColor: '#FFC359',
       animation: {
         duration: 400,
         timingFunc: 'easeIn'
