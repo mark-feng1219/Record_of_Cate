@@ -14,7 +14,7 @@
   </view>
   <view class='name'>
     <text>用户名</text>
-    <input name="name" type='text' placeholder-style='font-size:28rpx;' placeholder='请输入你的用户名'></input>
+    <input name="name" type='text' placeholder-style='font-size:28rpx;' placeholder='请输入新用户名'></input>
   </view>
  
   <view class='sex'>

@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    head:"/images/头像.jpg",
+    head:"/images/member.png",
     icon_r: 'https://manager.diandianxc.com/mine/enter.png',
     sex:[
       {name:'0',value:'男',checked:'true'},

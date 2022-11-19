@@ -1,3 +1,4 @@
+<import src="../../conponents/history.wxml"/>
 <view>
     <!-- Tab布局 -->
     <view class='navBox'>
@@ -19,98 +20,52 @@
 
   <view class="gz">
 
-  <image bindtap="getUrl" src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/sw.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>
+  <image bindtap="getUrl" src="/images/头像1.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/头像.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/头像2.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/头像3.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/头像4.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image src="/images/头像5.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>
   </view>
-  <view style="margin-top: 30px;">
-  <image src="/images/sw.jpg"></image>
+  <view  class="percontain"style="margin-top: 30px;">
+    <image src="/images/食物1.jpg" style="width: 600rpx;height: 600rpx;margin-left: 9%;margin-top: 7%;border-radius: 5%;"></image>
+    <view style="color: darkgray;">
+      <view style="float: left;">
+        <image src="/images/头像.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
+      </view>
+        <view style="float: right;">
+          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
+         
+        </view>   
+      </view> 
   </view>
 
 
         </swiper-item>
         <swiper-item class='swiperTtemBox'>
-          <view class="container" style="height: 220px;">
-    <view class="left" bindtap="jump1" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg1}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left; ">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-          
-         
-        </view>   
-      </view>     
-     
-
-    </view>
-<view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
-    <view class="right" bindtap="jump2" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg2}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
+        <view class="city_history">
       
-
-    </view>
-  </view>
-
-  <view class="container" style="height: 220px;margin-top: 10px;">  
-    <view class="left" bindtap="jump3" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg3}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
-     
-    </view>
-    <view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
-    <view class="right" bindtap="jump4" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg4}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/member.png" style="width: 20px;height: 20px;margin-top: 10px;"></image><text style="position: absolute;margin-top: 12px;">good</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
+      <view class="history_content">
       
+      <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
+        <view class="left">
+          <view wx:for="{{trips}}" wx:for-item="item" wx:key="" >
+            <template is="m-history"  wx:if="{{index%2==0}}" data="{{ trip : item}}" />
+          </view>
+        </view>
+  
+    
+        <view class="right">
+          <view wx:for="{{trips}}" wx:for-item="item" wx:key="">
+            <template is="m-history"  wx:if="{{index%2==1}}" data="{{ trip : item}}" />
+          </view>
+        </view>
+      </scroll-view>
 
-    </view>
+      </view>
+      
   </view>
-
-  <view style="height:150rpx;"></view>
-        </swiper-item>
+</swiper-item>
+//
     </swiper>
 </view>

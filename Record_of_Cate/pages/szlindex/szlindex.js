@@ -1,11 +1,66 @@
 // pages/szlindex/szlindex.js
 const app = getApp()
 Page({
+  
+
   currentIndex: 0, //默认是活动项
   /**
    * 页面的初始数据
    */
   data: {
+    start: 0,
+    loading: false,
+    trips: [
+    {
+        "cover_image": "/images/推荐1.jpg",
+        "cover_image_default": "/images/头像2.jpg",
+        "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐2.jpg",
+        "cover_image_default": "/images/头像3.jpg",
+        "name": "回到拉萨🇨🇳跟王小新一起去许愿",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐3.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "无人岛露营之鬼湾",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "不完全的跳岛之旅",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "薄荷味的杜马盖地",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "锡兰夏梦",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "意外？注定？之浪捷奥",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "花园之国--哥斯达黎加",
+        "desc": "热门游记"
+      }
+    ],
+
     msg1:'超级好吃',
     msg2:'超级好吃',
     msg3:'超级好吃',
