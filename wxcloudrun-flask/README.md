@@ -2,24 +2,24 @@
 
 
 ## 目录结构说明
-
 ```
 .
-├── Dockerfile dockerfile       dockerfile
-├── README.md README.md         README.md文件
-├── container.config.json       模板部署「服务设置」初始化配置（二开请忽略）
+├── Dockerfile                  dockerfile
+├── venv                        虚拟环境
+├── README.md                   README.md文件
 ├── requirements.txt            依赖包文件
 ├── config.py                   项目的总配置文件  里面包含数据库 web应用 日志等各种配置
 ├── run.py                      flask项目管理文件 与项目进行交互的命令行工具集的入口
-└── wxcloudrun                  app目录
+├── www.py                      蓝图功能，对所有的url进行蓝图功能配置
+└── controller                  app目录
     ├── __init__.py             python项目必带  模块化思想
-    ├── notedao.py              数据库访问模块(note)
-    ├── userdao.py              数据库访问模块(user)
-    ├── commentdao.py           数据库访问模块(comment)
+    ├── note                    note笔记管理模块
+    ├── user                    user用户管理模块
+    ├── comment                 comment评论管理模块
     ├── model.py                数据库对应的模型
-    ├── response.py             响应结构构造
-    ├── templates               模版目录,包含主页index.html文件
-    └── views.py                执行响应的代码所在模块  代码逻辑处理主要地点  项目大部分代码在此编写
+    └──  response.py            响应结构构造
+
+
 ```
 
 ## 配置mysql账户密码域名
