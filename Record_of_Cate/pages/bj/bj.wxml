@@ -1,3 +1,4 @@
+
 <view>
     <!-- Tab布局 -->
     <view class='navBox'>
@@ -14,10 +15,12 @@
     <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
         <swiper-item class='swiperTtemBox'>
             <!-- <view>装备内容</view> -->
-
+          
             <view class="container">
  <view bindtap="getUrl" wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item" >
-  
+
+      
+
   <view class="number-wrapper" style="margin-left: 2%;">
    <text class="name">{{cardTeam.name}}</text>
    <view class="count-wrapper" style="margin-top: 10px;">
@@ -35,15 +38,12 @@
         </swiper-item>
         <swiper-item class='swiperTtemBox'>
           <view class="container">
- <view wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item">
+ <view bindtap="getUrl"  wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item">
   
   <view class="number-wrapper" style="margin-left: 2%;">
    <text class="name">{{cardTeam.name}}</text>
    <view class="count-wrapper" style="margin-top: 5px;">
     <navigator class="count" url="../zy/zy">{{cardTeam.count}}</navigator>
-   </view>
-    <view class="details" >
-   <navigator url="../details/details?goodsId={{index}}" >查看笔记详情</navigator> 
    </view>
   </view>
   <image class="img" style="margin-left: 45%;" src="{{cardTeam.imgsrc}}" mode="scaleToFill"></image>

@@ -12,7 +12,7 @@ Page({
     cardTeams: [{
      "viewid": "1",
      "imgsrc": "/images/笔记详情照片.jpg",
-     
+     "Head_picture":"/images/头像1.jpg",
      "count": "暖啊榆",
      "name": "这是什么菜",
     }, {

@@ -1,11 +1,65 @@
 .btn1{
-  width: 100px;
+  width: 150px;
   font-size: 15px;
   font-weight: 500;
-  position: absolute;
   border-radius: 25px;
   letter-spacing: 2px;
-  top: 90%;
   color:rgb(87, 49, 19);
   background-color: #FFC359;
+  margin-top: 20rpx;
+}
+.setting{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  margin-top: 150rpx;
+}
+.setting2{
+  margin-top: 150rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-evenly; 
+}
+.head{
+  position: absolute;
+  left: 10rpx;
+}
+.talks{
+  position: absolute;
+  width:250px;
+  height: 100px;
+  left: 200rpx;
+}
+.talking{
+    position: absolute;
+    width:240px;
+    height: 100px;
+}
+.talk{
+  position: absolute;
+  margin-left: 70rpx;
+  margin-top: 25rpx;
+  text-align: center;
+  font-weight: 350;
+  letter-spacing: 0.3pt;
+  color: rgb(80, 56, 5);
+}
+
+.what{
+  position: relative;
+  border-radius: 25px;
+  letter-spacing: 2px;
+  margin-top: 35rpx;
+}
+
+.advision{
+  position: absolute;
+  width: 535rpx;
+  height: 535rpx;
+  border-radius: 50%;
+  left: 15%;
+  top: 100rpx;
 }

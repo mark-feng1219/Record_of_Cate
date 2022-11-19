@@ -10,6 +10,56 @@ Page({
   data: {
     start: 0,
     loading: false,
+    followpushs: [
+      {
+        "cover_image": "/images/推荐1.jpg",
+        "cover_image_default": "/images/头像2.jpg",
+        "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐2.jpg",
+        "cover_image_default": "/images/头像3.jpg",
+        "name": "回到拉萨🇨🇳跟王小新一起去许愿",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐3.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "无人岛露营之鬼湾",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "不完全的跳岛之旅",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "薄荷味的杜马盖地",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "锡兰夏梦",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "意外？注定？之浪捷奥",
+        "desc": "热门游记"
+      },
+      {
+        "cover_image": "/images/推荐4.jpg",
+        "cover_image_default": "/images/头像1.jpg",
+        "name": "花园之国--哥斯达黎加",
+        "desc": "热门游记"
+      }
+    ],
     trips: [
     {
         "cover_image": "/images/推荐1.jpg",
@@ -97,7 +147,22 @@ Page({
       }
     })
   },
-
+  getUrl: function (e) {
+    // var id = e.currentTarget.dataset.id;//获取到绑定的数据
+    //跳转传值
+    wx.navigateTo({
+      // url: '/pages/zy/zy?id=' + id,
+      url: '/pages/details/details',
+    })
+  },
+  getUrl1: function (e) {
+    // var id = e.currentTarget.dataset.id;//获取到绑定的数据
+    //跳转传值
+    wx.navigateTo({
+      // url: '/pages/zy/zy?id=' + id,
+      url: '/pages/zy/zy',
+    })
+  },
   jump4:function(event){
     this.setData({value:4}),
     wx.navigateTo({
@@ -107,15 +172,7 @@ Page({
       }
     })
   },
-  getUrl: function (e) {
-    // var id = e.currentTarget.dataset.id;//获取到绑定的数据
-    //跳转传值
-    wx.navigateTo({
-      // url: '/pages/zy/zy?id=' + id,
-      url: '/pages/zy/zy',
-    })
-  },
-
+  
 
 
   // 切换swiper-item触发bindchange事件

@@ -20,25 +20,18 @@
 
   <view class="gz">
 
-  <image bindtap="getUrl" src="/images/头像1.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
+  <image bindtap="getUrl1" src="/images/头像1.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/头像.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/头像2.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/头像3.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/头像4.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
   <image src="/images/头像5.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>
   </view>
-  <view  class="percontain"style="margin-top: 30px;">
-    <image src="/images/食物1.jpg" style="width: 600rpx;height: 600rpx;margin-left: 9%;margin-top: 7%;border-radius: 5%;"></image>
-    <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/头像.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view> 
-  </view>
+  <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
+          <view wx:for="{{followpushs}}" wx:for-item="item" wx:key="" >
+            <template is="f-history"  data="{{ followpush : item}}" />
+          </view>
+      </scroll-view>
 
 
         </swiper-item>
@@ -66,6 +59,6 @@
       
   </view>
 </swiper-item>
-//
+
     </swiper>
 </view>
