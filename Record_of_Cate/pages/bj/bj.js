@@ -6,10 +6,13 @@ Page({
    * 页面的初始数据
    */
   data: {
+    
+
+
     cardTeams: [{
      "viewid": "1",
      "imgsrc": "/images/笔记详情照片.jpg",
-     
+     "Head_picture":"/images/头像1.jpg",
      "count": "暖啊榆",
      "name": "这是什么菜",
     }, {
@@ -31,8 +34,16 @@ Page({
      "count": "暖啊榆",
      "name": "这是什么菜",
     }
-    ]
-   },
+    ]},
+    getUrl: function (e) {
+      // var id = e.currentTarget.dataset.id;//获取到绑定的数据
+      //跳转传值
+      wx.navigateTo({
+        // url: '/pages/zy/zy?id=' + id,
+        url: '/pages/details/details',
+      })
+    },
+    
 
    // 切换笔记详情照片iper-item触发bindchange事件
   pagechange: function (e) {

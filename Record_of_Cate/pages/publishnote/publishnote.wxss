@@ -1,12 +1,20 @@
 /* pages/publishnote/publishnote.wxss */
-
 .input1-place{
   /*placeholder样式类*/
-  color: palevioletred;
+  color: rgb(223, 164, 4);
   font-style: italic;
   font-size: 18px;
   font-weight: 500;
+  
 }
+/*分割线样式*/
+.line{
+  background: #FFE6BA;
+  width: 90%;
+  height: 4rpx;
+  margin-left: 5%;
+ }
+ 
 .input2-place{
   /*placeholder样式类*/
   color: rgb(3, 0, 1);
@@ -25,10 +33,10 @@
   background-color: #FFC359;
 }
 .btn2{
-  width: 150px;
+  width: 600rpx;
   font-size: 20px;
   font-weight: 500;
-  border-radius: 25px;
+  border-radius: 15pt;
   letter-spacing: 2px;
   margin-top: 30px;
   color:white;

@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    active: 0,
     cardTeams: [{
       "viewid": "1",
       "imgdetailsrc": "/images/笔记详情照片.jpg",
@@ -67,11 +68,17 @@ Page({
   onReachBottom() {
 
   },
-
+  onChange(event) {
+    this.setData({ active: event.detail });
+  },
+  
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage() {
 
   }
-})
+});
+
+
+  

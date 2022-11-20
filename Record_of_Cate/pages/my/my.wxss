@@ -29,11 +29,11 @@ page {
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
-  top: -50rpx;
+  top: -450rpx;
 }
 
 .user_content .user_main .app_info_wrap {
-  margin-top: 20rpx;
+  margin-top: 2rpx;
   background-color: #fff;
 }
 .user_content .user_main .app_info_wrap .app_info_item {
@@ -41,8 +41,12 @@ page {
   border-bottom: 1rpx solid #ccc;
   border-radius: 10px;
 }
-
-
+.icon-head{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
 .header-info {
   position: relative;
   display: flex;
@@ -78,9 +82,8 @@ page {
   color: #666;
 }
 .functiontext{
-  position: absolute;
-  left: 3%;
-  top: 45%;
+  margin-left: 5%;
+  margin-top: 380rpx;
   font-size: 16px;
   font-weight: 900;
   color: rgb(0, 0, 0);
@@ -89,13 +92,14 @@ page {
   width: 150px;
   font-size: 20px;
   font-weight: 500;
-  position: absolute;
   border-radius: 25px;
   letter-spacing: 2px;
-  top: 75%;
+  margin-left: 90%;
+  margin-top: 500rpx;
   color:white;
   background-color: #FFC359;
 }
+
 
  
 

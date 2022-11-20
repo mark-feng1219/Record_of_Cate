@@ -1,0 +1,34 @@
+<!--conponents/history.wxml-->
+<text>conponents/history.wxml</text>
+
+<template name="m-history" class="history_item">
+
+  <view class="history_item">
+    <image bindtap="getUrl" class="item-img" src="{{trip.cover_image}}" mode="widthFix"></image>
+    <view class="item-title-box">
+      <view url="url" class="item-title">{{trip.name}}</view> 
+    </view>
+    <view  class="history_auth_name">
+      <image bindtap="getUrl1" class="item-ava" src="{{trip.cover_image_default}}"></image>    
+      <text class="name-title">{{trip.desc}}</text>
+      <text class="name-title">2022-12-1</text>
+    </view>
+  </view>
+
+</template>
+
+<template name="f-history" class="history_item">
+
+<view class="history_item">
+  <image bindtap="getUrl" class="item-img" src="{{followpush.cover_image}}" mode="widthFix"></image>
+  <view class="item-title-box">
+    <view url="url" class="item-title">{{followpush.name}}</view> 
+  </view>
+  <view  class="history_auth_name">
+    <image bindtap="getUrl1" class="item-ava" src="{{followpush.cover_image_default}}"></image>    
+    <text class="name-title">{{followpush.desc}}</text>
+    <text class="name-title">2022-12-1</text>
+  </view>
+</view>
+
+</template>

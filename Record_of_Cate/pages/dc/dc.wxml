@@ -1,10 +1,24 @@
-<image src="/images/bj.png" style="height: 460px;width: 100%;"></image>
-    <navigator url='/pages/dc/dc' bindtap='share' hover-class="none">
-      <view class="advision" style="float: left;margin-left: 35%;"><button class="btn1"  >点我</button>
-      </view>
-  </navigator>
-  <view class='share'  wx:if="{{shareshow}}"> 
-    <view class="advision" style="float: left;margin-left: 35%;">
-      <image src="/images/sw.jpg" style="border-radius: 50%;height: 190px; width: 200px;position: absolute;margin-top: -310px;margin-left: -55px;"></image>
-    </view>
+<view class='setting'>
+  <image class='head' src='/images/小录头像.png' style="width:200rpx;height:200rpx;"></image>
+  <view class="talks">
+    <image class='talking' src='/images/联合 1.png' ></image>
+    <text class='talk' >不知道该吃什么！
+没关系！小录有办法！
+点击按钮让小录帮你选择！</text>
   </view>
+</view>
+<view class='setting2'>
+  <image class='btnImg' src='/images/dc1.png' style="width:120rpx;height:100rpx;margin-right:20rpx;" ></image>
+  <image class='btnImg' src='/images/dc2.png' style="width:120rpx;height:100rpx;margin-right:20rpx;"></image><image class='btnImg' src='/images/dc3.png' style="width:120rpx;height:100rpx;margin-right:20rpx;"></image>
+  <image class='btnImg' src='/images/dc4.png' style="width:120rpx;height:100rpx;margin-right:20rpx;"></image><image class='btnImg' src='/images/dc5.png' style="width:120rpx;height:100rpx;"></image>
+</view>
+<view class="what">
+  <view class='share'  wx:if="{{shareshow}}"> 
+    <image src="{{food}}" class="advision"></image>
+  </view>
+  <image src='/images/bj.png' style="width:100%;margin-top: 30rpx;"mode="widthFix"></image>
+</view>
+<navigator url='/pages/dc/dc' bindtap='share' hover-class="none">
+    <view class="advision1" style="float: left;margin-left: 30%;"><button class="btn1"  >点我</button>
+    </view>
+</navigator>

@@ -16,3 +16,11 @@
 </view>
 
 </view>
+<van-tabbar active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item icon="good-job-o">点赞</van-tabbar-item>
+  <van-tabbar-item icon="chat-o">评论</van-tabbar-item>
+  <van-tabbar-item icon="share-o">分享</van-tabbar-item>
+</van-tabbar>
+
+
+

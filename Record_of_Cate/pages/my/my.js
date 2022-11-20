@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo: '', //用于存放获取的用户信息
+    head:"/images/member.png",
+    name:"未命名"
   },
   goto2:function(){
     wx.navigateTo({
@@ -24,6 +26,7 @@ Page({
         timingFunc: 'easeIn'
       }
     })
+
   },
 
   /**
