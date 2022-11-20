@@ -1,6 +1,5 @@
 import logging
 
-import numpy as np
 from sqlalchemy import and_
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db
