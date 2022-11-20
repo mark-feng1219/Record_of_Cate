@@ -1,0 +1,67 @@
+<!--pages/details/details.wxml-->
+<!--这里是笔记主要内容-->
+<view wx:for="{{cardTeams}}" wx:key="index" wx:for-item="cardTeam">
+<view>
+  <image src="{{cardTeam.imgdetailsrc}}" style=" width: 100%;height: 460px;"></image>
+</view>
+
+<view class="setting" style="margin-left: 4%;">
+  <image src="{{cardTeam.headportrait}}" style="margin-top: 4%; width: 80rpx; height: 80rpx;border-radius: 50%;"></image>
+  <navigator class="count" url="../zy/zy" class="name">{{cardTeam.name}}</navigator>
+</view>
+<view style="margin-top: 1em; margin-left: 5%;">
+  <text class="title">{{cardTeam.title}}</text>
+  <view class="weui-article__p" style="text-indent: 0.5em; margin-top: 0.5em;margin-right: 5%;white-space:pre-wrap;">
+    <text class="content">{{cardTeam.content}}</text>
+  </view>
+</view>
+</view>
+<!--这里是评论区-->
+<van-divider customStyle="color: #FFC359; border-color: #f5ba5544; font-size: 12px;" hairline/>
+  <van-button plain hairline color="#FFC359" icon="smile-o"  bindtap="showcomment"block>点击查看评论区</van-button>
+<!--这里使用循环调取封装的数据-->
+<view >
+    <view wx:for="{{comments}}" wx:key="index" wx:for-item="comment" class="percontain">
+    <van-skeleton title avatar row="3" loading="{{ loading }}">
+<view class="setting" style="margin-left: 4%;">
+  <image src="{{comment.headportrait}}" style="width: 64rpx; height: 64rpx;border-radius: 100%;margin-top: 4%;"></image>
+  <navigator class="count" url="../zy/zy" class="commentname">{{comment.name}}</navigator>
+</view>
+<view style=" margin-left: 3em;margin-block-end: 10%;">
+  <view class="weui-article__p" style="text-indent: 1.2em; margin-top: 0.5em;margin-right: 5%;white-space:pre-wrap;">
+    <text class="commentcontent">{{comment.content}}</text>
+  </view>
+</view>
+</van-skeleton>
+</view>
+</view>
+<!--这里是骨架屏-->
+<van-divider contentPosition="center" customStyle="color: #FFC359; border-color: #f5ba5544; font-size: 12px;" hairline>还差你的评论噢~</van-divider>
+<!--解决导航栏覆盖界面问题-->
+<van-divider border-color="#FFC359;" hairline/>
+<van-divider border-color="#FFC359;" hairline/>
+<van-divider border-color="#FFC359;" hairline/>
+<!--这里是单独页面的导航栏-->
+
+<van-tabbar
+  active="{{ active }}"
+  active-color="#FFC359"
+  inactive-color="#ffffff"
+  bind:change="onChange"
+>
+<van-toast id="van-toast"/>
+  <van-tabbar-item name="good" icon="good-job-o" bindtap="test">点赞</van-tabbar-item>
+  <van-tabbar-item name="chat" icon="chat-o" bindtap="goto">评论</van-tabbar-item>
+  <van-tabbar-item name="share" icon="share-o"  capture-bind:tap="onClick">分享</van-tabbar-item>
+</van-tabbar>
+<!--这里是分享页面弹出框-->
+<van-share-sheet
+  show="{{ showShare }}"
+  title="立即分享给好友"
+  options="{{ options }}"
+  bind:select="onSelect"
+  bind:close="onClose"
+/>
+
+
+
