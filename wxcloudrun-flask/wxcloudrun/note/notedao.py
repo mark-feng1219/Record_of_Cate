@@ -1,6 +1,6 @@
 import logging
 
-from sqlalchemy import and_
+from sqlalchemy import and_, TIMESTAMP, desc
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
@@ -75,16 +75,12 @@ def delete_content(note_id):
         logger.info("delete_content errorMsg= {} ".format(e))
 
 def test_class(user_id):
-        counter = dbFollow.query.filter(dbFollow.fans_id == user_id).all()
-        tmp = []
-        # note = []
-        # for i in range(0,len(counter)):
-        #     res = str(counter[i].note_id)
-        #     note.append(res)
-        for i in range(0, len(counter)):
-            counter = dbNote.query.filter(dbNote.publisher_id == counter[i].blogger_id).first()
-            tmp.append(counter)
-        return
+    counter = dbNote.query.filter(dbNote.publisher_id == user_id).all()
+    # counter = counter.sort(key=lambda x: x.publisher_time, reverse=False)
+    if isinstance(counter,list):
+        return 'yes'
+    else:
+        return 'no'
 
 #返回关注的博主笔记
 def blogger_newest(fans_id):
@@ -105,7 +101,7 @@ def blogger_newest(fans_id):
 #返回用户的笔记
 def return_user_newest(user_id):
     try:
-        counter = dbNote.query.filter(dbNote.publisher_id == user_id).all()
+        counter = dbNote.query.filter(dbNote.publisher_id == user_id).order_by(desc(dbNote.publisher_time)).all()
         if counter is None:
             return 'failed'
         else:
@@ -117,7 +113,7 @@ def return_user_newest(user_id):
 def return_like_note(user_id):
     try:
         tmp = []
-        counter = dbSupport.query.filter(dbSupport.user_id == user_id).all()
+        counter = dbSupport.query.filter(dbSupport.user_id == user_id).order_by(desc(dbSupport.like_time)).all()
         if counter is None:
             return 'failed'
         else:

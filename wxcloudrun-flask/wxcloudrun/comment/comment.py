@@ -2,22 +2,30 @@ import json
 from datetime import datetime
 from wxcloudrun.model import dbComment
 from flask import Blueprint, request
-from wxcloudrun.comment.commentdao import select_comment, insert_comment
+from wxcloudrun.comment.commentdao import insert_comment, return_comment, return_note
 
 comment = Blueprint("comment", __name__, url_prefix='/comment')
 
-@comment.route('/select_comment', methods=['GET'])
+#用来展现评论内容
+@comment.route('/return_note_comment', methods=['GET'])
 def return_note_comment():
-    if request.method == 'GET':
-        # note_id = request.form['note_id']  # form是POST时候用的
-        note_id = request.args.get('note_id')  # request.args.get是GET时候用的
-        res = select_comment(note_id)
-        if res is None:
-            return "no result"
-        s = [r.comment_content for r in res]
-        return json.dumps(s)
-    else:
-        return "POST method is refused"
+    note_id = request.args.get('note_id')
+    res = {}
+
+    comment = return_comment(note_id)
+    note = return_note(note_id)
+
+    comment_tmp = [i.comment_content for i in comment]
+
+    note_content = {'note_content': note.content}
+    comment_content = {'comment_content':comment_tmp}
+
+    res.update(note_content)
+    res.update(comment_content)
+
+
+    return json.dumps(res)
+
 
 @ comment.route('/insert_comment',methods=['GET'])  # 这个是错的,要用POST
 def insert_note_comment():

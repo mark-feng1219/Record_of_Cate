@@ -99,13 +99,63 @@ def FocusUser_newest():
 def reurn_myNote():
     user_id = request.args.get('user_id')
     user_newest = return_user_newest(user_id)
-    s = [i.content for i in user_newest]
-    return json.dumps(s)
+
+    res = {}
+    title_tmp = []
+    photo_path_tmp = []
+    # content_tmp = []
+    # comment_tmp = []
+    note_id_tmp = []
+
+    for i in user_newest:
+        title_tmp.append(i.title)
+        photo_path_tmp.append(i.photo_path)
+        # content_tmp.append(i.content)
+        note_id_tmp.append(i.note_id)
+        # 找到每篇note对应的所有comment
+        # note_coment = select_comment(i.note_id)
+        # s = [r.comment_content for r in note_coment]
+        # s = json.dumps(s)
+        # comment_tmp.append(s)
+
+    title = {'title': title_tmp}
+    photo_path = {'photo_path': photo_path_tmp}
+    # content = {'content': content_tmp}
+    note = {'note_id':note_id_tmp}
+    #comment = {'comment': comment_tmp}
+
+    res.update(title)
+    res.update(photo_path)
+    # res.update(content)
+    res.update(note)
+
+    return json.dumps(res)
 
 #我的点赞
 @note.route('/note/myLikes', methods=['GET'])
 def return_myLikes():
     user_id = request.args.get('user_id')
     like_note = return_like_note(user_id)
-    s = [i.content for i in like_note]
-    return json.dumps(s)
+
+    res = {}
+    title_tmp = []
+    photo_path_tmp = []
+    note_id_tmp = []
+
+    for i in like_note:
+        title_tmp.append(i.title)
+        photo_path_tmp.append(i.photo_path)
+        note_id_tmp.append(i.note_id)
+
+    title = {'title': title_tmp}
+    photo_path = {'photo_path': photo_path_tmp}
+    note = {'note_id':note_id_tmp}
+    #comment = {'comment': comment_tmp}
+
+    res.update(title)
+    res.update(photo_path)
+    res.update(note)
+
+    return json.dumps(res)
+
+

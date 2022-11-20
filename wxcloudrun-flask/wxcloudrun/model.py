@@ -45,6 +45,7 @@ class dbSupport(db.Model):
     __tablename__ = 'user_likes_note'
     note_id = db.Column('note_id', db.String(20), nullable=False, primary_key=True)
     user_id = db.Column('user_id', db.String(20), nullable=False, primary_key=True)
+    like_time = db.Column('like_time', db.TIMESTAMP, nullable=False, default=datetime.now())
 
 
 class Counters(db.Model):
