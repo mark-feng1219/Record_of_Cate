@@ -10,6 +10,7 @@ Page({
       },
       title:'',
       content:'',
+      label:"",
       imgShow:false
   },
   // 图片显示
@@ -49,25 +50,38 @@ Page({
       })
     },
 
-
-  
-
-    onSubmit(e){
+    async onSubmit(e){
       console.log(e);
       var value = e.detail.value
       this.setData({
         information:value,
         modalHidden:false
     });
-    if(value.title && value.content) {
-      wx.setStorage({
-        key: 'address',
-        data: value,
-        success() {
-          wx.navigateBack();
-        }
-      });
-    }
+    if(value.title && value.content && value.label) {   //如果标题以及内容不为空
+      wx.cloud.init()
+      const result = await this.uploadFile(this.data.info.licensePicUrls[0], 'test/test.png', function(res){
+        console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
+    })
+    // console.log(result)
+    wx.request({
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/upload_user_note',
+      data: {
+        note_id:"7842403",
+        user_id:"924480",
+        title:value.title,
+        content:value.content,
+        label:value.label,
+        image_path:result
+      },
+      header: { 'content-type': 'application/json' },
+      success: function() {  //接口调用成功的回调函数
+      console.log('success') // 收到https服务成功后返回
+      },
+      fail: function() {  //接口调用失败的回调函数
+      console.log('failure')  // 发生网络错误等情况触发
+      },
+      })
+  }
     else {
       wx.showModal({
         title: '提示',
@@ -75,6 +89,31 @@ Page({
         showCancel: false
       });
     }
+    },
+    uploadFile(file, path, onCall = () => {}) {  //上传到微信云托管的对象存储
+      return new Promise((resolve, reject) => {
+        const task = wx.cloud.uploadFile({
+          cloudPath: path,
+          filePath: file,
+          config: {
+            env: 'prod-1gzin06weddc0c77' // 需要替换成自己的微信云托管环境ID
+          },
+          success: res => resolve(res.fileID),
+          fail: e => {
+            const info = e.toString()
+            if (info.indexOf('abort') != -1) {
+              reject(new Error('【文件上传失败】中断上传'))
+            } else {
+              reject(new Error('【文件上传失败】网络或其他错误'))
+            }
+          }
+        })
+        task.onProgressUpdate((res) => {
+          if (onCall(res) == false) {
+            task.abort()
+          }
+        })
+      })
     },
   /**
    * 生命周期函数--监听页面加载
