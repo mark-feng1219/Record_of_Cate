@@ -1,12 +1,15 @@
 import logging
+
+import numpy as np
 from sqlalchemy import and_
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db
-from wxcloudrun.model import dbNote, dbSupport
+from wxcloudrun.model import dbNote, dbSupport, dbFollow
 
 # 初始化日志
 logger = logging.getLogger('log')
 
+#插入笔记
 def insert_note(dbNote):
     try:
         db.session.add(dbNote)
@@ -15,6 +18,7 @@ def insert_note(dbNote):
     except OperationalError as e:
         logger.info("insert_note errorMsg= {} ".format(e))
 
+#点赞数+1
 def like_add_1(note_id):
     try:
         dbNote.query.filter(dbNote.note_id == note_id).update({'likes_num':dbNote.likes_num+1})
@@ -24,6 +28,7 @@ def like_add_1(note_id):
     except OperationalError as e:
         logger.info("like_add_1 errorMsg= {} ".format(e))
 
+#点赞数-1
 def like_delete_1(note_id):
     try:
         dbNote.query.filter(dbNote.note_id == note_id).update({'likes_num': dbNote.likes_num - 1})
@@ -33,6 +38,7 @@ def like_delete_1(note_id):
     except OperationalError as e:
         logger.info("like_delete_1 errorMsg= {} ".format(e))
 
+#添加点赞信息
 def add_support(dbSupport):
     try:
         db.session.add(dbSupport)
@@ -41,6 +47,7 @@ def add_support(dbSupport):
     except OperationalError as e:
         logger.info("add_support errorMsg= {} ".format(e))
 
+#删除点赞信息
 def delete_support(note_id,user_id):
     try:
         counter = dbSupport.query.filter(and_(dbSupport.note_id == note_id, dbSupport.user_id == user_id)).first()
@@ -54,6 +61,7 @@ def delete_support(note_id,user_id):
     except OperationalError as e:
         logger.info("delete_support errorMsg= {} ".format(e))
 
+#删除note
 def delete_content(note_id):
     try:
         counter = dbNote.query.filter(dbNote.note_id == note_id).first()
@@ -66,7 +74,61 @@ def delete_content(note_id):
 
     except OperationalError as e:
         logger.info("delete_content errorMsg= {} ".format(e))
-        return  'failed'
+
+def test_class(user_id):
+        counter = dbFollow.query.filter(dbFollow.fans_id == user_id).all()
+        tmp = []
+        # note = []
+        # for i in range(0,len(counter)):
+        #     res = str(counter[i].note_id)
+        #     note.append(res)
+        for i in range(0, len(counter)):
+            counter = dbNote.query.filter(dbNote.publisher_id == counter[i].blogger_id).first()
+            tmp.append(counter)
+        return
+
+#返回关注的博主笔记
+def blogger_newest(fans_id):
+    try:
+        tmp = []
+        counter = dbFollow.query.filter(dbFollow.fans_id == fans_id).all()
+        if counter is None:
+            return 'failed'
+        else:
+            for i in range(0, len(counter)):
+                res = dbNote.query.filter(dbNote.publisher_id == counter[i].blogger_id).first()
+                tmp.append(res)
+            return tmp
+
+    except OperationalError as e:
+        logger.info("blogger_newest errorMsg= {} ".format(e))
+
+#返回用户的笔记
+def return_user_newest(user_id):
+    try:
+        counter = dbNote.query.filter(dbNote.publisher_id == user_id).all()
+        if counter is None:
+            return 'failed'
+        else:
+            return counter
+    except OperationalError as e:
+        logger.info("return_user_newest errorMsg= {}".format(e))
+
+#返回用户喜欢的笔记
+def return_like_note(user_id):
+    try:
+        tmp = []
+        counter = dbSupport.query.filter(dbSupport.user_id == user_id).all()
+        if counter is None:
+            return 'failed'
+        else:
+            for i in range(0, len(counter)):
+                res = dbNote.query.filter(dbNote.note_id == counter[i].note_id).first()
+                tmp.append(res)
+            return tmp
+
+    except OperationalError as e:
+        logger.info("return_like_note errorMsg= {} ".format(e))
 
 
 
