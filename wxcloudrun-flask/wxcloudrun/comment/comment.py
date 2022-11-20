@@ -6,7 +6,6 @@ from wxcloudrun.comment.commentdao import select_comment, insert_comment
 
 comment = Blueprint("comment", __name__, url_prefix='/comment')
 
-
 @comment.route('/select_comment', methods=['GET'])
 def return_note_comment():
     if request.method == 'GET':
