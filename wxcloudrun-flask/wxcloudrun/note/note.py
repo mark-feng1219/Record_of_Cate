@@ -18,11 +18,8 @@ def index():
 #为了测试 所有的post请求暂时用get替代
 
 #点赞或取消点赞
-@note.route('/note/operate_note',methods=['GET']) #post
+@note.route('/note/operate_note',methods=['GET'])
 def operate_note():
-    #user_id = request.form['user_id']
-    #note_id = request.form['note_id']
-    #choice = request.form['choice']
     user_id = request.args.get('user_id')
     note_id = request.args.get('note_id')
     choice = request.args.get('choice')
@@ -45,10 +42,8 @@ def operate_note():
         return res_note + "\n" + res_user
 
 #删除笔记
-@note.route('/note/delete_user_note',methods=['GET']) #post
+@note.route('/note/delete_user_note',methods=['GET'])
 def delete_user_note():
-    #user_id = request.form['user_id']
-    #note_id = request.form['note_id']
     note_id = request.args.get('note_id')
 
     res = delete_content(note_id)
@@ -56,19 +51,14 @@ def delete_user_note():
     return res
 
 #上传笔记
-@note.route('/note/upload_user_note', methods=['GET']) #post
+@note.route('/note/upload_user_note', methods=['POST'])
 def upload_user_note():
     note = dbNote()
-    # note.user_di = request.form['user_id']
-    # note.note_id = request.form['note_id']
-    # note.publisher_time = datetime.now()
-    # note.image_path = request.form['image_path']
-    # note.content = request.form['content']
-    note.note_id = request.args.get('note_id')
-    note.publisher_id = request.args.get('user_id')
+    note.publisher_id = request.form['publisher_id']
+    note.note_id = request.form['note_id']
     note.publisher_time = datetime.now()
-    note.content = request.args.get('content')
-    note.photo_path = request.args.get('image_path')
+    note.photo_path = request.form['photo_path']
+    note.content = request.form['content']
     res = insert_note(note)
 
     test = {"status": res}
@@ -96,7 +86,6 @@ def select_newest():
     s = [i.content for i in newest_note]
     return json.dumps(s)
 
-
 #返回选中用户的笔记
 @note.route('/note/user_note', methods=['GET'])
 def FocusUser_newest():
@@ -104,7 +93,6 @@ def FocusUser_newest():
     user_newest = return_user_newest(user_id)
     s = [i.content for i in user_newest]
     return json.dumps(s)
-
 
 # 我的笔记
 @note.route('/note/myNote', methods=['GET'])
