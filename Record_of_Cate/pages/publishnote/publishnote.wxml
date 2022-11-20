@@ -10,7 +10,11 @@
   <view class="line"></view>
   <view class="input-view2">
     <textarea class="content" name="content"
-      placeholder="输入文章内容" placeholder-class="input2-place" maxlength="300" foucs cursor-spacing="10px" style="margin-top: 10px;"></textarea>
+      placeholder="输入文章内容" placeholder-class="input2-place" maxlength="300" foucs cursor-spacing="10px" style="margin-top: 10px;">
+    </textarea>
+  </view>
+  <view>
+  <input class="label" name="label" placeholder="输入要分享的美食名称" maxlength="30"></input>
   </view>
 </view>
   <view class="align-items">
