@@ -53,13 +53,14 @@ def delete_user_note():
 @note.route('/note/upload_user_note', methods=['GET','POST'])
 def upload_user_note():
     note = dbNote()
+    note.publisher_time = datetime.now()
     note.publisher_id = request.values.get('publisher_id')
     note.note_id = request.values.get('note_id')
     note.title = request.values.get('title')
     note.photo_path = request.values.get('photo_path')
     note.content = request.values.get('content')
     note.tag = request.values.get('tag')
-
+    
     res = insert_note(note)
 
     status = {"status": res}
