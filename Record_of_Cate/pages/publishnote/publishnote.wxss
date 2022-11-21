@@ -22,15 +22,17 @@
   font-size: 15px;
   font-weight: 300;
 }
-.btn1{
-  width: 150px;
-  font-size: 20px;
-  font-weight: 500;
-  border-radius: 25px;
-  letter-spacing: 2px;
-  margin-top: 30px;
-  color:white;
-  background-color: #FFC359;
+/**app.wxss**/
+
+
+.img-list{
+  display: flex;
+  justify-content: center;
+}
+.img{
+  margin-top: 15rpx;
+  width: 30%;
+  background-color: aliceblue;
 }
 .btn2{
   width: 600rpx;
@@ -43,6 +45,7 @@
   background-color: #FFC359;
 }
 .imagebox{
+  margin-top: 30rpx;
   display: flex;
   justify-content: center;
 }
