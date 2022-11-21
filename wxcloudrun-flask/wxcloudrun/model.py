@@ -5,13 +5,14 @@ from wxcloudrun import db
 
 class dbNote(db.Model):
     __tablename__ = 'note'
-
     note_id = db.Column('note_id', db.String(20), nullable=False, primary_key=True)
     publisher_id = db.Column('publisher_id', db.String(20), nullable=False)
     publisher_time = db.Column('publish_time', db.TIMESTAMP, nullable=False, default=datetime.now())
     content = db.Column('content', db.Text, nullable=True)
     photo_path = db.Column('photo_path', db.Text, nullable=True)
     likes_num = db.Column('likes_num', db.Integer, nullable=False, default=0)
+    title = db.Column('title', db.String(40), nullable=False, default='')
+    tag = db.Column('tag', db.String(15), default='')
 
 
 class dbUser(db.Model):

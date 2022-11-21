@@ -56,20 +56,16 @@ def delete_user_note():
     return res
 
 
-@note.route('/note/upload_user_note', methods=['GET']) #应该为post
+#上传笔记
+@note.route('/note/upload_user_note', methods=['POST'])
 def upload_user_note():
     note = dbNote()
-    # data['user_id'] = request.form['user_id']
-    # data['note_id'] = request.form['note_id']
-    # data['image_path'] = request.form['image_path']
-    # data['content'] = request.form['content']
-    note.note_id = request.args.get('note_id')
-    note.publisher_id = request.args.get('user_id')
+    note.publisher_id = request.form['publisher_id']
+    note.note_id = request.form['note_id']
     note.publisher_time = datetime.now()
-    note.content = request.args.get('content')
-    note.photo_path = request.args.get('image_path')
-
+    note.photo_path = request.form['photo_path']
+    note.content = request.form['content']
     res = insert_note(note)
 
-    return res
-
+    test = {"status": res}
+    return json.dumps(test)
