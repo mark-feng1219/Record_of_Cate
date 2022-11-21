@@ -8,8 +8,8 @@ class dbNote(db.Model):
     note_id = db.Column('note_id', db.String(20), nullable=False, primary_key=True)
     publisher_id = db.Column('publisher_id', db.String(20), nullable=False)
     publisher_time = db.Column('publish_time', db.TIMESTAMP, nullable=False, default=datetime.now())
-    content = db.Column('content', db.Text, nullable=True)
-    photo_path = db.Column('photo_path', db.Text, nullable=True)
+    content = db.Column('content', db.Text, nullable=False)
+    photo_path = db.Column('photo_path', db.Text, nullable=False)
     likes_num = db.Column('likes_num', db.Integer, nullable=False, default=0)
     title = db.Column('title', db.String(40), nullable=False, default='')
     tag = db.Column('tag', db.String(15), default='')
@@ -24,6 +24,7 @@ class dbUser(db.Model):
     likes_num = db.Column('likes_num', db.Integer, nullable=False, default=0)
     follow_num = db.Column('follow_num', db.Integer, nullable=False, default=0)
     fans_num = db.Column('fans_num', db.Integer, nullable=False, default=0)
+    user_motto = db.Column('user_motto', db.Text, nullable=False, default='')
 
 
 class dbComment(db.Model):
