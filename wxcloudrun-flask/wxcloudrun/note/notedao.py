@@ -16,6 +16,7 @@ def insert_note(dbNote):
         return "insert_note success"
     except OperationalError as e:
         logger.info("insert_note errorMsg= {} ".format(e))
+        return "insert_note failed"
 
 #点赞数+1
 def like_add_1(note_id):
