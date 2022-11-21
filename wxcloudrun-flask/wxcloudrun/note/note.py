@@ -50,20 +50,28 @@ def delete_user_note():
     return res
 
 #上传笔记
-@note.route('/upload_user_note', methods=['GET', 'POST'])
+@note.route('/note/upload_user_note', methods=['GET','POST'])
 def upload_user_note():
     note = dbNote()
     note.publisher_id = request.values.get('publisher_id')
     note.note_id = request.values.get('note_id')
-    note.publisher_time = datetime.now()
+    note.title = request.values.get('title')
     note.photo_path = request.values.get('photo_path')
     note.content = request.values.get('content')
+    note.tag = request.values.get('tag')
+
     res = insert_note(note)
 
     status = {"status": res}
     return json.dumps(status)
     # 多行
     #json.dumps(test, indent=2, sort_keys=True, ensure_ascii=False)
+
+# 用于测试微信云托管能否接收POST参数
+@note.route('/note/receive_args',methods=['POST'])
+def test_arg():
+    user_id = request.form.get('user_id')
+    return user_id
 
 #用于测试
 @note.route('/test', methods=['GET'])
