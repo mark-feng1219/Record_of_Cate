@@ -1,7 +1,0 @@
-<!-- userInfo如果为空证明没有登录 -->
-
-<button wx-if="{{!userInfo}}" bindtap="login" class="btn">获取头像昵称</button>
-<view wx:else class="userInfo">
-    <image src="{{userInfo.avatarUrl}}"></image>
-    <text>{{userInfo.nickName}}</text>
-</view>
