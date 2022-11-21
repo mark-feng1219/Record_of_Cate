@@ -165,5 +165,3 @@ def return_myLikes():
     res.update(note)
 
     return json.dumps(res)
-
-
