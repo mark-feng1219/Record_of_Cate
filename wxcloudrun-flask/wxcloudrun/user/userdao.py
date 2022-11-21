@@ -22,5 +22,12 @@ def update_user_info(user_id, head_image_path, user_name, user_sex, user_motto):
         logger.info("return_user_info errorMsg= {}".format(e))
 
 
+def create_user(dbUser):
+    try:
+        db.session.add(dbUser)
+        db.session.commit()
+        return 'login success'
+    except OperationalError as e:
+        logger.info("insert_note errorMsg= {} ".format(e))
 
 
