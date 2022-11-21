@@ -57,9 +57,9 @@
 
 .advision{
   position: absolute;
-  width: 535rpx;
-  height: 535rpx;
+  width: 540rpx;
+  height: 540rpx;
   border-radius: 50%;
-  left: 15%;
-  top: 100rpx;
+  left: 105rpx;
+  top: 110rpx;
 }

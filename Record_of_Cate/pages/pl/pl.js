@@ -1,4 +1,5 @@
 // pages/pl/pl.js
+import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
 
   /**
@@ -7,6 +8,27 @@ Page({
   data: {
 
   },
+  test: function (){
+    const toast = Toast.loading({
+        duration: 0, // 持续展示 toast
+        forbidClick: true,
+        message: '发表倒数 3 秒',
+        selector: '#custom-selector',
+      });
+      
+      let second = 3;
+      const timer = setInterval(() => {
+        second--;
+        if (second) {
+          toast.setData({
+            message: `发表倒数 ${second} 秒`,
+          });
+        } else {
+          clearInterval(timer);
+          Toast.clear();
+        }
+      }, 1000);      
+ }, 
 
 
   
@@ -16,7 +38,7 @@ Page({
    */
   onLoad(options) {
     wx.setNavigationBarTitle({
-      title: '写评论'
+      title: ' ',
     });
   },
 

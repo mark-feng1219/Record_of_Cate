@@ -7,25 +7,27 @@ from wxcloudrun.model import dbUser
 logger = logging.getLogger('log')
 
 
-
-
-def modify_user_name(id, new_name):
-    """
-    根据ID修改name的值
-    """
+def update_user_info(user_id, head_image_path, user_name, user_sex, user_motto):
     try:
-        dbUser.query.filter_by(dbUser.id == id).updata({"user_name": new_name})
-        db.session.commit() 
-    except OperationalError as e:
-        logger.info("query_counterbyid errorMsg= {} ".format(e))
-        
 
-def modify_user_sex(id, new_sex):
-    """
-    根据ID修改sex的值
-    """
-    try:
-        dbUser.query.filter_by(dbUser.id == id).updata({"user_sex": new_sex})
+        dbUser.query.filter(dbUser.user_id == user_id).update({'head_image_path':head_image_path})
+        dbUser.query.filter(dbUser.user_id == user_id).update({'user_name': user_name})
+        dbUser.query.filter(dbUser.user_id == user_id).update({'user_sex': user_sex})
+        dbUser.query.filter(dbUser.user_id == user_id).update({'user_motto': user_motto})
         db.session.commit()
+
+        return "update_user_info success"
+
     except OperationalError as e:
-        logger.info("query_counterbyid errorMsg= {} ".format(e))
+        logger.info("return_user_info errorMsg= {}".format(e))
+
+
+def create_user(dbUser):
+    try:
+        db.session.add(dbUser)
+        db.session.commit()
+        return 'login success'
+    except OperationalError as e:
+        logger.info("insert_note errorMsg= {} ".format(e))
+
+

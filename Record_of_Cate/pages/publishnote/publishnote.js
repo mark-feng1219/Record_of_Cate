@@ -63,37 +63,37 @@ Page({
         console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
     })
     console.log(result)
-    // wx.request({   //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
-    //   url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/upload_user_note',
-    //   data: {
-    //     note_id:"13879",
-    //     publisher_id:"test_id",
-    //     title:value.title,
-    //     content:value.content,
-    //     tag:value.label,
-    //     photo_path:result
-    //   },
-    //   method:"POST",               //后续再改成POST
-    //   header: { 'content-type': 'application/json' },
-    //   success: function(res) {  //接口调用成功的回调函数
-    //   console.log(res)          // 收到https服务成功后返回
-    //   },
-    //   fail: function() {  //接口调用失败的回调函数
-    //   console.log('failure')  // 发生网络错误等情况触发
-    //   },
-    //   })
-    wx.cloud.callContainer({
-      "config": {
-        "env": "prod-1gzin06weddc0c77"
+    /**wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/upload_user_note',
+      data: {
+        note_id:"87509",
+        publisher_id:"test_id",
+        title:value.title,
+        content:value.content,
+        tag:value.label,
+        photo_path:result
       },
-      "path": "/note/upload_user_note?publisher_id=1232&note_id=426&title=DEBUG&photo_path=ugly.jpg&content=我讨厌BUG",
-      "header": {
-        "X-WX-SERVICE": "flask-ddml",
-        "content-type": "application/json"
+      method:"GET",               //后续再改成POST
+      header: { 'content-type': 'application/json' },
+      success: function(res) {  //接口调用成功的回调函数
+      console.log(res)          // 收到https服务成功后返回
       },
-      "method": "POST",
-      "data": ""
-    })
+      fail: function() {  //接口调用失败的回调函数
+      console.log('failure')  // 发生网络错误等情况触发
+      },
+      })**/
+     wx.cloud.callContainer({
+       "config": {
+         "env": "prod-1gzin06weddc0c77"
+       },
+       "path": "/note/upload_user_note?publisher_id=1232&note_id=426&title=DEBUG&photo_path=ugly.jpg&content=我讨厌BUG",
+       "header": {
+         "X-WX-SERVICE": "flask-ddml",
+         "content-type": "application/json"
+       },
+       "method": "POST",
+       "data": ""
+     })
   }
     else {
       wx.showModal({
