@@ -51,18 +51,21 @@ def delete_user_note():
     return res
 
 #上传笔记
-@note.route('/note/upload_user_note', methods=['GET'])
+@note.route('/note/upload_user_note', methods=['POST'])
 def upload_user_note():
     note = dbNote()
-    note.publisher_id = request.args.get('publisher_id')
-    note.note_id = request.args.get('note_id')
-    note.photo_path = request.args.get('photo_path')
-    note.content = request.args.get('content')
-#     note.publisher_id = request.form['publisher_id']
-#     note.note_id = request.form['note_id']
+#     note.publisher_id = request.args.get('publisher_id')  # 用GET绝对可以，就是不应该是GET，而是POST
+#     note.note_id = request.args.get('note_id')
+#     note.photo_path = request.args.get('photo_path')
+#     note.content = request.args.get('content')
 #     note.publisher_time = datetime.now()
-#     note.photo_path = request.form['photo_path']
-#     note.content = request.form['content']
+    note.publisher_id = request.form.get('publisher_id')
+    note.note_id = request.form.get('note_id')
+    note.title = request.form.get('title')
+    note.photo_path = request.form.get('photo_path')
+    note.content = request.form.get('content')
+    note.tag = request.form.get('tag')
+    
     res = insert_note(note)
 
     test = {"status": res}
