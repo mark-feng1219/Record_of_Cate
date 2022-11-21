@@ -6,35 +6,58 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
-
-
+    // cardTeams:[],
     cardTeams: [{
-     "viewid": "1",
      "imgsrc": "/images/笔记详情照片.jpg",
      "Head_picture":"/images/头像1.jpg",
      "count": "暖啊榆",
      "name": "这是什么菜",
     }, {
-     "viewid": "2",
      "imgsrc": "/images/笔记详情照片.jpg",
-     
+     "Head_picture":"/images/头像1.jpg",
      "count": "暖啊榆",
      "name": "这是什么菜",
     }, {
-     "viewid": "3",
      "imgsrc": "/images/笔记详情照片.jpg",
-     
+     "Head_picture":"/images/头像1.jpg",
      "count": "暖啊榆",
      "name": "这是什么菜",
     }, {
-     "viewid": "4",
      "imgsrc": "/images/笔记详情照片.jpg",
-     
+     "Head_picture":"/images/头像1.jpg",
      "count": "暖啊榆",
      "name": "这是什么菜",
-    }
-    ]},
+    }],
+    card_like_Teams: [{
+      "imgsrc": "/images/笔记详情照片.jpg",
+      "Head_picture":"/images/头像1.jpg",
+      "count": "暖啊榆",
+      "name": "超喜欢这个板栗",
+     }, {
+      "imgsrc": "/images/笔记详情照片.jpg",
+      "Head_picture":"/images/头像1.jpg",
+      "count": "暖啊榆",
+      "name": "这是闽菜",
+     }, {
+      "imgsrc": "/images/笔记详情照片.jpg",
+      "Head_picture":"/images/头像1.jpg",
+      "count": "暖啊榆",
+      "name": "这是粤菜",
+     }, {
+      "imgsrc": "/images/笔记详情照片.jpg",
+      "Head_picture":"/images/头像1.jpg",
+      "count": "暖啊榆",
+      "name": "这是湘菜",
+     }],
+    currentIndex:0,   // 默认展示笔记
+    login_state:1,
+    note_id_array:[],
+    title_array:[],
+    image_array:[],
+    image_like_array:[],
+    note_id_like_array:[],
+    title_like_array:[]
+  },
     getUrl: function (e) {
       // var id = e.currentTarget.dataset.id;//获取到绑定的数据
       //跳转传值
@@ -44,7 +67,6 @@ Page({
       })
     },
     
-
    // 切换笔记详情照片iper-item触发bindchange事件
   pagechange: function (e) {
     // 通过touch判断，改变tab的下标值
@@ -64,7 +86,6 @@ titleClick: function (e) {
     currentIndex: e.currentTarget.dataset.idx
   })
 },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -77,8 +98,147 @@ titleClick: function (e) {
         timingFunc: 'easeIn'
       }
     })
+    if(this.data.login_state=1){  //如果用户处于登录状态
+      var note_list = wx.getStorageSync('note')
+      var like_list = wx.getStorageSync('like')
+      if(note_list!=[] || like_list!=[])   //结果不为空，即用户有本地缓存
+      {
+        console.log("exist Storage")
+        this.setData({
+          cardTeams:note_list
+        })
+        this.setData({
+          card_like_Teams:like_list
+        })
+      }
+      else{          //结果为空，即用户没有本地缓存
+        wx.cloud.init()
+        var image_list = []                      // 存储在本地缓存的图像数组
+        this.request_note().then(async(res)=>{
+          this.setData({
+            image_array:res.data['photo_path'],
+            note_id_array:res.data['note_id'],
+            title_array:res.data['title']
+          })
+         // 根据笔记的image_path请求微信云托管的对象存储把图片返回
+          for(var i=0;i<this.data.image_array.length;i++)
+          {
+          const result = await this.downloadFile(this.data.image_array[i],function(){})
+          image_list.push(result.tempFilePath)    // 把图片缓存路径加到image_array数组里
+          }
+          for(var j=0;j<this.data.note_id_array.length;j++)
+          {
+            var tmp_dict={}
+            tmp_dict['imgsrc'] = image_list[j]
+            tmp_dict['Head_picture'] = "/images/头像1.jpg"
+            tmp_dict['count'] = "暖啊榆"
+            tmp_dict['name'] = this.data.title_array[j]
+            tmp_dict['note_id'] = this.data.note_id_array[j]
+            this.data.cardTeams.push(tmp_dict)
+          }
+          this.setData({
+            cardTeams:this.data.cardTeams
+          })
+          wx.setStorageSync('note',this.data.cardTeams)
+        })
+
+        var image_like_list = []                      // 存储在本地缓存的图像数组
+        this.request_like().then(async(res)=>{
+          this.setData({
+            image_like_array:res.data['photo_path'],
+            note_id_like_array:res.data['note_id'],
+            title_like_array:res.data['title']
+          })
+          // 根据笔记的image_path请求微信云托管的对象存储把图片返回
+          for(var i=0;i<this.data.image_like_array.length;i++)
+          {
+          const result = await this.downloadFile(this.data.image_like_array[i],function(){})
+          image_like_list.push(result.tempFilePath)    // 把图片缓存路径加到image_array数组里
+          }
+          for(var j=0;j<this.data.note_id_like_array.length;j++)
+          {
+            var tmp_dict={}
+            tmp_dict['imgsrc'] = image_like_list[j]
+            tmp_dict['Head_picture'] = "/images/头像1.jpg"
+            tmp_dict['count'] = "抱着牛奶"
+            tmp_dict['name'] = this.data.title_like_array[j]
+            tmp_dict['note_id'] = this.data.note_id_like_array[j]
+            this.data.card_like_Teams.push(tmp_dict)
+          }
+          this.setData({
+            card_like_Teams:this.data.card_like_Teams
+          })
+          // console.log(this.data.image_like_array)
+          wx.setStorageSync('like',this.data.card_like_Teams)
+        })
+      }
+    }
   },
 
+  //请求后端获取笔记数据
+  request_note:function(){
+    // 向后端请求笔记的note_id/note_title/photo_path并存储到本地缓存
+    return new Promise(function(resolve,reject){
+    wx.request({
+    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/myNote',
+    data: {
+      user_id:"test_id"
+    },
+    method: "GET",
+    header: { 'content-type': 'application/json' },
+    success: (res) =>     //要在success回调里面写this.setData必须这样写:success: (res) => 
+    {
+      resolve(res)
+      console.log(res)
+      // console.log(res.data['photo_path'])
+    },
+    fail: function() {console.log('failure')},
+    })
+    })
+  },
+
+  // 请求后端获取用户点赞的笔记数据
+  request_like:function(){
+    return new Promise(function(resolve,reject){
+    wx.request({
+    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/myLikes',
+    data: {
+      user_id:"test_id"
+    },
+    method: "GET",
+    header: { 'content-type': 'application/json' },
+    success: (res) =>     //要在success回调里面写this.setData必须这样写:success: (res) => 
+    {
+      resolve(res)
+      console.log(res)
+    },
+    fail: function() {console.log('failure')},
+    })
+    })
+  },
+  // 下载微信云托管对象存储中的图片到本地
+  downloadFile(fileID, onCall = () => {}) {
+    return new Promise((resolve, reject) => {
+      const task = wx.cloud.downloadFile({
+        fileID,
+        success: res => resolve(res),
+        fail: e => {
+          const info = e.toString()
+          console.log(info)
+          if (info.indexOf('abort') != -1) {
+            reject(new Error('【文件下载失败】中断下载'))
+          } else {
+            reject(new Error('【文件下载失败】网络或其他错误'))
+          }
+        }
+      })
+      task.onProgressUpdate((res) => {
+        if (onCall(res) == false) {
+          task.abort()
+        }
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
