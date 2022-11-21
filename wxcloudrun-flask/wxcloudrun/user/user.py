@@ -1,6 +1,5 @@
 from flask import request,Blueprint
 import json
-
 from wxcloudrun.model import dbUser
 from wxcloudrun.user.WXBizDataCrypt import WXBizDataCrypt
 from wxcloudrun.user.userdao import update_user_info, create_user
