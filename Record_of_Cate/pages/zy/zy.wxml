@@ -1,12 +1,11 @@
-
+<import src="../../conponents/history.wxml"/>
 <view class="header-info">
     <!--如果只是展示头像、昵称，可以使用<open-data/>组件  -->      
     <image class="avatar" src="/images/头像1.jpg"></image>
-    <view class="nickname" >暖啊榆</view> 
+    <view class="nickname" >{{app.userInfo}}</view> 
     <!--格言  -->
     <view class="motto">食珍录账号：123456789</view>
   </view>
-
 <view>
     <!-- Tab布局 -->
     <view class='navBox' style="margin-top: 275rpx;">
@@ -21,173 +20,61 @@
 
         
     </view>
+    <van-divider customStyle="color: #FFC359; border-color: #f5ba5544; font-size: 12px;" hairline/>
     <!-- 内容布局 -->
-    <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
-        <swiper-item class='swiperTtemBox'>
-            <!-- <view>装备内容</view> -->
+  <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
 
-            <view class="container" style="height: 220px;">
-    <view class="left" bindtap="jump1" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg1}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left; ">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
+    <swiper-item class='swiperTtemBox'>
+              <view class="city_history">
+            
+            <view class="history_content">
+            
+            <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
+              <view class="left">
+                <view wx:for="{{trips}}" wx:for-item="item" wx:key="" >
+                  <template is="m-history"  wx:if="{{index%2==0}}" data="{{ trip : item}}" />
+                </view>
+              </view>
+        
           
-         
-        </view>   
-      </view>     
-     
+              <view class="right">
+                <view wx:for="{{trips}}" wx:for-item="item" wx:key="">
+                  <template is="m-history"  wx:if="{{index%2==1}}" data="{{ trip : item}}" />
+                </view>
+              </view>
+            </scroll-view>
 
-    </view>
-<view style="width: 10px;height: 220px;color: rgb(243, 180, 84);"> </view>
-    <view class="right" bindtap="jump2" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg2}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
-      
-
-    </view>
-  </view>
-
-  <view class="container" style="height: 220px;margin-top: 10px;">  
-    <view class="left" bindtap="jump3" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg3}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
-     
-    </view>
-    <view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
-    <view class="right" bindtap="jump4" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg4}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;margin-left: 1%;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
-      
-
-    </view>
-  </view>
-
-  <view style="height:400rpx;"></view>
-
-
+            </view>
+            
+        </view>
         </swiper-item>
 
-
-
-        <swiper-item class='swiperTtemBox'>
-          <view class="container" style="height: 220px;">
-    <view class="left" bindtap="jump1" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg1}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left; ">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
+  
+ <!-- <view>2</view> -->
+ <swiper-item class='swiperTtemBox'>
+              <view class="city_history">
+            
+            <view class="history_content">
+            
+            <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
+              <view class="left">
+                <view wx:for="{{trips}}" wx:for-item="item" wx:key="" >
+                  <template is="m-history"  wx:if="{{index%2==0}}" data="{{ trip : item}}" />
+                </view>
+              </view>
+        
           
-         
-        </view>   
-      </view>     
-     
+              <view class="right">
+                <view wx:for="{{trips}}" wx:for-item="item" wx:key="">
+                  <template is="m-history"  wx:if="{{index%2==1}}" data="{{ trip : item}}" />
+                </view>
+              </view>
+            </scroll-view>
 
-    </view>
-<view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
-    <view class="right" bindtap="jump2" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix"  style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg2}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
-      
-
-    </view>
-  </view>
-
-  <view class="container" style="height: 220px;margin-top: 10px;">  
-    <view class="left" bindtap="jump3" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg3}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
-     
-    </view>
-    <view style="width: 10px;height: 220px;color: rgb(243, 180, 84);">123</view>
-    <view class="right" bindtap="jump4" style="height: 220px;background-color: white;border-radius: 5%;">
-      <view class="tp">
-        <image src="/images/sw.jpg" mode="widthFix" style="width: 77%;border-radius: 3%;"></image>
-      </view>
-      <view id="wz">{{msg4}}</view>
-      <view style="color: darkgray;">
-      <view style="float: left;">
-        <image src="/images/头像1.jpg" style="width: 20px;height: 20px;margin-top: 10px;border-radius: 50%;"></image><text style="position: absolute;margin-top: 12px;">暖啊榆</text>
-      </view>
-        <view style="float: right;">
-          <image src="/images/heart.png" style="width: 20px;height: 20px;margin-top: 10px;"></image>
-         
-        </view>   
-      </view>   
-      
-
-    </view>
-  </view>
-
-  <view style="height:400rpx;"></view>
+            </view>
+            
+        </view>
         </swiper-item>
+  <!-- <view>装备内容</view> -->     
     </swiper>
 </view>
-

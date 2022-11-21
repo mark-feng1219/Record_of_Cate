@@ -41,6 +41,17 @@ page {
   border-bottom: 1rpx solid #ccc;
   border-radius: 10px;
 }
+.btn1{
+  width: 150px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 25px;
+  letter-spacing: 2px;
+  margin-left:200rpx;
+  margin-top: 650rpx;
+  color:white;
+  background-color: #FFC359;
+}
 .icon-head{
   width: 120rpx;
   height: 120rpx;

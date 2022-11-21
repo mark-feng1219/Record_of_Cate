@@ -1,8 +1,7 @@
 {
+  "cloud": true,
   "pages": [
     "pages/szlindex/szlindex",
-    "pages/index/index",
-    "pages/logs/logs",
     "pages/bj/bj",
     "pages/my/my",
     "pages/pl/pl",
