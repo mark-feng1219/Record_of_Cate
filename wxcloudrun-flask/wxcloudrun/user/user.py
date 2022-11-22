@@ -22,10 +22,11 @@ def user_wxlogin():
         'grant_type': 'authorization_code'
     }
     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
+    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36'}
 
-#     response_data = requests.get(wx_login_api, params=req_params)# 向api发起get请求
-
-#     resdata = response_data.json()
+    response_data = requests.get(wx_login_api, params=req_params,headers=headers) # 向api发起get请求
+    resdata = response_data.json()
+    
     return {'iv':iv,'code':code,'appid':appid,'wx_login':wx_login_api}
 
 #     openid = resdata['openid']  # 得到用户关于当前小程序的openid
