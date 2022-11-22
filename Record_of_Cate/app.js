@@ -6,17 +6,12 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+
   },
   globalData: {
     userInfo: null,
-    user_image_path:"",
-    user_name:"",
-    user_motto:"",
+    user_image_path:"/images/member.png",
+    user_name:"请登录",
+    user_motto:"登陆后解锁功能",
   }
 })

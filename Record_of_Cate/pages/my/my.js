@@ -1,6 +1,7 @@
 // pages/my/my.js
 const app = getApp()
 Page({
+  result:"",
   login() {
     /**wx.login({
       success: function (r) {
@@ -47,9 +48,14 @@ Page({
       wx.getUserProfile({
           desc: '必须授权才能继续使用', // 必填 声明获取用户个人信息后的用途，后续会展示在弹窗中
           success:(res)=> { 
-              console.log('授权成功', res);
+            getApp().globalData.user_name=res.userInfo.nickName
+            app.globalData.user_image_path=res.userInfo.avatarUrl
+            console.log('授权成功', res);
               this.setData({ 
-                  userInfo:res.userInfo,
+                userInfo:res.userInfo,
+                nickName:app.globalData.user_name,
+                avatarUrl:app.globalData.user_image_path,
+                motto:app.globalData.user_motto
               })
           },
           fail:(err)=> {
@@ -61,15 +67,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userInfo:"",
+    nickName:"",
+    avatarUrl:"",
+    motto:""
   },
-  goto2:function(){
-    wx.navigateTo({
-      url: '/pages/publishnote/publishnote',
-    })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
@@ -80,5 +82,12 @@ Page({
       }
     })
 
-  }
+  },
+  onShow: function () {
+    this.setData({
+      nickName:app.globalData.user_name,
+      avatarUrl:app.globalData.user_image_path,
+      motto:app.globalData.user_motto
+    })
+  },
 })

@@ -258,3 +258,18 @@ page {
   background-color: white;
   border-radius: 5%;
 }
+.scroll-box {
+  width: 100%;
+  padding: 10rpx;
+  height: 120rpx;
+  white-space: nowrap;
+}
+.scroll-box .box{
+  padding: 7rpx;
+  display:inline-block;
+}
+.head{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
