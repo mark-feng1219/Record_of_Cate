@@ -13,20 +13,20 @@ def user_wxlogin():
     iv = request.json.get('iv')   # 将前端json数据转为字典
     code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
     encrypteddata = request.json.get('encrypteddata')
-    return {'iv':iv,'code':code}
-#     appid = APPID  # 开发者关于微信小程序的appid
-#     appsecret = SECRET  # 开发者关于微信小程序的appsecret
-#     req_params = {
-#         'appid': appid,
-#         'secret': appsecret,
-#         'js_code': code,
-#         'grant_type': 'authorization_code'
-#     }
-#     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
+    appid = APPID  # 开发者关于微信小程序的appid
+    appsecret = SECRET  # 开发者关于微信小程序的appsecret
+    req_params = {
+        'appid': appid,
+        'secret': appsecret,
+        'js_code': code,
+        'grant_type': 'authorization_code'
+    }
+    wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
 
-#     response_data = requests.get(wx_login_api, params=req_params)# 向api发起get请求
+    response_data = requests.get(wx_login_api, params=req_params)# 向api发起get请求
 
-#     resdata = response_data.json()
+    resdata = response_data.json()
+    return resdata
 
 #     openid = resdata['openid']  # 得到用户关于当前小程序的openid
 #     session_key = resdata['session_key']  # 得到用户关于当前小程序的会话密钥session_key
