@@ -3,7 +3,9 @@ import json
 from wxcloudrun.model import dbUser
 from wxcloudrun.user.WXBizDataCrypt import WXBizDataCrypt
 from wxcloudrun.user.userdao import update_user_info, create_user, search_id
-import requests
+import urllib.parse
+import urllib.request   # 注意会与flask的request冲突
+# import requests
 from config import APPID, SECRET
 
 user = Blueprint("user", __name__, url_prefix= '/user')
@@ -13,21 +15,34 @@ def user_wxlogin():
     iv = request.json.get('iv')   # 将前端json数据转为字典
     code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
     encrypteddata = request.json.get('encrypteddata')
+
     appid = APPID  # 开发者关于微信小程序的appid
     appsecret = SECRET  # 开发者关于微信小程序的appsecret
-    req_params = {
-        'appid': appid,
-        'secret': appsecret,
-        'js_code': code,
-        'grant_type': 'authorization_code'
-    }
+#     req_params = {
+#         'appid': appid,
+#         'secret': appsecret,
+#         'js_code': code,
+#         'grant_type': 'authorization_code'
+#     }
     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
-    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36'}
-
-    response_data = requests.get(wx_login_api, params=req_params,headers=headers) # 向api发起get请求
-    resdata = response_data.json()
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0'}
     
-    return {'iv':iv,'code':code,'appid':appid,'wx_login':wx_login_api}
+    appid = urllib.parse.quote(appid)
+    secret = urllib.parse.quote(appsecret)
+    js_code = urllib.parse.quote(code)
+    grant_type = urllib.parse.quote('authorization_code')
+    data="appid="+appid+"&secret="+secret+"&js_code="+js_code+"&grant_type="+grant_type
+    full_url = "http://api.weixin.qq.com/sns/jscode2session?"+ data
+    
+    req = urllib.request.Request(url=full_url,headers=headers)
+    res = request.urlopen(req)
+    response = res.read().decode('utf-8')
+    return response
+    
+#     response_data = requests.get(wx_login_api, params=req_params,headers=headers) # 向api发起get请求
+#     resdata = response_data.json()
+    
+
 
 #     openid = resdata['openid']  # 得到用户关于当前小程序的openid
 #     session_key = resdata['session_key']  # 得到用户关于当前小程序的会话密钥session_key
