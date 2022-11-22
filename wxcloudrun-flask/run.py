@@ -3,7 +3,6 @@ import sys
 import www
 from wxcloudrun import app
 
-
 # 启动Flask Web服务
 if __name__ == '__main__':
 

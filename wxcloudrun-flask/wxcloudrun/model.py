@@ -5,7 +5,7 @@ from wxcloudrun import db
 
 class dbNote(db.Model):
     __tablename__ = 'note'
-    note_id = db.Column('note_id', db.String(20), nullable=False, primary_key=True)
+    note_id = db.Column('note_id', db.String(30), nullable=False, primary_key=True)
     publisher_id = db.Column('publisher_id', db.String(20), nullable=False)
     publisher_time = db.Column('publish_time', db.TIMESTAMP, nullable=False, default=datetime.now())
     content = db.Column('content', db.Text, nullable=False)
