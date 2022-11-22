@@ -12,20 +12,23 @@ user = Blueprint("user", __name__, url_prefix= '/user')
 
 @user.route('/code', methods=['POST'])
 def user_wxlogin():
-    iv = request.json.get('iv')   # 将前端json数据转为字典
-    code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
-    encrypteddata = request.json.get('encrypteddata')
+    args = request.args
+    return args
+# def user_wxlogin():
+#     iv = request.json.get('iv')   # 将前端json数据转为字典
+#     code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
+#     encrypteddata = request.json.get('encrypteddata')
 
-    appid = APPID  # 开发者关于微信小程序的appid
-    appsecret = SECRET  # 开发者关于微信小程序的appsecret
-    req_params = {
-        'appid': appid,
-        'secret': appsecret,
-        'js_code': code,
-        'grant_type': 'authorization_code'
-    }
-    wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
-    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.52'}
+#     appid = APPID  # 开发者关于微信小程序的appid
+#     appsecret = SECRET  # 开发者关于微信小程序的appsecret
+#     req_params = {
+#         'appid': appid,
+#         'secret': appsecret,
+#         'js_code': code,
+#         'grant_type': 'authorization_code'
+#     }
+#     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
+#     headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.52'}
    
 #     使用urllib.request——>req = urllib.request.Request(url=full_url,headers=headers)返回了None类型数据
 #     appid = urllib.parse.quote(appid)
@@ -39,9 +42,9 @@ def user_wxlogin():
 #     response = res.read().decode('utf-8')
 
 #   使用requests
-    response_data = requests.get(wx_login_api, params=req_params,headers=headers) # 向api发起get请求
-    resdata = response_data.json()
-    return response_data if response_data is not None else "no response result"
+#     response_data = requests.get(wx_login_api, params=req_params,headers=headers) # 向api发起get请求
+#     resdata = response_data.json()
+#     return response_data if response_data is not None else "no response result"
 
 #     openid = resdata['openid']  # 得到用户关于当前小程序的openid
 #     session_key = resdata['session_key']  # 得到用户关于当前小程序的会话密钥session_key
