@@ -3,7 +3,8 @@ import json
 from wxcloudrun.model import dbUser
 from wxcloudrun.user.WXBizDataCrypt import WXBizDataCrypt
 from wxcloudrun.user.userdao import update_user_info, create_user, search_id
-import requests
+from urllib import request,parse
+# import requests
 from config import APPID, SECRET
 
 user = Blueprint("user", __name__, url_prefix= '/user')
@@ -22,10 +23,21 @@ def user_wxlogin():
         'grant_type': 'authorization_code'
     }
     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
-    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.88 Safari/537.36'}
-
-    response_data = requests.get(wx_login_api, params=req_params,headers=headers) # 向api发起get请求
-    resdata = response_data.json()
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0'}
+    
+    appid = parse.quote(appid)
+    secret = parse.quote(appsecret)
+    js_code = parse.quote(code)
+    grant_type = parse.quote('authorization_code')
+    data="appid="+appid+"&secret="+secret+"&js_code="+js_code+"&grant_type="+grant_type
+    full_url = "http://api.weixin.qq.com/sns/jscode2session?"+ data
+    
+    req = request.Request(url=full_url,headers=headers)
+    res = request.urlopen(req)
+    response = res.read().decode('utf-8')
+    
+#     response_data = requests.get(wx_login_api, params=req_params,headers=headers) # 向api发起get请求
+#     resdata = response_data.json()
     
     return {'iv':iv,'code':code,'appid':appid,'wx_login':wx_login_api}
 
