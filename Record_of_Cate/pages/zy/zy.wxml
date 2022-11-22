@@ -1,8 +1,8 @@
-<import src="../../conponents/history.wxml"/>
+<import src="../../components/history.wxml"/>
 <view class="header-info">
     <!--如果只是展示头像、昵称，可以使用<open-data/>组件  -->      
     <image class="avatar" src="/images/头像1.jpg"></image>
-    <view class="nickname" >{{app.userInfo}}</view> 
+    <view class="nickname" >暖啊榆</view> 
     <!--格言  -->
     <view class="motto">食珍录账号：123456789</view>
   </view>
@@ -16,17 +16,14 @@
         <view class='titleBox' bindtap='titleClick' data-idx='1'>
             <text class="{{1 == currentIndex ? 'fontColorBox1' : ''}}">点赞</text>
             <hr class="{{1 == currentIndex ? 'lineBox' : 'notLineBox'}} " />
-        </view>
-
-        
+        </view>        
     </view>
-    <van-divider customStyle="color: #FFC359; border-color: #f5ba5544; font-size: 12px;" hairline/>
+
     <!-- 内容布局 -->
   <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
 
     <swiper-item class='swiperTtemBox'>
-              <view class="city_history">
-            
+            <view class="city_history">            
             <view class="history_content">
             
             <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >

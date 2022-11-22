@@ -1,6 +1,5 @@
 <!--pages/publishnote/publishnote.wxml-->
 <form bindsubmit="onSubmit">
-  
 <view class="file">
   <view class="input-view1">
     <input class="title" name="title"

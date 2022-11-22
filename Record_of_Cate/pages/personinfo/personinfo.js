@@ -4,7 +4,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    head:"/images/member.png",
+    avatarUrl:"",
+    nickName:"",
+    mtoo:"",
     icon_r: 'https://manager.diandianxc.com/mine/enter.png',
     sex:[
       {name:'0',value:'男',checked:'true'},
@@ -14,6 +16,13 @@ Page({
     information:[],
     userSex:'',
     modalHidden:true
+  },
+  onShow: function () {
+    this.setData({
+      nickName:app.globalData.user_name,
+      avatarUrl:app.globalData.user_image_path,
+      motto:app.globalData.user_motto
+    })
   },
   // 点击更换手机相册或者电脑本地图片
 
@@ -25,8 +34,9 @@ Page({
        sourceType: ['album', 'camera'],
 
        success: function (res) {
+         app.globalData.head_image_path=res.tempFilePaths[0]
          that.setData({
-           head: res.tempFilePaths[0]
+           avatarUrl: res.tempFilePaths[0]
         })
       }
     })
@@ -64,14 +74,6 @@ Page({
   })
 },
 
-//图片预览
-// previewImage(e) {
-//   const current = e.target.dataset.src  //获取当前点击的 图片 url
-//   wx.previewImage({
-//     current,
-//     urls: this.data.info.licensePicUrls
-//   })
-// },
 
   //表单提交
   formSubmit(e){
@@ -107,10 +109,10 @@ Page({
     // 修改全局变量
     app.globalData.user_name = this.data.information['name']
     app.globalData.user_motto = this.data.information['sign']
-    app.globalData.user_image_path = this.data.head  //把用户头像存到全局变量之中
+    app.globalData.user_image_path = this.data.avatarUrl 
     //把用户头像存到微信云托管的对象存储之中
     wx.cloud.init()
-    const result = await this.uploadFile(this.data.head, 'test_id/head_image/my_head.jpg', function(res){
+    const result = await this.uploadFile(this.data.avatarUrl, 'test_id/head_image/my_head.jpg', function(res){
       console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
     })
     //把用户的信息上传到微信云托管的MySQL之中
@@ -123,6 +125,7 @@ Page({
         user_motto:this.data.information['sign'],
         head_image_path:result
       },
+      method:"POST",
       header: { 'content-type': 'application/json' },
       success: (res) =>{  //接口调用成功的回调函数
       console.log(res)

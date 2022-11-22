@@ -1,4 +1,4 @@
-<import src="../../conponents/history.wxml"/>
+
 <view>
     <!-- Tab布局 -->
     <view class='navBox'>
@@ -18,18 +18,22 @@
         <swiper-item class='swiperTtemBox'>
             <!-- <view>装备内容</view> -->
 
-  <view class="gz">
-
-  <image bindtap="getUrl1" src="/images/头像1.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/头像.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/头像2.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/头像3.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/头像4.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>\t
-  <image src="/images/头像5.jpg" style="width: 50px;height: 50px;border-radius: 50%;"></image>
-  </view>
+   <scroll-view class="scroll-box" scroll-x="true">
+          <view class="box" wx:for="{{pushs}}" wx:for-item="push">
+            <view class="head">
+              <image 
+              class="head" 
+              src="{{push.headportrait}}"
+              bindtap="gotoHomePage" data-url="{{push.homepage}}"></image>
+            </view>
+          </view>
+      </scroll-view>
   <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
-          <view wx:for="{{followpushs}}" wx:for-item="item" wx:key="" >
-            <template is="f-history"  data="{{ followpush : item}}" />
+    <view wx:for="{{followpushs}}" wx:for-item="followpush" wx:key="" >
+      <history cover_image="{{followpush.cover_image}}" 
+      title="{{followpush.name}}" 
+      cover_image_default="{{followpush.cover_image_default}}"
+      name="{{followpush.desc}}"></history>
           </view>
       </scroll-view>
 
@@ -42,15 +46,21 @@
       
       <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
         <view class="left">
-          <view wx:for="{{trips}}" wx:for-item="item" wx:key="" >
-            <template is="m-history"  wx:if="{{index%2==0}}" data="{{ trip : item}}" />
+          <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
+            <history cover_image="{{trip.cover_image}}" 
+      title="{{trip.name}}" 
+      cover_image_default="{{trip.cover_image_default}}"
+      name="{{trip.desc}}"></history>
           </view>
         </view>
   
     
         <view class="right">
-          <view wx:for="{{trips}}" wx:for-item="item" wx:key="">
-            <template is="m-history"  wx:if="{{index%2==1}}" data="{{ trip : item}}" />
+          <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
+    <history cover_image="{{trip.cover_image}}" 
+      title="{{trip.name}}" 
+      cover_image_default="{{trip.cover_image_default}}"
+      name="{{trip.desc}}"></history>
           </view>
         </view>
       </scroll-view>

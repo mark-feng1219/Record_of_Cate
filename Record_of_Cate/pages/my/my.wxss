@@ -92,6 +92,14 @@ page {
   font-weight: 100;
   color: #666;
 }
+.openid {
+  position: absolute;
+  left: 210rpx;
+  top: 270rpx;
+  font-size: 12px;
+  font-weight: 100;
+  color: #666;
+}
 .functiontext{
   margin-left: 5%;
   margin-top: 380rpx;

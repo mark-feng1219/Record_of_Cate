@@ -8,13 +8,13 @@
   <view class='icon'>
     <text>头像</text>
     <view class='icon-img'>  
-      <image bindtap="headimage" class='icon-head' src='{{head}}'></image>
+      <image bindtap="headimage" class='icon-head' src='{{avatarUrl}}'></image>
       <image class='icon-r' src='{{icon_r}}'></image>
     </view>
   </view>
   <view class='name'>
     <text>用户名</text>
-    <input name="name" type='text' placeholder-style='font-size:28rpx;' placeholder='请输入新用户名'></input>
+    <input name="name" type='text' placeholder-style='font-size:28rpx;' placeholder='{{nickName}}'></input>
   </view>
  
   <view class='sex'>
@@ -27,7 +27,7 @@
   </view>
   <view class='sign'>
     <text>签名</text>
-    <input name="sign" type='text' placeholder-style='font-size:28rpx;' placeholder='请输入签名'></input>
+    <input name="sign" type='text' placeholder-style='font-size:28rpx;' placeholder='{{motto}}'></input>
     </view>
   </view>
   <button form-type='submit'>提交</button>
