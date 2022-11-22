@@ -1,8 +1,5 @@
-<view>
-<textarea placeholder="在这里输入评论噢~" style="width: {{ windowWidth }}px; height: 800rpx; display: block; box-sizing: border-box; left: 36rpx; top: 20rpx;font-size: 13px;font-weight: 330;letter-spacing: 0.8px;"></textarea>
-</view>
+<form bindsubmit="onSubmit">
+<textarea name="content" placeholder="在这里输入评论噢~" style="width: {{ windowWidth }}px; height: 800rpx; display: block; box-sizing: border-box; left: 36rpx; top: 20rpx;font-size: 13px;font-weight: 330;letter-spacing: 0.8px;"></textarea>
 <van-toast id="custom-selector" />
-<view>
-    <button style="background-color: #FFC359;width: 650rpx;font-size: 38rpx;font-weight: 800;letter-spacing: 3px;color: white;border: wheat;" bindtap="test">发表</button>
-</view>
-
+    <button style="background-color: #FFC359;width: 650rpx;font-size: 38rpx;font-weight: 800;letter-spacing: 3px;color: white;border: wheat;" form-type='submit' bindtap="test">发表</button>
+</form>

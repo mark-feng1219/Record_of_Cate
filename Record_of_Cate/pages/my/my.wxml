@@ -4,6 +4,7 @@
     <text class="nickname">{{nickName}}</text>
     <!--格言  -->
     <view class="motto">{{motto}}</view>
+    <view class="openid">{{openid}}</view>
   </view>
   
   <view class="functiontext">常用功能</view>

@@ -9,9 +9,10 @@ App({
 
   },
   globalData: {
-    userInfo: null,
+    user_Info:"",
     user_image_path:"/images/member.png",
     user_name:"请登录",
     user_motto:"登陆后解锁功能",
+    user_openid:""
   }
 })

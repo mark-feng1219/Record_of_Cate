@@ -1,72 +1,54 @@
 // pages/my/my.js
 const app = getApp()
 Page({
-  result:"",
   login() {
-    /**wx.login({
-      success: function (r) {
-        var code = r.code;//登录凭证
-        if (code) {
-          //2、调用获取用户信息接口
-          wx.getUserInfo({
-            success: function (res) {
-              //3.请求自己的服务器，解密用户信息 获取unionId等加密信息
+      wx.getUserProfile({
+        desc: '必须授权才能继续使用',
+        //成功后会返回
+        success:(res)=>{
+          console.log('授权成功',res);
+          //修改全局变量
+          app.globalData.user_name=res.userInfo.nickName
+          app.globalData.user_image_path=res.userInfo.avatarUrl
+          // 把你的用户信息存到一个变量中方便下面使用
+          app.globalData.user_Info= res.userInfo
+          //获取openId（需要code来换取）这是用户的唯一标识符
+          // 获取code值
+          wx.login({
+            //成功放回
+            success:(res)=>{
+              console.log(res);
+              let code=res.code
+              var appid = "wx9acd048867e8aee8"
+              var secret = "1e74f746f419d6233288968cb00b0783"
+              // 通过code换取openId
               wx.request({
-                url: app.globalData.loginWXUrl,//自己的服务接口地址
-                method: 'post',
-                header: {
-                  'content-type': 'application/json'
-                },
-                data: { encryptedData: res.encryptedData, iv: res.iv, code: code },
-                success: function (res) {
-                  //4.解密成功后 获取自己服务器返回的结果
-                  if (res.data.return_code == 0) {
-                    console.log(res.data.data)
-                  } else {
-                    console.log('解密失败')
-                  }
-  
-                },
-                fail: function () {
-                  console.log('系统错误')
+                url: `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`,
+                success:(res)=>{
+                  console.log(res);
+                  app.globalData.user_openid=res.data.openid
+                  console.log(app.globalData.user_openid)
+                  this.setData({         
+                    openid:app.globalData.user_openid,
+                    userInfo:app.globalData.user_Info,
+                    nickName:app.globalData.user_name,avatarUrl:app.globalData.user_image_path,
+                    motto:app.globalData.user_motto
+                  })
                 }
               })
             },
-            fail: function () {
-              console.log('获取用户信息失败')
-            }
-          })
-  
-        } else {
-          console.log('获取用户登录态失败！' + r.errMsg)
-        }
-      },
-      fail: function () {
-        console.log('登陆失败')
-      }
-    }),*/
-      wx.getUserProfile({
-          desc: '必须授权才能继续使用', // 必填 声明获取用户个人信息后的用途，后续会展示在弹窗中
-          success:(res)=> { 
-            getApp().globalData.user_name=res.userInfo.nickName
-            app.globalData.user_image_path=res.userInfo.avatarUrl
-            console.log('授权成功', res);
-              this.setData({ 
-                userInfo:res.userInfo,
-                nickName:app.globalData.user_name,
-                avatarUrl:app.globalData.user_image_path,
-                motto:app.globalData.user_motto
-              })
-          },
-          fail:(err)=> {
+            fail:(err)=> {
               console.log('授权失败', err);
           }
+          })
+        }
       })
   },
   /**
    * 页面的初始数据
    */
   data: {
+    openid:"",
     userInfo:"",
     nickName:"",
     avatarUrl:"",
