@@ -35,7 +35,7 @@ def user_wxlogin():
     full_url = "http://api.weixin.qq.com/sns/jscode2session?"+ data
     
     req = urllib.request.Request(url=full_url,headers=headers)
-    return req
+    return {'iv':iv,'code':code}
 #     res = request.urlopen(req)
 #     response = res.read().decode('utf-8')
 
