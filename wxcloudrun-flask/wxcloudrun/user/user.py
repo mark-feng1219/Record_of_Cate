@@ -11,9 +11,9 @@ user = Blueprint("user", __name__, url_prefix= '/user')
 @user.route('/code', methods=['POST'])
 def user_wxlogin():
     iv = request.json.get('iv')   # 将前端json数据转为字典
-    return iv
-#     code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
-#     encrypteddata = request.json.get('encrypteddata')
+    code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
+    encrypteddata = request.json.get('encrypteddata')
+    return {'iv':iv,'code':code}
 #     appid = APPID  # 开发者关于微信小程序的appid
 #     appsecret = SECRET  # 开发者关于微信小程序的appsecret
 #     req_params = {
@@ -67,15 +67,13 @@ def user_modify():
     user_name = request.json.get('user_name')
     user_sex = request.json.get('user_sex')
     user_motto = request.json.get('user_motto')
-    
-    return head_image_path
 
     #进行更新
-#     res = update_user_info(user_id, head_image_path, user_name, user_sex, user_motto)
+    res = update_user_info(user_id, head_image_path, user_name, user_sex, user_motto)
 
     #返回状态
-#     status = {"status": res}
-#     return json.dumps(status)
+    status = {"status": res}
+    return json.dumps(status)
 
 
 
