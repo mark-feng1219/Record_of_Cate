@@ -23,10 +23,10 @@ def user_wxlogin():
     }
     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
 
-    response_data = requests.get(wx_login_api, params=req_params)# 向api发起get请求
+#     response_data = requests.get(wx_login_api, params=req_params)# 向api发起get请求
 
-    resdata = response_data.json()
-    return resdata
+#     resdata = response_data.json()
+    return {'iv':iv,'code':code,'appid':appid,'wx_login':wx_login_api}
 
 #     openid = resdata['openid']  # 得到用户关于当前小程序的openid
 #     session_key = resdata['session_key']  # 得到用户关于当前小程序的会话密钥session_key
