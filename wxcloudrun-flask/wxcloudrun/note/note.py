@@ -70,9 +70,10 @@ def upload_user_note():
     #json.dumps(test, indent=2, sort_keys=True, ensure_ascii=False)
 
 # 用于测试微信云托管能否接收POST参数
-@note.route('/receive_args',methods=['GET','POST'])
+@note.route('/receive_args',methods=['POST'])
 def test_arg():
-    user_id = request.values.get('user_id')
+    user_id = request.json.get('user_id')
+#     user_id = request.values.get('user_id')
     return user_id
 
 #用于测试
