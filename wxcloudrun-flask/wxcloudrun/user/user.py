@@ -15,26 +15,27 @@ def user_wxlogin():
     iv = request.json.get('iv')   # 将前端json数据转为字典
     code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
     encrypteddata = request.json.get('encrypteddata')
-    return {'iv':iv,'code':code}
-#     appid = APPID  # 开发者关于微信小程序的appid
-#     appsecret = SECRET  # 开发者关于微信小程序的appsecret
+
+    appid = APPID  # 开发者关于微信小程序的appid
+    appsecret = SECRET  # 开发者关于微信小程序的appsecret
 #     req_params = {
 #         'appid': appid,
 #         'secret': appsecret,
 #         'js_code': code,
 #         'grant_type': 'authorization_code'
 #     }
-#     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
-#     headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0'}
+    wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
+    headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0'}
     
-#     appid = parse.quote(appid)
-#     secret = parse.quote(appsecret)
-#     js_code = parse.quote(code)
-#     grant_type = parse.quote('authorization_code')
-#     data="appid="+appid+"&secret="+secret+"&js_code="+js_code+"&grant_type="+grant_type
-#     full_url = "http://api.weixin.qq.com/sns/jscode2session?"+ data
+    appid = urllib.parse.quote(appid)
+    secret = urllib.parse.quote(appsecret)
+    js_code = urllib.parse.quote(code)
+    grant_type = urllib.parse.quote('authorization_code')
+    data="appid="+appid+"&secret="+secret+"&js_code="+js_code+"&grant_type="+grant_type
+    full_url = "http://api.weixin.qq.com/sns/jscode2session?"+ data
     
-#     req = request.Request(url=full_url,headers=headers)
+    req = urllib.request.Request(url=full_url,headers=headers)
+    return {'iv':iv,'code':code}
 #     res = request.urlopen(req)
 #     response = res.read().decode('utf-8')
     
