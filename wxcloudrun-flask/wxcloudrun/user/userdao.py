@@ -18,7 +18,7 @@ def update_user_info(user_id, head_image_path, user_name, user_sex, user_motto):
         return "update_user_info success"
 
     except OperationalError as e:
-        logger.info("return_user_info errorMsg= {}".format(e))
+        logger.info("update_user_info errorMsg= {}".format(e))
 
 
 def search_id(openid):
@@ -33,6 +33,8 @@ def create_user(dbUser):
     try:
         db.session.add(dbUser)
         db.session.commit()
+
+        return "login success"
 
     except OperationalError as e:
         logger.info("create_user errorMsg= {} ".format(e))
