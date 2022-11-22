@@ -123,6 +123,7 @@ Page({
         user_motto:this.data.information['sign'],
         head_image_path:result
       },
+      method:"POST",
       header: { 'content-type': 'application/json' },
       success: (res) =>{  //接口调用成功的回调函数
       console.log(res)
