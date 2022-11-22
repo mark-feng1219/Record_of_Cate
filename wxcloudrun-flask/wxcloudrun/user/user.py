@@ -3,7 +3,8 @@ import json
 from wxcloudrun.model import dbUser
 from wxcloudrun.user.WXBizDataCrypt import WXBizDataCrypt
 from wxcloudrun.user.userdao import update_user_info, create_user, search_id
-from urllib import request,parse
+import urllib.parse
+import urllib.request   # 注意会与flask的request冲突
 # import requests
 from config import APPID, SECRET
 
@@ -14,16 +15,16 @@ def user_wxlogin():
     iv = request.json.get('iv')   # 将前端json数据转为字典
     code = request.json.get('code')  # 前端post过来的微信临时登录凭证code
     encrypteddata = request.json.get('encrypteddata')
-    appid = APPID  # 开发者关于微信小程序的appid
-    appsecret = SECRET  # 开发者关于微信小程序的appsecret
-    req_params = {
-        'appid': appid,
-        'secret': appsecret,
-        'js_code': code,
-        'grant_type': 'authorization_code'
-    }
-    wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
-    return {'iv':iv,'code':code,'appid':appid,'wx_login':wx_login_api}
+    return {'iv':iv,'code':code}
+#     appid = APPID  # 开发者关于微信小程序的appid
+#     appsecret = SECRET  # 开发者关于微信小程序的appsecret
+#     req_params = {
+#         'appid': appid,
+#         'secret': appsecret,
+#         'js_code': code,
+#         'grant_type': 'authorization_code'
+#     }
+#     wx_login_api = 'https://api.weixin.qq.com/sns/jscode2session'
 #     headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0'}
     
 #     appid = parse.quote(appid)
