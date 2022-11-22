@@ -2,11 +2,11 @@ import json
 from datetime import datetime
 from flask import request,Blueprint
 from run import app
-from wxcloudrun.note.notedao import insert_note, like_add_1, add_support, delete_support, like_delete_1, delete_content, \
-    test_class, return_user_newest, blogger_newest, return_like_note
+from wxcloudrun.note.notedao import like_add_1, add_support, delete_support, like_delete_1, delete_content, \
+    test_class, return_user_newest, blogger_newest, return_like_note, upload_note
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
 
-note = Blueprint("note", __name__, url_prefix= '/note')
+note = Blueprint("note", __name__, url_prefix='/note')
 
 @note.route('/')
 def index():
@@ -50,18 +50,19 @@ def delete_user_note():
     return res
 
 #上传笔记
-@note.route('/note/upload_user_note', methods=['GET','POST'])
+@note.route('/upload_user_note', methods=['POST'])
 def upload_user_note():
     note = dbNote()
-    note.publisher_time = datetime.now()
-    note.publisher_id = request.values.get('publisher_id')
-    note.note_id = request.values.get('note_id')
-    note.title = request.values.get('title')
-    note.photo_path = request.values.get('photo_path')
-    note.content = request.values.get('content')
-    note.tag = request.values.get('tag')
 
-    res = insert_note(note)
+    note.publisher_time = datetime.now()
+    note.publisher_id = request.json.get('publisher_id')
+    note.note_id = request.json.get('note_id')
+    note.title = request.json.get('title')
+    note.photo_path = request.json.get('photo_path')
+    note.content = request.json.get('content')
+    note.tag = request.json.get('tag')
+
+    res = upload_note(note)
 
     status = {"status": res}
     return json.dumps(status)
@@ -120,6 +121,7 @@ def reurn_myNote():
         photo_path_tmp.append(i.photo_path)
         # content_tmp.append(i.content)
         note_id_tmp.append(i.note_id)
+
         # 找到每篇note对应的所有comment
         # note_coment = select_comment(i.note_id)
         # s = [r.comment_content for r in note_coment]

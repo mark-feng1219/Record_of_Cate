@@ -9,11 +9,11 @@ from wxcloudrun.model import dbNote, dbSupport, dbFollow
 logger = logging.getLogger('log')
 
 #插入笔记
-def insert_note(dbNote):
+def upload_note(dbNote):
     try:
         db.session.add(dbNote)
         db.session.commit()
-        return "insert_note success"
+        return "upload_note success"
     except OperationalError as e:
         logger.info("insert_note errorMsg= {} ".format(e))
 
