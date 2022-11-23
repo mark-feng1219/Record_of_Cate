@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import request,Blueprint
 from run import app
 from wxcloudrun.comment.comment_function import return_comment
-from wxcloudrun.note.note_function import delete_content, upload_note, return_user_note, return_note
+from wxcloudrun.note.note_function import upload_note, return_user_note, return_note
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
 
 note = Blueprint("note", __name__, url_prefix='/note')
