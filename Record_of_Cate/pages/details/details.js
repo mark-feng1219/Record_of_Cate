@@ -19,15 +19,15 @@ Page({
       { name: '分享海报', icon: 'poster' },
       { name: '二维码', icon: 'qrcode' },
     ],
-    cardTeams: [{
-      "viewid": "1",
-      "imgdetailsrc": "/images/笔记详情照片.jpg",
-      "headportrait": "/images/头像1.jpg",
-      "name": "暖啊榆",
-      "title": "这是什么菜",
-      "content": "虽然还没有吃，但是看起来好好吃呀！我好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃！好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃！\n",
-     }
-     ],
+    cardTeams: [],
+    // cardTeams: [{
+    //   "viewid": "1",
+    //   "imgdetailsrc": "/images/笔记详情照片.jpg",
+    //   "headportrait": "/images/头像1.jpg",
+    //   "name": "暖啊榆",
+    //   "title": "这是什么菜",
+    //   "content": "虽然还没有吃，但是看起来好好吃呀！我好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃！好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃好想吃！\n",
+    //  }],
      comments: [{
        "name": "暖啊榆",
        "headportrait": "/images/头像1.jpg",
@@ -66,6 +66,31 @@ Page({
    */
   onLoad: function(options) {
     loading: (options.loading == "true" ? true : false)
+    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/comment/return_note_comment',
+      data: {
+        note_id:"test_note_id"
+      },
+      method:"GET", 
+      header: { 'content-type': 'application/json' },
+      success: (res) => {  //接口调用成功的回调函数
+      console.log(res)          // 收到https服务成功后返回
+      var note_info={}
+      note_info['viewid'] = 1
+      note_info["imgdetailsrc"] = "/images/笔记详情照片.jpg"
+      note_info["headportrait"] = "/images/头像1.jpg"
+      note_info["name"] = "暖啊榆"
+      note_info['title'] = "这是什么菜"
+      note_info['content'] = res.data['note_content']
+      this.data.cardTeams.push(note_info)
+      this.setData({
+        cardTeams:this.data.cardTeams
+      })
+      },
+      fail: function() {  //接口调用失败的回调函数
+      console.log('failure')  // 发生网络错误等情况触发
+      },
+    })
   },
   showcomment: function(){
     var that = this;

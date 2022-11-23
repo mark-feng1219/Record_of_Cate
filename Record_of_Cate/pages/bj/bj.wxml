@@ -25,11 +25,7 @@
             <navigator class="count" url="../zy/zy" style="margin-top: 13px;">{{cardTeam.count}}</navigator>
             </view>
             </view>
-<<<<<<< HEAD
-            <image class="img" style="margin-left: 45%;"src="{{cardTeam.imgsrc}}" mode="scaleToFill" ></image>
-=======
             <image class="imag" src="{{cardTeam.imgsrc}}" mode="aspectFill" ></image>
->>>>>>> 5b434f5d96edd5fff5eb3417b6efe0cfabb0aad7
             </view>
             </view>
         </swiper-item>
@@ -45,11 +41,7 @@
           <navigator class="count" url="../zy/zy" style="margin-top: 13px;">{{card_like_Team.count}}</navigator>
           </view>
           </view>
-<<<<<<< HEAD
-          <image class="img" style="margin-left: 45%;" src="{{card_like_Team.imgsrc}}" mode="scaleToFill"></image>
-=======
           <image class="imag" style="margin-left: 45%;" src="{{card_like_Team.imgsrc}}" mode="aspectFill" ></image>
->>>>>>> 5b434f5d96edd5fff5eb3417b6efe0cfabb0aad7
           </view>
           </view>
         </swiper-item>
