@@ -28,6 +28,7 @@
             </view>
           </view>
       </scroll-view>
+      
   <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
     <view wx:for="{{followpushs}}" wx:for-item="followpush" wx:key="" >
       <history cover_image="{{followpush.cover_image}}" 
@@ -50,17 +51,16 @@
             <history cover_image="{{trip.cover_image}}" 
       title="{{trip.name}}" 
       cover_image_default="{{trip.cover_image_default}}"
-      name="{{trip.desc}}"></history>
+      name="{{trip.desc}}" note_id="13494579" user_id="953463"></history>
           </view>
         </view>
-  
-    
+
         <view class="right">
           <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
     <history cover_image="{{trip.cover_image}}" 
       title="{{trip.name}}" 
       cover_image_default="{{trip.cover_image_default}}"
-      name="{{trip.desc}}"></history>
+      name="{{trip.desc}}" note_id="13494579" user_id="953463"></history>
           </view>
         </view>
       </scroll-view>

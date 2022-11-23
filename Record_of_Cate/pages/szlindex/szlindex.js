@@ -1,15 +1,13 @@
 // pages/szlindex/szlindex.js
 const app = getApp()
 Page({
-  
-
-  currentIndex: 0, //默认是活动项
   /**
    * 页面的初始数据
    */
   data: {
     start: 0,
     loading: false,
+    currentIndex: 0,
     followpushs: [
       {
         "cover_image": "/images/推荐1.jpg",
@@ -265,7 +263,7 @@ titleClick: function (e) {
         var num = Math.floor(bfb) * 2 + 2; //个数 
         var numtol = Math.floor(num * 4); //总框
         var panlwidth = widths - numtol;
-        console.log('dd : ' + panlwidth);
+        // console.log('dd : ' + panlwidth);
         //-------------------------------
         self.setData({
           width: Math.floor(panlwidth * 1.0 / Math.floor(bfb)),

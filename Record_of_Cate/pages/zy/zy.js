@@ -11,6 +11,10 @@ Page({
   data: {
     start: 0,
     loading: false,
+    follow: false,
+    count: 0,
+    yesSrc: '/images/已关注.png', // 已关注时的图片路径
+    noSrc: '/images/关注.png', // 没有关注时的图片路径
     
     trips: [
     {
@@ -81,9 +85,19 @@ Page({
       url: '/pages/zy/zy',
     })
   },
-  
-
-
+  onFollow: function(e) {
+    let follow = this.data.follow
+    let count = this.data.count
+    var xc = Array('您已取消关注','感谢您的关注') 
+    this.setData({ // 更新数据
+      follow: !follow,
+      count: (count+1)%2,
+    })
+    wx.showToast({
+      title: `${xc[this.data.count]}`,
+      icon: 'none',
+    });
+  },
   // 切换swiper-item触发bindchange事件
   pagechange: function (e) {
     // 通过touch判断，改变tab的下标值

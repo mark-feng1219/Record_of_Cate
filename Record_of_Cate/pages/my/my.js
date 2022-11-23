@@ -7,34 +7,52 @@ Page({
         //成功后会返回
         success:(res)=>{
           console.log('授权成功',res);
-          //修改全局变量
-          app.globalData.user_name=res.userInfo.nickName
-          app.globalData.user_image_path=res.userInfo.avatarUrl
-          // 把你的用户信息存到一个变量中方便下面使用
-          app.globalData.user_Info= res.userInfo
+          this.setData({
+            name_tmp : res.userInfo.nickName,
+            gender_tmp : res.userInfo.gender,
+            head_tmp : res.userInfo.avatarUrl
+          })
           //获取openId（需要code来换取）这是用户的唯一标识符
           // 获取code值
           wx.login({
-            //成功放回
             success:(res)=>{
-              console.log(res);
-              let code=res.code
-              var appid = "wx9acd048867e8aee8"
-              var secret = "1e74f746f419d6233288968cb00b0783"
-              // 通过code换取openId
-              wx.request({
-                url: `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`,
-                success:(res)=>{
-                  console.log(res);
-                  app.globalData.user_openid=res.data.openid
-                  console.log(app.globalData.user_openid)
-                  this.setData({         
-                    openid:app.globalData.user_openid,
-                    userInfo:app.globalData.user_Info,
-                    nickName:app.globalData.user_name,avatarUrl:app.globalData.user_image_path,
-                    motto:app.globalData.user_motto
+              this.setData({
+                code: res.code,
+                appid:"wx9acd048867e8aee8",
+                secret : "1e74f746f419d6233288968cb00b0783"
+              })
+              this.request_openid().then(async(res)=>{
+                console.log(res)
+                wx.request({ 
+                  // url:"http://192.168.70.24/user/login",
+                  url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/login',
+                  data: {
+                    openid:this.data.openid,
+                    Nickname:this.data.name_tmp,
+                    gender:this.data.gender_tmp,
+                    head_image : this.data.head_tmp
+                  },
+                  method:"POST",
+                  header: { 'content-type': 'application/json' },
+                  success: (r) => {       // 接口调用成功的回调函数
+                  console.log(r)          // 收到https服务成功后返回
+                  if(r!="login success"){
+                    app.globalData.user_sex = r.data['user_sex']
+                    app.globalData.user_name=r.data['user_name']
+                    app.globalData.user_image_path=r.data['user_head']
+                    app.globalData.user_motto = r.data['user_motto']
+                    app.globalData.login_state=1      //全局变量login_state变为1
+                    this.setData({
+                      nickName : app.globalData.user_name,
+                      avatarUrl : app.globalData.user_image_path,
+                      motto : app.globalData.user_motto,     // 令等于一个undefine将不会发生改变
+                      login_state : app.globalData.login_state
+                    })
+                  }},
+                  fail: function() {  //接口调用失败的回调函数
+                  console.log('failure')  // 发生网络错误等情况触发
+                  },
                   })
-                }
               })
             },
             fail:(err)=> {
@@ -44,15 +62,32 @@ Page({
         }
       })
   },
+  // 请求得到用户的openid
+  request_openid:function(){
+    var that = this
+    return new Promise(function(resolve,reject){  //同步
+    // 通过code换取openId
+    wx.request({
+      url: `https://api.weixin.qq.com/sns/jscode2session?appid=${that.data.appid}&secret=${that.data.secret}&js_code=${that.data.code}&grant_type=authorization_code`,
+      success:(res)=>{
+        resolve(res)
+        app.globalData.user_openid=res.data.openid
+        that.setData({         
+          openid:app.globalData.user_openid,
+        })
+      }
+    })
+    })
+  },
   /**
    * 页面的初始数据
    */
   data: {
     openid:"",
-    userInfo:"",
-    nickName:"",
-    avatarUrl:"",
-    motto:""
+    nickName:"请登录",
+    avatarUrl:"/images/member.png",
+    motto:"登陆后解锁功能",
+    login_state:0
   },
   onLoad(options) {
     wx.setNavigationBarColor({
@@ -63,13 +98,16 @@ Page({
         timingFunc: 'easeIn'
       }
     })
-
   },
-  onShow: function () {
+    /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {    //当从其他页面再回来的时候触发
     this.setData({
       nickName:app.globalData.user_name,
       avatarUrl:app.globalData.user_image_path,
-      motto:app.globalData.user_motto
+      motto:app.globalData.user_motto,
+      openid:app.globalData.user_openid,
     })
   },
 })
