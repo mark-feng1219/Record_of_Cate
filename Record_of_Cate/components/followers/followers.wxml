@@ -1,0 +1,13 @@
+<!--components/followers/followers.wxml-->
+<scroll-view class="scroll-box" scroll-x="true">
+          <view class="box" wx:for="{{pushs}}" wx:for-item="push">
+            <view class="head">
+              <image 
+              class="head" 
+              src="{{push.headportrait}}"
+              bindtap="gotoHomePage" data-url="{{push.homepage}}"></image>
+            </view>
+          </view>
+      </scroll-view>
+
+

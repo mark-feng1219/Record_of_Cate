@@ -41,7 +41,7 @@
           <navigator class="count" url="../zy/zy" style="margin-top: 13px;">{{card_like_Team.count}}</navigator>
           </view>
           </view>
-          <image class="imag" style="margin-left: 45%;" src="{{card_like_Team.imgsrc}}" mode="aspectFill" ></image>
+            <image class="imag" style="margin-left: 45%;" src="{{card_like_Team.imgsrc}}" mode="aspectFill" ></image>
           </view>
           </view>
         </swiper-item>

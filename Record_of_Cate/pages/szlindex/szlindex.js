@@ -110,7 +110,41 @@ Page({
         "desc": "热门游记"
       }
     ],
-
+    pushs:[{
+      "headportrait": "/images/头像1.jpg",
+      "homepage": "/pages/zy/zy"
+    },
+    {
+      "headportrait": "/images/头像.jpg",
+      "HomePage": "/pages/zy/zy"
+    },
+    {
+      "headportrait": "/images/头像2.jpg",
+      "HomePage": "/pages/zy/zy"
+    },
+    {
+      "headportrait": "/images/头像3.jpg",
+      "HomePage": "/pages/zy/zy"
+    },{
+      "headportrait": "/images/头像4.jpg",
+      "HomePage": "/pages/zy/zy"
+    },{
+      "headportrait": "/images/头像5.jpg",
+      "HomePage": "/pages/zy/zy"
+    },{
+      "headportrait": "/images/头像6.jpg",
+      "HomePage": "/pages/zy/zy"
+    },{
+      "headportrait": "/images/头像7.jpg",
+      "HomePage": "/pages/zy/zy"
+    },{
+      "headportrait": "/images/头像8.jpg",
+      "HomePage": "/pages/zy/zy"
+    },{
+      "headportrait": "/images/头像9.jpg",
+      "HomePage": "/pages/zy/zy"
+    },
+  ],
     msg1:'超级好吃',
     msg2:'超级好吃',
     msg3:'超级好吃',
@@ -240,6 +274,12 @@ titleClick: function (e) {
         })
       }
     });
+  },
+  gotoHomePage: function (e)  {
+    var url=e.currentTarget.dataset.url
+      wx.navigateTo({
+        url: url,
+      })
   },
 
   /**

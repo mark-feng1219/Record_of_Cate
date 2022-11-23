@@ -7,48 +7,6 @@ Page({
    */
   data: {
     // cardTeams:[],
-    cardTeams: [{
-     "imgsrc": "/images/笔记详情照片.jpg",
-     "Head_picture":"/images/头像1.jpg",
-     "count": "暖啊榆",
-     "name": "这是什么菜",
-    }, {
-     "imgsrc": "/images/笔记详情照片.jpg",
-     "Head_picture":"/images/头像1.jpg",
-     "count": "暖啊榆",
-     "name": "这是什么菜",
-    }, {
-     "imgsrc": "/images/笔记详情照片.jpg",
-     "Head_picture":"/images/头像1.jpg",
-     "count": "暖啊榆",
-     "name": "这是什么菜",
-    }, {
-     "imgsrc": "/images/笔记详情照片.jpg",
-     "Head_picture":"/images/头像1.jpg",
-     "count": "暖啊榆",
-     "name": "这是什么菜",
-    }],
-    card_like_Teams: [{
-      "imgsrc": "/images/笔记详情照片.jpg",
-      "Head_picture":"/images/头像1.jpg",
-      "count": "暖啊榆",
-      "name": "超喜欢这个板栗",
-     }, {
-      "imgsrc": "/images/笔记详情照片.jpg",
-      "Head_picture":"/images/头像1.jpg",
-      "count": "暖啊榆",
-      "name": "这是闽菜",
-     }, {
-      "imgsrc": "/images/笔记详情照片.jpg",
-      "Head_picture":"/images/头像1.jpg",
-      "count": "暖啊榆",
-      "name": "这是粤菜",
-     }, {
-      "imgsrc": "/images/笔记详情照片.jpg",
-      "Head_picture":"/images/头像1.jpg",
-      "count": "暖啊榆",
-      "name": "这是湘菜",
-     }],
     currentIndex:0,   // 默认展示笔记
     login_state:1,
     note_id_array:[],

@@ -2,74 +2,58 @@
 const app = getApp()
 Page({
   login() {
-    var that = this
-    wx.login({
-      success:function(res){
-        console.log(res.code)
-        that.setData({
-          code:res.code
-        })
-      }
-    })
-    wx.getUserProfile({
-        desc: '必须授权才能继续使用', // 必填 声明获取用户个人信息后的用途，后续会展示在弹窗中
-        success:(res)=> { 
-            console.log('授权成功', res);
-            this.setData({ 
-                userInfo:res.userInfo,
-                iv:res.iv,
-                encryptedData:res.encryptedData
-            })
-            wx.cloud.init()
-            const r = wx.cloud.callContainer({
-              "config": {
-                "env": "prod-1gzin06weddc0c77"
-              },
-              "path": "/user/code",
-              "header": {
-                "X-WX-SERVICE": "flask-ddml",
-                "content-type": "application/json"
-              },
-              "method": "POST",
-              "data": ""
-            })
-            console.log(r)
-            // wx.request({
-            //   url:'http://192.168.70.36:5000/user/code',
-            //   // url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/code',
-            //   data: {
-            //     iv:that.data.iv,
-            //     // code:that.data.code,
-            //     // encrypteddata:that.data.encryptedData
-            //   },
-            //   method:"POST",               //后续再改成POST
-            //   header: { 'content-type': 'application/json' },
-            //   success: function(res) {  //接口调用成功的回调函数
-            //   console.log(res)          // 收到https服务成功后返回
-            //   },
-            //   fail: function() {  //接口调用失败的回调函数
-            //   console.log('failure')  // 发生网络错误等情况触发
-            //   }
-            // })
-        },
-        fail:(err)=> {
-            console.log('授权失败', err);
+      wx.getUserProfile({
+        desc: '必须授权才能继续使用',
+        //成功后会返回
+        success:(res)=>{
+          console.log('授权成功',res);
+          //修改全局变量
+          app.globalData.user_name=res.userInfo.nickName
+          app.globalData.user_image_path=res.userInfo.avatarUrl
+          // 把你的用户信息存到一个变量中方便下面使用
+          app.globalData.user_Info= res.userInfo
+          //获取openId（需要code来换取）这是用户的唯一标识符
+          // 获取code值
+          wx.login({
+            //成功放回
+            success:(res)=>{
+              console.log(res);
+              let code=res.code
+              var appid = "wx9acd048867e8aee8"
+              var secret = "1e74f746f419d6233288968cb00b0783"
+              // 通过code换取openId
+              wx.request({
+                url: `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`,
+                success:(res)=>{
+                  console.log(res);
+                  app.globalData.user_openid=res.data.openid
+                  console.log(app.globalData.user_openid)
+                  this.setData({         
+                    openid:app.globalData.user_openid,
+                    userInfo:app.globalData.user_Info,
+                    nickName:app.globalData.user_name,avatarUrl:app.globalData.user_image_path,
+                    motto:app.globalData.user_motto
+                  })
+                }
+              })
+            },
+            fail:(err)=> {
+              console.log('授权失败', err);
+          }
+          })
         }
-    })
+      })
   },
   /**
    * 页面的初始数据
    */
   data: {
+    openid:"",
+    userInfo:"",
+    nickName:"",
+    avatarUrl:"",
+    motto:""
   },
-  goto2:function(){
-    wx.navigateTo({
-      url: '/pages/publishnote/publishnote',
-    })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad(options) {
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
@@ -80,5 +64,12 @@ Page({
       }
     })
 
-  }
+  },
+  onShow: function () {
+    this.setData({
+      nickName:app.globalData.user_name,
+      avatarUrl:app.globalData.user_image_path,
+      motto:app.globalData.user_motto
+    })
+  },
 })

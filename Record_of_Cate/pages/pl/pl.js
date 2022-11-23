@@ -1,13 +1,25 @@
 // pages/pl/pl.js
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    content:"",
+    openid:""
   },
+  onSubmit(e){
+    console.log('提交成功',e);
+    var content= e.detail.value;
+    this.setData({
+      content:content,
+      openid:app.globalData.user_name,
+      modalHidden:false
+    });
+  },
+
   test: function (){
     var comment_id = Date.now()
     console.log(comment_id)
@@ -15,8 +27,8 @@ Page({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/comment/insert_comment',
       data: {
         comment_id:comment_id,
-        comment_publisher_id:"test_id",
-        comment_content:"终于成功啦！",
+        comment_publisher_id:this.data.openid,
+        comment_content:this.data.content,
         publishAt_note_id:"1668432609"
       },
       method:"GET", 
