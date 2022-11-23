@@ -31,7 +31,6 @@ def search_id(openid):
 #创建新的用户
 def create_user(dbUser):
     try:
-
         db.session.add(dbUser)
         db.session.commit()
 

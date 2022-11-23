@@ -26,6 +26,7 @@ def user_wxlogin():
             user.user_name = user_name
             user.user_sex = '男'if user_sex==0 else '女'
             user.head_image_path = head_image_path
+
             res = create_user(user)  # 数据添加到数据库中
 
             return res
