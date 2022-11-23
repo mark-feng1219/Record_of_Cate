@@ -26,7 +26,6 @@
             </view>
             </view>
             <image class="imag" src="{{cardTeam.imgsrc}}" mode="aspectFill" ></image>
-
             </view>
             </view>
         </swiper-item>

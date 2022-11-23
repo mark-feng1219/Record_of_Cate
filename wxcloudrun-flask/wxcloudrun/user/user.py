@@ -49,13 +49,13 @@ def user_wxlogin():
 @user.route('/modify', methods=['POST'])
 def user_modify():
     # 寻找用户
-    user_id = request.json.get('user_id')
+    user_id = request.values.get('user_id')
 
     # 获取用户的最新信息
-    head_image_path = request.json.get('head_image_path')
-    user_name = request.json.get('user_name')
-    user_sex = request.json.get('user_sex')
-    user_motto = request.json.get('user_motto')
+    head_image_path = request.values.get('head_image_path')
+    user_name = request.values.get('user_name')
+    user_sex = request.values.get('user_sex')
+    user_motto = request.values.get('user_motto')
 
     #进行更新
     res = update_user_info(user_id, head_image_path, user_name, user_sex, user_motto)
@@ -63,9 +63,3 @@ def user_modify():
     #返回状态
     status = {"status": res}
     return json.dumps(status)
-
-
-
-
-
-
