@@ -19,7 +19,7 @@ class dbUser(db.Model):
     __tablename__ = 'user_info'
     user_id = db.Column('user_id', db.String(100), nullable=False, primary_key=True)
     user_name = db.Column('user_name', db.String(20), nullable=False)
-    head_image_path = db.Column('head_image_path', db.String(100), nullable=False,default='')
+    head_image_path = db.Column('head_image_path', db.String(255), nullable=False,default='')
     user_sex = db.Column('user_sex', db.String(4), default='保密')
     likes_num = db.Column('likes_num', db.Integer, nullable=False, default=0)
     follow_num = db.Column('follow_num', db.Integer, nullable=False, default=0)
