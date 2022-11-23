@@ -24,7 +24,7 @@ class dbUser(db.Model):
     likes_num = db.Column('likes_num', db.Integer, nullable=False, default=0)
     follow_num = db.Column('follow_num', db.Integer, nullable=False, default=0)
     fans_num = db.Column('fans_num', db.Integer, nullable=False, default=0)
-    user_motto = db.Column('user_motto', db.Text, nullable=False, default='')
+    user_motto = db.Column('user_motto', db.Text, nullable=False, default='这个人很懒~，什么都没留下')
 
 
 class dbComment(db.Model):
