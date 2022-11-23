@@ -27,6 +27,7 @@ Component({
    */
   data: {
     like: false,
+    count:0,
     yesSrc: '../images/点赞点亮.png', // 点赞时的图片路径
     noSrc: '../images/点赞未点亮.png' // 没有点赞时的图片路径
 
@@ -39,10 +40,17 @@ Component({
     onLike: function(e) {
       console.log(e.currentTarget.dataset)
       let like = this.properties.like
+      let count = this.properties.count
+      var lc = Array('您已取消点赞','您的点赞是我创作的鼓励！') 
       this.setData({ // 更新数据
         like: !like,
+        count: (count+1)%2,
         note_id:e.currentTarget.dataset['note_id'],
         user_id:e.currentTarget.dataset['user_id']
+      })
+      wx.showToast({
+        title: `${lc[this.properties.count]}`,
+        icon: 'none',
       })
       // 将用户点赞或取消点赞的动作上传至微信云托管
       if(this.data.like){
