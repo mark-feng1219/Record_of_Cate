@@ -1,4 +1,5 @@
 // pages/publishnote/publishnote.js
+const app = getApp()
 Page({
 
   /**
@@ -63,11 +64,13 @@ Page({
         console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
     })
     console.log(result)
+    var note_id=Date.now()
+    console.log(note_id)
     wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/upload_user_note',
       data: {
-        note_id:"87",
-        publisher_id:"test_id",
+        note_id:note_id,
+        publisher_id:app.globalData.openid,
         title:value.title,
         content:value.content,
         tag:value.label,
