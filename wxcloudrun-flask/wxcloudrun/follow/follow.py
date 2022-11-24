@@ -4,7 +4,7 @@ from flask import request,Blueprint
 from wxcloudrun.follow.follow_function import return_user_follow, blogger_fans_add, fans_follow_add, add_follow, \
     cancel_follow
 from wxcloudrun.model import dbFollow
-from wxcloudrun.note.note_function import return_user_note, order_by_time
+from wxcloudrun.note.note_function import return_user_note
 from wxcloudrun.user.user_function import return_id_name
 
 follow = Blueprint("follow", __name__, url_prefix='/follow')
@@ -45,7 +45,7 @@ def newest_5():
         note_newest = note_newest + blogger_note
 
     #按时间排序
-    note_newest.sort(key=lambda x: x.publisher_time, reverse=True)
+    note_newest.sort(key=lambda x: x.publish_time, reverse=True)
 
     note_id_tmp = []
     publisher_id_tmp =[]

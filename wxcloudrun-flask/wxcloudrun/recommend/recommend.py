@@ -7,9 +7,10 @@ from sqlalchemy import and_, TIMESTAMP, desc, func
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
-from wxcloudrun.note.notedao import return_like_note
 
 # 初始化日志
+from wxcloudrun.support.support_function import return_like_note
+
 logger = logging.getLogger('log')
 
 recommend = Blueprint("recommend", __name__, url_prefix='/recommend')
