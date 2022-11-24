@@ -1,19 +1,13 @@
 import json
 import logging
 import random
-
 from flask import Blueprint, request
 from sqlalchemy import and_, TIMESTAMP, desc, func
-from sqlalchemy.exc import OperationalError
-from wxcloudrun import db
+
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
-<<<<<<< HEAD
-=======
 from wxcloudrun.support.support_function import return_like_note
->>>>>>> 79ca491736bce8f6c683cab72794263df52ee9b1
 
 # 初始化日志
-from wxcloudrun.support.support_function import return_like_note
 
 logger = logging.getLogger('log')
 

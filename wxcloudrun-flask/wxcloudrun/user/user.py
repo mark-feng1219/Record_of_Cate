@@ -1,15 +1,13 @@
 from flask import request,Blueprint
 import json
+import logging
 from wxcloudrun.model import dbUser
 from wxcloudrun.user.WXBizDataCrypt import WXBizDataCrypt
 from wxcloudrun.user.user_function import update_user_info, create_user, search_id
-# import urllib.parse
-# import urllib.request   # 注意会与flask的request冲突
-import requests
-from config import APPID, SECRET
 
 user = Blueprint("user", __name__, url_prefix= '/user')
 
+logger = logging.getLogger('log') #初始化日志
 @user.route('/login', methods=['POST'])
 def user_wxlogin():
     try:

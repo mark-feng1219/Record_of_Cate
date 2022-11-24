@@ -1,5 +1,4 @@
 import logging
-
 from sqlalchemy import and_, TIMESTAMP, desc
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db

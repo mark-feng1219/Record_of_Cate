@@ -1,11 +1,12 @@
 import json
-from datetime import datetime
+import logging
 from flask import request, Blueprint
 from wxcloudrun.model import dbSupport
 from wxcloudrun.support.support_function import delete_support, like_delete_1, like_add_1, add_support, return_like_note
 
 support = Blueprint("support", __name__, url_prefix='/support')
 
+logger = logging.getLogger('log') #初始化日志
 
 #点赞或取消点赞
 @support.route('/operate_note',methods=['GET'])

@@ -1,12 +1,14 @@
 import json
+import logging
 from datetime import datetime
 from flask import request,Blueprint
-from run import app
 from wxcloudrun.comment.comment_function import return_comment
 from wxcloudrun.note.note_function import upload_note, return_user_note, return_note
-from wxcloudrun.model import dbNote, dbSupport, dbFollow
+from wxcloudrun.model import dbNote
 
 note = Blueprint("note", __name__, url_prefix='/note')
+
+logger = logging.getLogger('log') #初始化日志
 
 @note.route('/')
 def index():

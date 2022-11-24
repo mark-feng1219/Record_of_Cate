@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+import logging
 from flask import request,Blueprint
 from wxcloudrun.follow.follow_function import return_user_follow, blogger_fans_add, fans_follow_add, add_follow, \
     cancel_follow
@@ -8,6 +8,8 @@ from wxcloudrun.note.note_function import return_user_note
 from wxcloudrun.user.user_function import return_id_name
 
 follow = Blueprint("follow", __name__, url_prefix='/follow')
+
+logger = logging.getLogger('log') #初始化日志
 
 #用户所关注博主的信息
 @follow.route('/focus_user_info', methods=['GET'])

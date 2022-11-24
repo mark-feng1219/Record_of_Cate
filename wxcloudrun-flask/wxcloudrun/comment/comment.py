@@ -1,9 +1,11 @@
 import json
+import logging
 from datetime import datetime
 from wxcloudrun.model import dbComment
 from flask import Blueprint, request
-from wxcloudrun.comment.comment_function import insert_comment, return_comment
-from wxcloudrun.note.note_function import return_note
+from wxcloudrun.comment.comment_function import insert_comment
+
+logger = logging.getLogger('log') #初始化日志
 
 comment = Blueprint("comment", __name__, url_prefix='/comment')
 

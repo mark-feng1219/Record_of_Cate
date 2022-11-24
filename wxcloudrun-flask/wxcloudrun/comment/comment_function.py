@@ -24,4 +24,3 @@ def insert_comment(new_comment):
         return "insert_comment success"
     except OperationalError as e:
         logger.info("insert_comment errorMsg= {} ".format(e))
-        return "failure"
