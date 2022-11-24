@@ -108,41 +108,42 @@ Page({
         "desc": "热门游记"
       }
     ],
-    pushs:[{
-      "headportrait": "/images/头像1.jpg",
-      "homepage": "/pages/zy/zy"
-    },
-    {
-      "headportrait": "/images/头像.jpg",
-      "HomePage": "/pages/zy/zy"
-    },
-    {
-      "headportrait": "/images/头像2.jpg",
-      "HomePage": "/pages/zy/zy"
-    },
-    {
-      "headportrait": "/images/头像3.jpg",
-      "HomePage": "/pages/zy/zy"
-    },{
-      "headportrait": "/images/头像4.jpg",
-      "HomePage": "/pages/zy/zy"
-    },{
-      "headportrait": "/images/头像5.jpg",
-      "HomePage": "/pages/zy/zy"
-    },{
-      "headportrait": "/images/头像6.jpg",
-      "HomePage": "/pages/zy/zy"
-    },{
-      "headportrait": "/images/头像7.jpg",
-      "HomePage": "/pages/zy/zy"
-    },{
-      "headportrait": "/images/头像8.jpg",
-      "HomePage": "/pages/zy/zy"
-    },{
-      "headportrait": "/images/头像9.jpg",
-      "HomePage": "/pages/zy/zy"
-    },
-  ],
+    pushs:[],
+  //   pushs:[{
+  //     "headportrait": "/images/头像1.jpg",
+  //     "homepage": "/pages/zy/zy"
+  //   },
+  //   {
+  //     "headportrait": "/images/头像.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },
+  //   {
+  //     "headportrait": "/images/头像2.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },
+  //   {
+  //     "headportrait": "/images/头像3.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },{
+  //     "headportrait": "/images/头像4.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },{
+  //     "headportrait": "/images/头像5.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },{
+  //     "headportrait": "/images/头像6.jpg",
+  //     "HomePage": "/pages/zy/zy"
+  //   },{
+  //     "headportrait": "/images/头像7.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },{
+  //     "headportrait": "/images/头像8.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },{
+  //     "headportrait": "/images/头像9.jpg",
+  //     "homePage": "/pages/zy/zy"
+  //   },
+  // ],
     msg1:'超级好吃',
     msg2:'超级好吃',
     msg3:'超级好吃',
@@ -179,22 +180,6 @@ Page({
       }
     })
   },
-  getUrl: function (e) {
-    // var id = e.currentTarget.dataset.id;//获取到绑定的数据
-    //跳转传值
-    wx.navigateTo({
-      // url: '/pages/zy/zy?id=' + id,
-      url: '/pages/details/details',
-    })
-  },
-  getUrl1: function (e) {
-    // var id = e.currentTarget.dataset.id;//获取到绑定的数据
-    //跳转传值
-    wx.navigateTo({
-      // url: '/pages/zy/zy?id=' + id,
-      url: '/pages/zy/zy',
-    })
-  },
   jump4:function(event){
     this.setData({value:4}),
     wx.navigateTo({
@@ -204,9 +189,6 @@ Page({
       }
     })
   },
-  
-
-
   // 切换swiper-item触发bindchange事件
   pagechange: function (e) {
     // 通过touch判断，改变tab的下标值
@@ -272,21 +254,86 @@ titleClick: function (e) {
         })
       }
     });
+    wx.cloud.init()
+    this.request_focus_user().then(async(res)=>{
+      // 请求微信云托管的对象存储把用户头像图片返回
+      for(var i=0;i<res.data['user_head'].length;i++)
+      {
+      const result = await this.downloadFile(res.data['user_head'][i],function(res){console.log(`下载进度：${res.progress}%，已下载${res.totalBytesWritten}B，共${res.totalBytesExpectedToWrite}B`)})
+      var tmp_dict={}
+      tmp_dict['headportrait'] = result.tempFilePath
+      tmp_dict['user_id'] = res.data['user_id'][i]
+      this.data.pushs.push(tmp_dict)
+      this.setData({pushs:this.data.pushs})
+      }
+      console.log(this.data.pushs)
+    })
+    this.request_newest_5().then(async(res)=>{
+      //请求微信云托管返回所有关注的用户中最新的动态/最多展示5条
+      console.log(res)
+    })
   },
+  // 跳转至个人主页
   gotoHomePage: function (e)  {
-    var url=e.currentTarget.dataset.url
+    console.log(e.currentTarget.dataset)
+    var user_id = e.currentTarget.dataset['user_id']
       wx.navigateTo({
-        url: url,
+        url: '../zy/zy?user_id=' + user_id,
       })
   },
-
+// 加载所有关注的用户中最新的动态/最多展示5条
+  request_newest_5:function(){
+    return new Promise(function(resolve,reject){
+      wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+        url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/',
+        data: { user_id:"test_id"},
+        method:"GET",               //后续再改成POST
+        header: { 'content-type': 'application/json' },
+        success: (res) => {resolve(res);console.log(res)},
+        fail: function() {console.log('failure')},
+      })})
+  },
+// 加载关注的用户
+  request_focus_user:function(){
+    return new Promise(function(resolve,reject){
+    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/focus_user_info',
+      data: {user_id:"test_id"},
+      method:"GET",               //后续再改成POST
+      header: { 'content-type': 'application/json' },
+      success: (res) => {resolve(res);console.log(res)},
+      fail: function() {console.log('failure')},
+    })})
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
 
   },
-
+  // 下载微信云托管对象存储中的图片到本地
+  downloadFile(fileID, onCall = () => {}) {
+    return new Promise((resolve, reject) => {
+      const task = wx.cloud.downloadFile({
+        fileID,
+        success: res => resolve(res),
+        fail: e => {
+          const info = e.toString()
+          console.log(info)
+          if (info.indexOf('abort') != -1) {
+            reject(new Error('【文件下载失败】中断下载'))
+          } else {
+            reject(new Error('【文件下载失败】网络或其他错误'))
+          }
+        }
+      })
+      task.onProgressUpdate((res) => {
+        if (onCall(res) == false) {
+          task.abort()
+        }
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */

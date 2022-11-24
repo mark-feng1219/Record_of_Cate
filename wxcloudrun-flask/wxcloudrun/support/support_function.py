@@ -1,5 +1,4 @@
 import logging
-
 from sqlalchemy import and_, TIMESTAMP, desc, func
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db
@@ -7,15 +6,6 @@ from wxcloudrun.model import dbNote, dbSupport, dbFollow
 
 # 初始化日志
 logger = logging.getLogger('log')
-
-#插入笔记
-def upload_note(dbNote):
-    try:
-        db.session.add(dbNote)
-        db.session.commit()
-        return "upload_note success"
-    except OperationalError as e:
-        logger.info("insert_note errorMsg= {} ".format(e))
 
 #点赞数+1
 def like_add_1(note_id):
@@ -125,6 +115,3 @@ def return_like_note(user_id):
 
     except OperationalError as e:
         logger.info("return_like_note errorMsg= {} ".format(e))
-
-
-

@@ -1,14 +1,13 @@
 // pages/bj/bj.js
 const app = getApp()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    // cardTeams:[],
+    cardTeams:[],
+    card_like_Teams:[],
     currentIndex:0,   // 默认展示笔记
-    login_state:1,
     note_id_array:[],
     title_array:[],
     image_array:[],
@@ -17,10 +16,8 @@ Page({
     title_like_array:[]
   },
     getUrl: function (e) {
-      // var id = e.currentTarget.dataset.id;//获取到绑定的数据
-      //跳转传值
+      console.log(this.data.note_id_array)
       wx.navigateTo({
-        // url: '/pages/zy/zy?id=' + id,
         url: '/pages/details/details',
       })
     },
@@ -56,7 +53,8 @@ titleClick: function (e) {
         timingFunc: 'easeIn'
       }
     })
-    if(this.data.login_state=1){  //如果用户处于登录状态
+    console.log(app.globalData.login_state)
+    if(app.globalData.login_state==1){  //如果用户处于登录状态
       var note_list = wx.getStorageSync('note')
       var like_list = wx.getStorageSync('like')
       if(note_list!=[] || like_list!=[])   //结果不为空，即用户有本地缓存
@@ -88,8 +86,8 @@ titleClick: function (e) {
           {
             var tmp_dict={}
             tmp_dict['imgsrc'] = image_list[j]
-            tmp_dict['Head_picture'] = "/images/头像1.jpg"
-            tmp_dict['count'] = "暖啊榆"
+            tmp_dict['Head_picture'] = app.globalData.user_image_path
+            tmp_dict['count'] = app.globalData.user_name,
             tmp_dict['name'] = this.data.title_array[j]
             tmp_dict['note_id'] = this.data.note_id_array[j]
             this.data.cardTeams.push(tmp_dict)
@@ -117,8 +115,8 @@ titleClick: function (e) {
           {
             var tmp_dict={}
             tmp_dict['imgsrc'] = image_like_list[j]
-            tmp_dict['Head_picture'] = "/images/头像1.jpg"
-            tmp_dict['count'] = "抱着牛奶"
+            tmp_dict['Head_picture'] = app.globalData.user_image_path
+            tmp_dict['count'] = app.globalData.user_name
             tmp_dict['name'] = this.data.title_like_array[j]
             tmp_dict['note_id'] = this.data.note_id_like_array[j]
             this.data.card_like_Teams.push(tmp_dict)
@@ -138,7 +136,7 @@ titleClick: function (e) {
     // 向后端请求笔记的note_id/note_title/photo_path并存储到本地缓存
     return new Promise(function(resolve,reject){
     wx.request({
-    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/myNote',
+    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/user_note',
     data: {
       user_id:"test_id"
     },
@@ -159,7 +157,7 @@ titleClick: function (e) {
   request_like:function(){
     return new Promise(function(resolve,reject){
     wx.request({
-    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/myLikes',
+    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/like_note_info',
     data: {
       user_id:"test_id"
     },
@@ -207,8 +205,83 @@ titleClick: function (e) {
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
+  onShow() {    //避免用户第一步先点开笔记,再登录,再点开笔记没有任何的内容
+    console.log(app.globalData.login_state)
+    if(app.globalData.login_state==1){  //如果用户处于登录状态
+      var note_list = wx.getStorageSync('note')
+      var like_list = wx.getStorageSync('like')
+      if(note_list!=[] || like_list!=[])   //结果不为空，即用户有本地缓存
+      {
+        console.log("exist Storage")
+        this.setData({
+          cardTeams:note_list
+        })
+        this.setData({
+          card_like_Teams:like_list
+        })
+      }
+      else{          //结果为空，即用户没有本地缓存
+        wx.cloud.init()
+        var image_list = []                      // 存储在本地缓存的图像数组
+        this.request_note().then(async(res)=>{
+          this.setData({
+            image_array:res.data['photo_path'],
+            note_id_array:res.data['note_id'],
+            title_array:res.data['title']
+          })
+         // 根据笔记的image_path请求微信云托管的对象存储把图片返回
+          for(var i=0;i<this.data.image_array.length;i++)
+          {
+          const result = await this.downloadFile(this.data.image_array[i],function(){})
+          image_list.push(result.tempFilePath)    // 把图片缓存路径加到image_array数组里
+          }
+          for(var j=0;j<this.data.note_id_array.length;j++)
+          {
+            var tmp_dict={}
+            tmp_dict['imgsrc'] = image_list[j]
+            tmp_dict['Head_picture'] = app.globalData.user_image_path
+            tmp_dict['count'] = app.globalData.user_name,
+            tmp_dict['name'] = this.data.title_array[j]
+            tmp_dict['note_id'] = this.data.note_id_array[j]
+            this.data.cardTeams.push(tmp_dict)
+          }
+          this.setData({
+            cardTeams:this.data.cardTeams
+          })
+          wx.setStorageSync('note',this.data.cardTeams)
+        })
 
+        var image_like_list = []                      // 存储在本地缓存的图像数组
+        this.request_like().then(async(res)=>{
+          this.setData({
+            image_like_array:res.data['photo_path'],
+            note_id_like_array:res.data['note_id'],
+            title_like_array:res.data['title']
+          })
+          // 根据笔记的image_path请求微信云托管的对象存储把图片返回
+          for(var i=0;i<this.data.image_like_array.length;i++)
+          {
+          const result = await this.downloadFile(this.data.image_like_array[i],function(){})
+          image_like_list.push(result.tempFilePath)    // 把图片缓存路径加到image_array数组里
+          }
+          for(var j=0;j<this.data.note_id_like_array.length;j++)
+          {
+            var tmp_dict={}
+            tmp_dict['imgsrc'] = image_like_list[j]
+            tmp_dict['Head_picture'] = app.globalData.user_image_path
+            tmp_dict['count'] = app.globalData.user_name
+            tmp_dict['name'] = this.data.title_like_array[j]
+            tmp_dict['note_id'] = this.data.note_id_like_array[j]
+            this.data.card_like_Teams.push(tmp_dict)
+          }
+          this.setData({
+            card_like_Teams:this.data.card_like_Teams
+          })
+          // console.log(this.data.image_like_array)
+          wx.setStorageSync('like',this.data.card_like_Teams)
+        })
+      }
+    }
   },
 
   /**

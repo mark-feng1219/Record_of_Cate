@@ -31,16 +31,16 @@
             
             <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
               <view class="left">
-                <view wx:for="{{trips}}" wx:for-item="item" wx:key="" >
-                  <template is="m-history"  wx:if="{{index%2==0}}" data="{{ trip : item}}" />
-                </view>
+                <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
+            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
+          </view>
               </view>
         
           
               <view class="right">
-                <view wx:for="{{trips}}" wx:for-item="item" wx:key="">
-                  <template is="m-history"  wx:if="{{index%2==1}}" data="{{ trip : item}}" />
-                </view>
+                <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
+                <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
+          </view>
               </view>
             </scroll-view>
 
