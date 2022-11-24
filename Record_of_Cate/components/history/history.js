@@ -93,14 +93,14 @@ Component({
       console.log(e.currentTarget.dataset)
       wx.navigateTo({
         // url: '/pages/zy/zy?id=' + id,
-        url: '/pages/details/details?user_id=' + e.currentTarget.dataset['user_id'],
+        url: '/pages/details/details?note_id=' + e.currentTarget.dataset['note_id'],
       })
     },
     getUrl1: function (e) {
       console.log(e.currentTarget.dataset)
       wx.navigateTo({
         // url: '/pages/zy/zy?id=' + id,
-        url: '/pages/zy/zy?note_id='+ e.currentTarget.dataset['note_id'],
+        url: '/pages/zy/zy?user_id='+ e.currentTarget.dataset['user_id'],
       })
     },
 

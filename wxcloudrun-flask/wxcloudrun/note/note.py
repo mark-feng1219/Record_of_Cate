@@ -21,7 +21,7 @@ def index():
 def upload_user_note():
     note = dbNote() #创建新的笔记
 
-    note.publisher_time = datetime.now()
+    note.publish_time = datetime.now()
     note.publisher_id = request.json.get('publisher_id')
     note.note_id = request.json.get('note_id')
     note.title = request.json.get('title')

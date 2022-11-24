@@ -1,5 +1,5 @@
 import logging
-from sqlalchemy import and_, TIMESTAMP, desc
+from sqlalchemy import and_, TIMESTAMP, desc, func
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
@@ -50,6 +50,54 @@ def delete_support(note_id,user_id):
     except OperationalError as e:
         logger.info("delete_support errorMsg= {} ".format(e))
 
+#删除note
+def delete_content(note_id):
+    try:
+        counter = dbNote.query.filter(dbNote.note_id == note_id).first()
+        if counter is None:
+            return 'failed'
+        else:
+            db.session.delete(counter)
+            db.session.commit()
+            return "delete_content success"
+
+    except OperationalError as e:
+        logger.info("delete_content errorMsg= {} ".format(e))
+
+def test_class(user_id):
+    counter = dbNote.query.filter(dbNote.publisher_id == user_id).all()
+    # counter = counter.sort(key=lambda x: x.publish_time, reverse=False)
+    if isinstance(counter,list):
+        return 'yes'
+    else:
+        return 'no'
+
+#返回关注的博主笔记
+def blogger_newest(fans_id):
+    try:
+        tmp = []
+        counter = dbFollow.query.filter(dbFollow.fans_id == fans_id).all()
+        if counter is None:
+            return 'failed'
+        else:
+            for i in range(0, len(counter)):
+                res = dbNote.query.filter(dbNote.publisher_id == counter[i].blogger_id).first()
+                tmp.append(res)
+            return tmp
+
+    except OperationalError as e:
+        logger.info("blogger_newest errorMsg= {} ".format(e))
+
+#返回用户的笔记
+def return_user_newest(user_id):
+    try:
+        counter = dbNote.query.filter(dbNote.publisher_id == user_id).order_by(desc(dbNote.publish_time)).all()
+        if counter is None:
+            return 'failed'
+        else:
+            return counter
+    except OperationalError as e:
+        logger.info("return_user_newest errorMsg= {}".format(e))
 
 #返回用户喜欢的笔记
 def return_like_note(user_id):
@@ -61,7 +109,8 @@ def return_like_note(user_id):
         else:
             for i in range(0, len(counter)):
                 res = dbNote.query.filter(dbNote.note_id == counter[i].note_id).first()
-                tmp.append(res)
+                if res is not None:
+                    tmp.append(res)
             return tmp
 
     except OperationalError as e:
