@@ -7,5 +7,5 @@ from wxcloudrun import app
 if __name__ == '__main__':
 
     # app.run(host=sys.argv[1], port=sys.argv[2]) # 服务器运行
-    app.run(host='0.0.0.0', port=5000)  # 本地运行
+    app.run(host='0.0.0.0', port=80)  # 本地运行
 #
