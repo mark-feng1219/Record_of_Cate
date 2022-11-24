@@ -39,10 +39,12 @@ def newest_5():
     user_followed = return_user_follow(user_id) #用户关注的所有博主
     note_newest = []
 
+    #所有关注的博主发布的所有笔记用note_newest存储(使用连接而不是append)
     for i in user_followed:
         blogger_note = return_user_note(i.user_id) #每个博主发布的所有笔记
         note_newest = note_newest + blogger_note
 
+    #按时间排序
     note_newest.sort(key=lambda x: x.publisher_time, reverse=True)
 
     note_id_tmp = []
@@ -52,6 +54,7 @@ def newest_5():
     note_title_tmp = []
 
     count = 1
+    #保存最新五条笔记的信息
     for i in note_newest:
         if count > 5:
             break
@@ -62,6 +65,7 @@ def newest_5():
             note_title_tmp.append(i.title)
             count = count + 1
 
+    #寻找发布id的name
     for i in range(0, len(publisher_id_tmp)):
         id_name = return_id_name(publisher_id_tmp[i])
         publisher_name_tmp.append(id_name)
@@ -136,9 +140,8 @@ def test():
     note_id_tmp = []
     publisher_id_tmp =[]
     publisher_name_tmp = []
-    note_image_tmp  = []
+    note_image_tmp = []
     note_title_tmp = []
-
 
     for i in note_newest:
         note_id_tmp.append(i.note_id)
