@@ -75,7 +75,7 @@ def cancel_follow(blogger_id, fans_id):
 
 
 
-#返回用户关注的博主 dbUser类型
+#返回用户关注的博主 dbUser类型构成的list
 def return_user_follow(user_id):
     try:
         counter = dbFollow.query.filter(dbFollow.fans_id == user_id).all()

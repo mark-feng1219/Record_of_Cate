@@ -39,4 +39,11 @@ def create_user(dbUser):
     except OperationalError as e:
         logger.info("create_user errorMsg= {} ".format(e))
 
+#根据user_id返回名字
+def return_id_name(user_id):
+    try:
+        counter = dbUser.query.filter(dbUser.user_id == user_id).first()
+        return counter.user_name
+    except OperationalError as e:
+        logger.info("search_id errorMsg= {}".format(e))
 
