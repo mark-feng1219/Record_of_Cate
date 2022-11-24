@@ -8,6 +8,8 @@ from wxcloudrun.user.user_function import update_user_info, create_user, search_
 user = Blueprint("user", __name__, url_prefix= '/user')
 
 logger = logging.getLogger('log') #初始化日志
+
+
 @user.route('/login', methods=['POST'])
 def user_wxlogin():
     try:

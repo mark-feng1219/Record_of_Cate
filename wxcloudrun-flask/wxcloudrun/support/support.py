@@ -2,7 +2,8 @@ import json
 import logging
 from flask import request, Blueprint
 from wxcloudrun.model import dbSupport
-from wxcloudrun.support.support_function import delete_support, like_delete_1, like_add_1, add_support, return_like_note
+from wxcloudrun.support.support_function import delete_support, like_delete_1, like_add_1, add_support, \
+    return_like_note, user_like_add, user_like_cancel
 
 support = Blueprint("support", __name__, url_prefix='/support')
 
@@ -16,23 +17,39 @@ def operate_note():
     choice = request.args.get('choice')
     if choice == "insert":
         # note的点赞数+1
-        res_note = like_add_1(note_id)
+        res_1 = like_add_1(note_id)
+
+        #用户喜欢数+1
+        res_2 = user_like_add(user_id)
 
         # support表增加记录
         support = dbSupport()
         support.note_id = note_id
         support.user_id = user_id
-        res_user = add_support(support)
+        res_3 = add_support(support)
 
-        return res_note + '\n' + res_user
+        if res_1 and res_2 and res_3:
+            res = 'like success'
+        else:
+            res = 'like failed'
+
+        return json.dumps(res)
 
     if choice == "delete":
-        # note的点赞数+1
-        res_note = like_delete_1(note_id)
-        #support表删除记录
-        res_user = delete_support(note_id, user_id)
+        # note的点赞数-1
+        res_1 = like_delete_1(note_id)
 
-        return res_note + "\n" + res_user
+        # 用户的喜欢数-1
+        res_2 = user_like_cancel(user_id)
+
+        # support表删除记录
+        res_3 = delete_support(note_id, user_id)
+
+        if res_1 and res_2 and res_3:
+            res = 'cancel success'
+        else:
+            res = 'cancel failed'
+        return json.dumps(res)
 
 #返回用户点赞的笔记的信息
 @support.route('/like_note_info',methods=['GET'])

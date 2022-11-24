@@ -17,6 +17,7 @@ def blogger_fans_add(blogger_id):
     except OperationalError as e:
         logger.info("fans_follow_add errorMsg= {} ".format(e))
 
+
 # fans的关注数+1
 def fans_follow_add(fans_id):
     try:
@@ -27,6 +28,7 @@ def fans_follow_add(fans_id):
     except OperationalError as e:
         logger.info("fans_follow_add errorMsg= {} ".format(e))
 
+
 #follow表增加记录
 def add_follow(dbFollow):
     try:
@@ -35,7 +37,6 @@ def add_follow(dbFollow):
         return True
     except OperationalError as e:
         logger.info("add_follow errorMsg= {} ".format(e))
-
 
 
 # blogger的粉丝数-1
@@ -48,6 +49,7 @@ def blogger_fans_cancel(blogger_id):
     except OperationalError as e:
         logger.info("blogger_fans_cancel errorMsg= {} ".format(e))
 
+
 # fans的关注数-1
 def fans_follow_cancel(fans_id):
     try:
@@ -57,6 +59,7 @@ def fans_follow_cancel(fans_id):
 
     except OperationalError as e:
         logger.info("fans_follow_cancel errorMsg= {} ".format(e))
+
 
 #follow表取消记录
 def cancel_follow(blogger_id, fans_id):
@@ -71,7 +74,6 @@ def cancel_follow(blogger_id, fans_id):
 
     except OperationalError as e:
         logger.info("cancel_follow errorMsg= {} ".format(e))
-
 
 
 #返回用户关注的博主 dbUser类型构成的list

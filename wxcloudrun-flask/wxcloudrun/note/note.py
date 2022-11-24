@@ -39,9 +39,13 @@ def upload_user_note():
     #json.dumps(test, indent=2, sort_keys=True, ensure_ascii=False)
 
 
-#返回选中用户的笔记
-@note.route('/user_note', methods=['GET'])
-def user_note():
+#别人的主页，返回该用户的name，
+
+
+
+#返回我的所有笔记信息
+@note.route('/mynote', methods=['GET'])
+def mynote():
 
     user_id = request.args.get('user_id')
     user_newest = return_user_note(user_id)

@@ -18,6 +18,7 @@ recommend = Blueprint("recommend", __name__, url_prefix='/recommend')
 # 有点赞，则在点赞中抽取一片笔记返回
 # 无点赞，返回点赞最多的10篇笔记中任意一篇
 @recommend.route('/')
+#从所有数据中随机
 def recommendFunc():
     user_id = request.args.get('user_id')
     like_note = return_like_note(user_id)  # 数组类型

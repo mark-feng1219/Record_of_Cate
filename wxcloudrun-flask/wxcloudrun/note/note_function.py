@@ -17,7 +17,7 @@ def upload_note(dbNote):
         logger.info("insert_note errorMsg= {} ".format(e))
 
 
-#返回用户的笔记,返回值dbNote类型构成的list
+#返回用户的所有笔记,返回值dbNote类型构成的list
 def return_user_note(user_id):
     try:
         counter = dbNote.query.filter(dbNote.publisher_id == user_id).order_by(desc(dbNote.publish_time)).all()
@@ -26,7 +26,7 @@ def return_user_note(user_id):
         else:
             return counter
     except OperationalError as e:
-        logger.info("return_user_newest errorMsg= {}".format(e))
+        logger.info("return_user_note errorMsg= {}".format(e))
 
 
 #返回笔记信息，返回值dbNote类型

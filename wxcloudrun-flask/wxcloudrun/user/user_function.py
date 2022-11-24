@@ -28,6 +28,7 @@ def search_id(openid):
     except OperationalError as e:
         logger.info("search_id errorMsg= {}".format(e))
 
+
 #创建新的用户
 def create_user(dbUser):
     try:
@@ -38,6 +39,7 @@ def create_user(dbUser):
 
     except OperationalError as e:
         logger.info("create_user errorMsg= {} ".format(e))
+
 
 #根据user_id返回名字
 def return_id_name(user_id):
