@@ -7,7 +7,7 @@ from sqlalchemy import and_, TIMESTAMP, desc, func
 from sqlalchemy.exc import OperationalError
 from wxcloudrun import db
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
-from wxcloudrun.note.notedao import return_like_note
+from wxcloudrun.support.support_function import return_like_note
 
 # 初始化日志
 logger = logging.getLogger('log')
