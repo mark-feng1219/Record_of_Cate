@@ -1,4 +1,3 @@
-
 <view>
     <!-- Tab布局 -->
     <view class='navBox'>
@@ -22,7 +21,7 @@
       <scroll-view class="scroll-box" scroll-x="true">
         <view class="box" wx:for="{{pushs}}" wx:for-item="push">
           <view class="head">
-            <image class="head" src="{{push.headportrait}}" bindtap="gotoHomePage" data-user_id="{{push.user_id}}"></image>
+            <image class="head" src="{{push.headportrait}}" bindtap="gotoHomePage" data-user_id="{{push.user_id}}" data-headportrait="{{push.headportrait}}" data-user_name="{{push.user_name}}"></image>
           </view>
         </view>
       </scroll-view>
@@ -30,7 +29,7 @@
       <!-- 关注的用户的最新动态 -->
       <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
       <view wx:for="{{followpushs}}" wx:for-item="followpush" wx:key="" >
-      <history cover_image="{{followpush.cover_image}}"  title="{{followpush.name}}" cover_image_default="{{followpush.cover_image_default}}" name="{{followpush.desc}}" note_id="{{followpush.note_id}}" user_id="{{user_id}}"></history>
+      <history cover_image="{{followpush.cover_image}}"  title="{{followpush.name}}" cover_image_default="{{followpush.cover_image_default}}" name="{{followpush.desc}}" note_id="{{followpush.note_id}}" user_id="{{followpush.publisher_id}}"></history>
       </view>
       </scroll-view>
 

@@ -24,52 +24,48 @@
 
     <!-- 内容布局 -->
   <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
-
-    <swiper-item class='swiperTtemBox'>
-            <view class="city_history">            
-            <view class="history_content">
-            
-            <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
-              <view class="left">
-                <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
-            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.user_id}}"></history>
-          </view>
-              </view>
-        
-          
-              <view class="right">
-                <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
-                <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.user_id}}"></history>
-          </view>
-              </view>
-            </scroll-view>
-
-            </view>
-            
+  <!-- 其他用户的笔记 -->
+   <swiper-item class='swiperTtemBox'>
+    <view class="city_history">            
+      <view class="history_content">
+        <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
+        <!-- 其他用户的笔记的瀑布流左边 -->
+        <view class="left">
+        <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
+         <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.user_id}}"></history>
         </view>
-        </swiper-item>
+        </view>
+        <!-- 其他用户的笔记的瀑布流右边 -->
+        <view class="right">
+        <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
+         <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.user_id}}"></history>
+        </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</swiper-item>
 
-  
- <!-- <view>2</view> -->
- <swiper-item class='swiperTtemBox'>
+<!-- 其他的用户的点赞 -->
+<swiper-item class='swiperTtemBox'>
   <view class="city_history">
     <view class="history_content">
        <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
         <!-- 瀑布流左边 -->
         <view class="left">
-          <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
-            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
-          </view>
+        <view wx:for="{{like_trips}}" wx:for-item="like_trip" wx:key="" wx:if="{{index%2==0}}">
+        <history cover_image="{{like_trip.cover_image}}" title="{{like_trip.name}}" cover_image_default="{{like_trip.cover_image_default}}" name="{{like_trip.desc}}" note_id="{{like_trip.note_id}}" user_id="{{like_trip.user_id}}"></history>
+        </view>
         </view>
         <!-- 瀑布流右边 -->
         <view class="right">
-          <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
-            <history cover_image="{{trip.cover_image}}"  title="{{trip.name}}"cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
-          </view>
+        <view wx:for="{{like_trips}}" wx:for-item="like_trip" wx:key="" wx:if="{{index%2==1}}">
+        <history cover_image="{{like_trip.cover_image}}"  title="{{like_trip.name}}"cover_image_default="{{like_trip.cover_image_default}}" name="{{like_trip.desc}}" note_id="{{like_trip.note_id}}" user_id="{{like_trip.user_id}}"></history>
         </view>
-      </scroll-view>
-    </view>
+      </view>
+    </scroll-view>
   </view>
+</view>
 </swiper-item>
   <!-- <view>装备内容</view> -->     
     </swiper>

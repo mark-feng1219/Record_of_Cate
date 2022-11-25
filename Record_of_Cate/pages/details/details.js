@@ -68,15 +68,12 @@ Page({
     console.log(options)
     var note_id = options.note_id
     loading: (options.loading == "true" ? true : false)
-    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+    wx.request({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/note_details',
-      data: {
-        note_id:note_id
-      },
-      method:"GET", 
+      data: {note_id:note_id},
       header: { 'content-type': 'application/json' },
-      success: (res) => {  //接口调用成功的回调函数
-      console.log(res)          // 收到https服务成功后返回
+      success: (res) => {
+      console.log('请求返回笔记的内容和评论:',res)
       var note_info={}
       note_info['viewid'] = 1
       note_info["imgdetailsrc"] = options.cover_image

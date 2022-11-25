@@ -2,13 +2,11 @@
 const app = getApp()
 
 Page({
-  currentIndex: 0, //默认是活动项
- 
- 
   /**
    * 页面的初始数据
    */
   data: {
+    currentIndex: 0, //默认是活动项
     start: 0,
     loading: false,
     follow: false,
@@ -17,14 +15,6 @@ Page({
     noSrc: '/images/关注.png', // 没有关注时的图片路径
     trips: [],
     like_trips: [],
-    // trips: [
-    // {
-    //     "cover_image": "/images/推荐1.jpg",
-    //     "cover_image_default": "/images/头像1.jpg",
-    //     "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
-    //     "desc": "热门游记"
-    //   }
-    // ],
     value:0
   },
   onFollow: function(e) {
@@ -110,7 +100,7 @@ titleClick: function (e) {
       var like_title_array = res.data['title']
       for(var i=0;i<like_id_array.length;i++){
         var tmp_dict={}
-        tmp_dict['cover_image'] = like_image_array[i]
+        tmp_dict['cover_image'] = like_image_array[i]      //居然可以从存储桶cloud里直接下
         tmp_dict['cover_image_default'] = this.data.blogger_head
         tmp_dict['name'] = like_title_array[i]
         tmp_dict['desc'] = this.data.blogger_name
@@ -129,7 +119,7 @@ titleClick: function (e) {
     url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/mynote',
     data: {user_id:that.data.blogger_id},
     header: { 'content-type': 'application/json' },
-    success: (res) =>{resolve(res);console.log(res)},
+    success: (res) =>{resolve(res);console.log('请求笔记:',res)},
     fail: function() {console.log('failure')},
     })})
   },
@@ -141,7 +131,7 @@ titleClick: function (e) {
     url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/like_note_info',
     data: {user_id:that.data.blogger_id},
     header: { 'content-type': 'application/json' },
-    success: (res) =>{resolve(res);console.log(res)},
+    success: (res) =>{resolve(res);console.log('请求点赞:',res)},
     fail: function() {console.log('failure')},
     })})
   },
