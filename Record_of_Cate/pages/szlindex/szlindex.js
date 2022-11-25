@@ -200,6 +200,7 @@ titleClick: function (e) {
       tmp_dict['desc'] = res.data['publisher_name'][i]
       tmp_dict['name'] = res.data['note_title'][i]
       tmp_dict['note_id'] = res.data['note_id'][i]
+      tmp_dict['publisher_id'] = res.data['publisher_id'][i]
       this.data.followpushs.push(tmp_dict)
       this.setData({followpushs:this.data.followpushs})
       }

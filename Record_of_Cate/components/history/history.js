@@ -69,13 +69,11 @@ Component({
         })
     },
     getUrl: function (e) {     //跳转至笔记的详情页
-      console.log(e.currentTarget.dataset)
       wx.navigateTo({
         url: '/pages/details/details?note_id=' + e.currentTarget.dataset['note_id'] + '&title=' + e.currentTarget.dataset['note_title'] + '&name=' + e.currentTarget.dataset['publisher'] + '&cover_image=' + e.currentTarget.dataset['image'] + '&user_head=' + e.currentTarget.dataset['publisher_head'] 
       })
     },
     getUrl1: function (e) {    //跳转至用户的个人主页
-      console.log(e.currentTarget.dataset)
       wx.navigateTo({
         url: '/pages/zy/zy?user_id='+ e.currentTarget.dataset['user_id'] + '&user_name=' + e.currentTarget.dataset['publisher'] + '&user_head=' + e.currentTarget.dataset['publisher_head'] 
       })
