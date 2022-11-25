@@ -35,6 +35,7 @@ class dbComment(db.Model):
     publishAt_note_id = db.Column('publishAt_note_id', db.String(20), nullable=False)
 
 
+
 class dbFollow(db.Model):
     __tablename__ = 'follow'
     blogger_id = db.Column('blogger_id', db.String(50), nullable=False, primary_key=True)
