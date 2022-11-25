@@ -1,7 +1,7 @@
 import json
 import logging
 from flask import request, Blueprint
-from wxcloudrun.model import dbSupport
+from wxcloudrun.model import dbSupport, dbUser
 from wxcloudrun.support.support_function import delete_support, like_delete_1, like_add_1, add_support, \
     return_like_note, user_like_add, user_like_cancel
 
@@ -62,19 +62,35 @@ def like_note_info():
     title_tmp = []
     photo_path_tmp = []
     note_id_tmp = []
+    publisher_id_tmp = []
+    publisher_name_tmp = []
+    publisher_head_image_tmp = []
+
 
     for i in like_note:
         title_tmp.append(i.title)
         photo_path_tmp.append(i.photo_path)
         note_id_tmp.append(i.note_id)
+        publisher = dbUser.query.filter(dbUser.user_id == i.publisher_id)
+        publisher_id_tmp.append(publisher.user_id)
+        publisher_name_tmp.append(publisher.user_name)
+        publisher_head_image_tmp.append(publisher.head_image_path)
+
 
     title = {'title': title_tmp}
     photo_path = {'photo_path': photo_path_tmp}
     note = {'note_id':note_id_tmp}
-    #comment = {'comment': comment_tmp}
+    publisher_id = {'publisher_id':publisher_id_tmp }
+    publisher_name = {'publisher_name':publisher_name_tmp}
+    publisher_head_image ={'publisher_head_image':publisher_head_image_tmp}
+
 
     res.update(title)
     res.update(photo_path)
     res.update(note)
+    res.update(publisher_id)
+    res.update(publisher_name)
+    res.update(publisher_head_image)
+
 
     return json.dumps(res)
