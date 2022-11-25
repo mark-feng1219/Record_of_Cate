@@ -1,15 +1,14 @@
 import json
 import logging
 import random
-
 from flask import Blueprint, request
 from sqlalchemy import and_, TIMESTAMP, desc, func
-from sqlalchemy.exc import OperationalError
-from wxcloudrun import db
+
 from wxcloudrun.model import dbNote, dbSupport, dbFollow
-from wxcloudrun.note.notedao import return_like_note
+from wxcloudrun.support.support_function import return_like_note
 
 # 初始化日志
+
 logger = logging.getLogger('log')
 
 recommend = Blueprint("recommend", __name__, url_prefix='/recommend')
@@ -19,6 +18,7 @@ recommend = Blueprint("recommend", __name__, url_prefix='/recommend')
 # 有点赞，则在点赞中抽取一片笔记返回
 # 无点赞，返回点赞最多的10篇笔记中任意一篇
 @recommend.route('/')
+#从所有数据中随机
 def recommendFunc():
     user_id = request.args.get('user_id')
     like_note = return_like_note(user_id)  # 数组类型

@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from wxcloudrun import db
 
 
@@ -17,20 +16,20 @@ class dbNote(db.Model):
 
 class dbUser(db.Model):
     __tablename__ = 'user_info'
-    user_id = db.Column('user_id', db.String(100), nullable=False, primary_key=True)
+    user_id = db.Column('user_id', db.String(50), nullable=False, primary_key=True)
     user_name = db.Column('user_name', db.String(20), nullable=False)
-    head_image_path = db.Column('head_image_path', db.String(100), nullable=False,default='')
+    head_image_path = db.Column('head_image_path', db.String(255), nullable=False,default='')
     user_sex = db.Column('user_sex', db.String(4), default='保密')
     likes_num = db.Column('likes_num', db.Integer, nullable=False, default=0)
     follow_num = db.Column('follow_num', db.Integer, nullable=False, default=0)
     fans_num = db.Column('fans_num', db.Integer, nullable=False, default=0)
-    user_motto = db.Column('user_motto', db.Text, nullable=False, default='')
+    user_motto = db.Column('user_motto', db.Text, nullable=False, default='这个人很懒~，什么都没留下')
 
 
 class dbComment(db.Model):
     __tablename__ = 'comments'
     comment_id = db.Column('comment_id', db.String(20), nullable=False, primary_key=True)
-    comment_publisher_id = db.Column('comment_publisher_id', db.String(20), nullable=False, primary_key=True)
+    comment_publisher_id = db.Column('comment_publisher_id', db.String(50), nullable=False, primary_key=True)
     comment_publish_time = db.Column('comment_publish_time', db.TIMESTAMP, nullable=False, default=datetime.now())
     comment_content = db.Column('comment_content', db.Text, nullable=True)
     publishAt_note_id = db.Column('publishAt_note_id', db.String(20), nullable=False)
@@ -38,14 +37,14 @@ class dbComment(db.Model):
 
 class dbFollow(db.Model):
     __tablename__ = 'follow'
-    blogger_id = db.Column('blogger_id', db.String(20), nullable=False, primary_key=True)
-    fans_id = db.Column('fans_id', db.String(20), nullable=False, primary_key=True)
+    blogger_id = db.Column('blogger_id', db.String(50), nullable=False, primary_key=True)
+    fans_id = db.Column('fans_id', db.String(50), nullable=False, primary_key=True)
 
 
 class dbSupport(db.Model):
     __tablename__ = 'user_likes_note'
-    note_id = db.Column('note_id', db.String(20), nullable=False, primary_key=True)
-    user_id = db.Column('user_id', db.String(20), nullable=False, primary_key=True)
+    note_id = db.Column('note_id', db.String(30), nullable=False, primary_key=True)
+    user_id = db.Column('user_id', db.String(50), nullable=False, primary_key=True)
     like_time = db.Column('like_time', db.TIMESTAMP, nullable=False, default=datetime.now())
 
 

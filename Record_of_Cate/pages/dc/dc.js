@@ -62,8 +62,11 @@ Page({
         data: {
           user_id:"test_id"
         },
+        method: "GET",
         header: { 'content-type': 'application/json' },
-        success: (res) => {resolve(res)},
+        success: (res) => {
+          resolve(res)
+        },
         fail: function() {console.log('failure')},
       })})}
 })

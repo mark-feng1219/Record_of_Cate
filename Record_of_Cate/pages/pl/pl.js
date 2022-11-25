@@ -8,6 +8,7 @@ Page({
    */
   data: {
     content:"",
+    openid:""
   },
   onSubmit(e){
     console.log('提交成功',e);
@@ -15,16 +16,18 @@ Page({
     console.log(content)
     this.setData({
       content:content,
+      openid:app.globalData.user_openid,
       modalHidden:false
     });
     var comment_id = Date.now()
     console.log(comment_id)
+    console.log(this.data.openid)
     console.log(this.data.content)
-    wx.request({
+    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/comment/insert_comment',
       data: {
         comment_id:comment_id,
-        comment_publisher_id:app.globalData.user_openid,
+        comment_publisher_id:this.data.openid,
         comment_content:this.data.content,
         publishAt_note_id:"1668432609"
       },
@@ -58,7 +61,7 @@ Page({
       }, 1000);    
   },
 
-  test: function (){
+  // test: function (){
     // var comment_id = Date.now()
     // console.log(comment_id)
     // console.log(this.data.openid)
@@ -99,7 +102,7 @@ Page({
     //       Toast.clear();
     //     }
     //   }, 1000);      
- }, 
+//  }, 
 
 
   

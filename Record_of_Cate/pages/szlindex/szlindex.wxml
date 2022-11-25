@@ -29,7 +29,7 @@
       <!-- 关注的用户的最新动态 -->
       <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
       <view wx:for="{{followpushs}}" wx:for-item="followpush" wx:key="" >
-      <history cover_image="{{followpush.cover_image}}"  title="{{followpush.name}}" cover_image_default="{{followpush.cover_image_default}}" name="{{followpush.desc}}" note_id="{{followpush.note_id}}" user_id="{{user_id}}"></history>
+      <history cover_image="{{followpush.cover_image}}"  title="{{followpush.name}}" cover_image_default="{{followpush.cover_image_default}}" name="{{followpush.desc}}"></history>
       </view>
       </scroll-view>
 
