@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+.idea/
 wxcloudrun/__pycache__/
 wxcloudrun/comment/__pycache__/
 wxcloudrun/follow/__pycache__/
