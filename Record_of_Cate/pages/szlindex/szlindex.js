@@ -183,19 +183,17 @@ titleClick: function (e) {
     this.request_focus().then(async(res)=>{  //加载首页关注的内容
       var user_id_image = {}
       for(var i=0;i<res.data['user_head'].length;i++){     //加载用户头像
-      const result = await this.downloadFile(res.data['user_head'][i],function(){})
       var tmp_dict={}
-      tmp_dict['headportrait'] = result.tempFilePath
+      tmp_dict['headportrait'] = res.data['user_head'][i]
       tmp_dict['user_id'] = res.data['user_id'][i]
       tmp_dict['user_name'] = res.data['user_name'][i]
-      user_id_image[res.data['user_id'][i]] = result.tempFilePath
+      user_id_image[res.data['user_id'][i]] = res.data['user_head'][i]
       this.data.pushs.push(tmp_dict)
       this.setData({pushs:this.data.pushs})
       }
       for(var i=0;i<res.data['note_image'].length;i++){     //加载笔记图像
-      const result = await this.downloadFile(res.data['note_image'][i],function(){})
       var tmp_dict={}
-      tmp_dict['cover_image'] = result.tempFilePath
+      tmp_dict['cover_image'] = res.data['note_image'][i]   //事实证明,是可以直接从存储桶里下的
       tmp_dict['cover_image_default'] = user_id_image[res.data['publisher_id'][i]]
       tmp_dict['desc'] = res.data['publisher_name'][i]
       tmp_dict['name'] = res.data['note_title'][i]
@@ -204,7 +202,7 @@ titleClick: function (e) {
       this.data.followpushs.push(tmp_dict)
       this.setData({followpushs:this.data.followpushs})
       }
-      console.log(this.data.followpushs)
+      // console.log(this.data.followpushs)
     })
   },
   // 跳转至个人主页
@@ -222,7 +220,7 @@ titleClick: function (e) {
           data: { user_id:"test_id"},
           method:'GET',
           header: { 'content-type': 'application/json' },
-          success: (res) => {resolve(res);console.log(res)},
+          success: (res) => {resolve(res);console.log('加载首页关注的内容:',res)},
           fail: function() {console.log('failure')},
         })})
     },
@@ -231,29 +229,6 @@ titleClick: function (e) {
    */
   onReady() {
 
-  },
-  // 下载微信云托管对象存储中的图片到本地
-  downloadFile(fileID, onCall = () => {}) {
-    return new Promise((resolve, reject) => {
-      const task = wx.cloud.downloadFile({
-        fileID,
-        success: res => resolve(res),
-        fail: e => {
-          const info = e.toString()
-          console.log(info)
-          if (info.indexOf('abort') != -1) {
-            reject(new Error('【文件下载失败】中断下载'))
-          } else {
-            reject(new Error('【文件下载失败】网络或其他错误'))
-          }
-        }
-      })
-      task.onProgressUpdate((res) => {
-        if (onCall(res) == false) {
-          task.abort()
-        }
-      })
-    })
   },
   /**
    * 生命周期函数--监听页面显示
