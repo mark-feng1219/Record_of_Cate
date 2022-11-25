@@ -10,13 +10,6 @@ note = Blueprint("note", __name__, url_prefix='/note')
 
 logger = logging.getLogger('log') #初始化日志
 
-@note.route('/')
-def index():
-    """
-    :return: 返回index页面
-    """
-    return 'note_bp_index'
-
 
 #上传笔记
 @note.route('/upload_user_note', methods=['POST'])
@@ -37,10 +30,6 @@ def upload_user_note():
     return json.dumps(status)
     # 多行
     #json.dumps(test, indent=2, sort_keys=True, ensure_ascii=False)
-
-
-#别人的主页，返回该用户的name，
-
 
 
 #返回我的所有笔记信息

@@ -21,6 +21,7 @@ def myfocus():
     res = {}
     id_tmp = []
     user_head_tmp = []
+    user_name_tmp = []
     note_id_tmp = []
     publisher_id_tmp =[]
     publisher_name_tmp = []
@@ -31,7 +32,8 @@ def myfocus():
     #所有关注的博主发布的所有笔记用note_newest存储(使用连接而不是append)
     for i in user_followed:
         id_tmp.append(i.user_id)
-        user_head_tmp.append(i.head_image_path)  # 每个博主的信息
+        user_head_tmp.append(i.head_image_path)
+        user_name_tmp.append(i.user_name) # 每个博主的信息
         blogger_note = return_user_note(i.user_id)  # 每个博主发布的所有笔记
         note_newest = note_newest + blogger_note
 
@@ -56,6 +58,7 @@ def myfocus():
 
     id = {'user_id':id_tmp}
     user_head = {"user_head":user_head_tmp}
+    user_name = {'user_name':user_name_tmp}
     note_id = {'note_id': note_id_tmp}
     publisher_id = {'publisher_id': publisher_id_tmp}
     publisher_name = {'publisher_name': publisher_name_tmp}
@@ -64,6 +67,7 @@ def myfocus():
 
     res.update(id)
     res.update(user_head)
+    res.update(user_name)
     res.update(note_id)
     res.update(publisher_id)
     res.update(publisher_name)
