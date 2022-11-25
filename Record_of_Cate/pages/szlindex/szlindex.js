@@ -9,6 +9,7 @@ Page({
     loading: false,
     currentIndex: 0,
     followpushs:[],
+    user_id:app.globalData.user_openid,
     // followpushs: [
     //   {
     //     "cover_image": "/images/推荐1.jpg",
@@ -224,30 +225,6 @@ titleClick: function (e) {
           fail: function() {console.log('failure')},
         })})
     },
-// 加载所有关注的用户中最新的动态/最多展示5条
-  // request_newest_5:function(){
-  //   return new Promise(function(resolve,reject){
-  //     wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
-  //       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/',
-  //       data: { user_id:"test_id"},
-  //       method:"GET",               //后续再改成POST
-  //       header: { 'content-type': 'application/json' },
-  //       success: (res) => {resolve(res);console.log(res)},
-  //       fail: function() {console.log('failure')},
-  //     })})
-  // },
-// 加载关注的用户
-  // request_focus_user:function(){
-  //   return new Promise(function(resolve,reject){
-  //   wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
-  //     url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/focus_user_info',
-  //     data: {user_id:"test_id"},
-  //     method:"GET",               //后续再改成POST
-  //     header: { 'content-type': 'application/json' },
-  //     success: (res) => {resolve(res);console.log(res)},
-  //     fail: function() {console.log('failure')},
-  //   })})
-  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

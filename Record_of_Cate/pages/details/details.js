@@ -65,7 +65,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log(options.note_id)
+    console.log(options)
     var note_id = options.note_id
     loading: (options.loading == "true" ? true : false)
     wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
@@ -79,15 +79,13 @@ Page({
       console.log(res)          // 收到https服务成功后返回
       var note_info={}
       note_info['viewid'] = 1
-      note_info["imgdetailsrc"] = "/images/笔记详情照片.jpg"
-      note_info["headportrait"] = "/images/头像1.jpg"
-      note_info["name"] = "暖啊榆"
-      note_info['title'] = "这是什么菜"
+      note_info["imgdetailsrc"] = options.cover_image
+      note_info["headportrait"] = options.user_head
+      note_info["name"] = options.name
+      note_info['title'] = options.title
       note_info['content'] = res.data['note_content']
       this.data.cardTeams.push(note_info)
-      this.setData({
-        cardTeams:this.data.cardTeams
-      })
+      this.setData({cardTeams:this.data.cardTeams})
       },
       fail: function() {  //接口调用失败的回调函数
       console.log('failure')  // 发生网络错误等情况触发

@@ -2,12 +2,13 @@
 <!--这里是笔记主要内容-->
 <view wx:for="{{cardTeams}}" wx:key="index" wx:for-item="cardTeam">
 <view>
-  <image src="{{cardTeam.imgdetailsrc}}" style=" width: 100%;height: 460px;"></image>
+  <image src="{{cardTeam.imgdetailsrc}}"  mode="widthFix"></image>
 </view>
 
 <view class="setting" style="margin-left: 4%;">
   <image src="{{cardTeam.headportrait}}" style="margin-top: 4%; width: 80rpx; height: 80rpx;border-radius: 50%;"></image>
-  <navigator class="count" url="../zy/zy" class="name">{{cardTeam.name}}</navigator>
+  <!-- <navigator class="count" url="../zy/zy" class="name">{{cardTeam.name}}</navigator> -->
+  <text class="name">{{cardTeam.name}}</text>
 </view>
 <view style="margin-top: 1em; margin-left: 5%;">
   <text class="title">{{cardTeam.title}}</text>
@@ -25,7 +26,8 @@
     <van-skeleton title avatar row="3" loading="{{ loading }}">
 <view class="setting" style="margin-left: 4%;">
   <image src="{{comment.headportrait}}" style="width: 64rpx; height: 64rpx;border-radius: 100%;margin-top: 4%;"></image>
-  <navigator class="count" url="../zy/zy" class="commentname">{{comment.name}}</navigator>
+  <!-- <navigator class="count" url="../zy/zy" class="commentname">{{comment.name}}</navigator> -->
+  <text class="count" class="commentname">{{comment.name}}</text>
 </view>
 <view style=" margin-left: 3em;margin-block-end: 10%;">
   <view class="weui-article__p" style="text-indent: 1.2em; margin-top: 0.5em;margin-right: 5%;white-space:pre-wrap;">
