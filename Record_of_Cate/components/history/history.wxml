@@ -1,16 +1,3 @@
-<!-- <view class="history_item">
-  <image bindtap="getUrl" class="item-img" data-note_id="{{note_id}}" src="{{cover_image}}" mode="widthFix"></image>
-  <view class="item-title-box">
-    <view url="url" class="item-title">{{title}}</view> 
-  </view>
-  <view class="history_auth_name">
-    <image bindtap="getUrl1" class="item-ava" src="{{cover_image_default}}" data-user_id="{{user_id}}"></image>    
-    <text class="name-title">{{name}}</text>
-    <view class="boxgood" bind:tap="onLike"  data-note_id="{{note_id}}" data-user_id="{{user_id}}"> 
-    <image src="{{like ? yesSrc : noSrc }}" class="good"></image>
-    </view>
-  </view>
-</view> -->
 <view class="history_item">
   <image bindtap="getUrl" class="item-img" data-note_id="{{note_id}}" data-note_title="{{title}}" data-publisher="{{name}}" data-image="{{cover_image}}" src="{{cover_image}}" data-publisher_head="{{cover_image_default}}" mode="widthFix"></image>
   <view class="item-title-box">
