@@ -8,56 +8,16 @@ Page({
     start: 0,
     loading: false,
     currentIndex: 0,
-    followpushs: [
-      {
-        "cover_image": "/images/推荐1.jpg",
-        "cover_image_default": "/images/头像2.jpg",
-        "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐2.jpg",
-        "cover_image_default": "/images/头像3.jpg",
-        "name": "回到拉萨🇨🇳跟王小新一起去许愿",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐3.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "无人岛露营之鬼湾",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "不完全的跳岛之旅",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "薄荷味的杜马盖地",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "锡兰夏梦",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "意外？注定？之浪捷奥",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "花园之国--哥斯达黎加",
-        "desc": "热门游记"
-      }
-    ],
+    followpushs:[],
+    user_id:app.globalData.user_openid,
+    // followpushs: [
+    //   {
+    //     "cover_image": "/images/推荐1.jpg",
+    //     "cover_image_default": "/images/头像2.jpg",
+    //     "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
+    //     "desc": "热门游记"
+    //   },
+    // ],
     trips: [
     {
         "cover_image": "/images/推荐1.jpg",
@@ -109,41 +69,6 @@ Page({
       }
     ],
     pushs:[],
-  //   pushs:[{
-  //     "headportrait": "/images/头像1.jpg",
-  //     "homepage": "/pages/zy/zy"
-  //   },
-  //   {
-  //     "headportrait": "/images/头像.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },
-  //   {
-  //     "headportrait": "/images/头像2.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },
-  //   {
-  //     "headportrait": "/images/头像3.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },{
-  //     "headportrait": "/images/头像4.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },{
-  //     "headportrait": "/images/头像5.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },{
-  //     "headportrait": "/images/头像6.jpg",
-  //     "HomePage": "/pages/zy/zy"
-  //   },{
-  //     "headportrait": "/images/头像7.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },{
-  //     "headportrait": "/images/头像8.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },{
-  //     "headportrait": "/images/头像9.jpg",
-  //     "homePage": "/pages/zy/zy"
-  //   },
-  // ],
     msg1:'超级好吃',
     msg2:'超级好吃',
     msg3:'超级好吃',
@@ -255,22 +180,29 @@ titleClick: function (e) {
       }
     });
     wx.cloud.init()
-    this.request_focus_user().then(async(res)=>{
-      // 请求微信云托管的对象存储把用户头像图片返回
-      for(var i=0;i<res.data['user_head'].length;i++)
-      {
-      const result = await this.downloadFile(res.data['user_head'][i],function(res){console.log(`下载进度：${res.progress}%，已下载${res.totalBytesWritten}B，共${res.totalBytesExpectedToWrite}B`)})
+    this.request_focus().then(async(res)=>{  //加载首页关注的内容
+      var user_id_image = {}
+      for(var i=0;i<res.data['user_head'].length;i++){     //加载用户头像
+      const result = await this.downloadFile(res.data['user_head'][i],function(){})
       var tmp_dict={}
       tmp_dict['headportrait'] = result.tempFilePath
       tmp_dict['user_id'] = res.data['user_id'][i]
+      user_id_image[res.data['user_id'][i]] = result.tempFilePath
       this.data.pushs.push(tmp_dict)
       this.setData({pushs:this.data.pushs})
       }
-      console.log(this.data.pushs)
-    })
-    this.request_newest_5().then(async(res)=>{
-      //请求微信云托管返回所有关注的用户中最新的动态/最多展示5条
-      console.log(res)
+      for(var i=0;i<res.data['note_image'].length;i++){     //加载笔记图像
+      const result = await this.downloadFile(res.data['note_image'][i],function(){})
+      var tmp_dict={}
+      tmp_dict['cover_image'] = result.tempFilePath
+      tmp_dict['cover_image_default'] = user_id_image[res.data['publisher_id'][i]]
+      tmp_dict['desc'] = res.data['publisher_name'][i]
+      tmp_dict['name'] = res.data['note_title'][i]
+      tmp_dict['note_id'] = res.data['note_id'][i]
+      this.data.followpushs.push(tmp_dict)
+      this.setData({followpushs:this.data.followpushs})
+      }
+      console.log(this.data.followpushs)
     })
   },
   // 跳转至个人主页
@@ -281,30 +213,18 @@ titleClick: function (e) {
         url: '../zy/zy?user_id=' + user_id,
       })
   },
-// 加载所有关注的用户中最新的动态/最多展示5条
-  request_newest_5:function(){
-    return new Promise(function(resolve,reject){
-      wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
-        url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/',
-        data: { user_id:"test_id"},
-        method:"GET",               //后续再改成POST
-        header: { 'content-type': 'application/json' },
-        success: (res) => {resolve(res);console.log(res)},
-        fail: function() {console.log('failure')},
-      })})
-  },
-// 加载关注的用户
-  request_focus_user:function(){
-    return new Promise(function(resolve,reject){
-    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
-      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/focus_user_info',
-      data: {user_id:"test_id"},
-      method:"GET",               //后续再改成POST
-      header: { 'content-type': 'application/json' },
-      success: (res) => {resolve(res);console.log(res)},
-      fail: function() {console.log('failure')},
-    })})
-  },
+    //加载首页关注的内容
+    request_focus:function(){
+      return new Promise(function(resolve,reject){
+        wx.request({
+          url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/myfocus',
+          data: { user_id:"test_id"},
+          method:'GET',
+          header: { 'content-type': 'application/json' },
+          success: (res) => {resolve(res);console.log(res)},
+          fail: function() {console.log('failure')},
+        })})
+    },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

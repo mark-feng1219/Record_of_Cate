@@ -2,16 +2,17 @@
 <view>
     <!-- Tab布局 -->
     <view class='navBox'>
-        <view class='titleBox' bindtap='titleClick' data-idx='0'>
-            <text class="{{0 == currentIndex ? 'fontColorBox' : ''}}">关注</text>
+      <view class="bar1" bindtap='titleClick' data-idx='0'>
+            <text class="{{0 == currentIndex ? 'fontColorBox' : ''}}" >关注</text>
             <hr class="{{0 == currentIndex ? 'lineBox' : 'notLineBox'}}" />
-        </view>
-        <view class='titleBox' bindtap='titleClick' data-idx='1'>
+      </view>
+      <view class="bar2" bindtap='titleClick' data-idx='1'>
             <text class="{{1 == currentIndex ? 'fontColorBox1' : ''}}">推荐</text>
             <hr class="{{1 == currentIndex ? 'lineBox' : 'notLineBox'}} " />
-        </view>
-
-        
+      </view>
+      <navigator url="/pages/search/search" class="search">
+        <image src="/images/搜索.png" class="good" ></image>
+      </navigator>
     </view>
     <!-- 内容布局 -->
     <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
@@ -29,7 +30,7 @@
       <!-- 关注的用户的最新动态 -->
       <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
       <view wx:for="{{followpushs}}" wx:for-item="followpush" wx:key="" >
-      <history cover_image="{{followpush.cover_image}}"  title="{{followpush.name}}" cover_image_default="{{followpush.cover_image_default}}" name="{{followpush.desc}}"></history>
+      <history cover_image="{{followpush.cover_image}}"  title="{{followpush.name}}" cover_image_default="{{followpush.cover_image_default}}" name="{{followpush.desc}}" note_id="{{followpush.note_id}}" user_id="{{user_id}}"></history>
       </view>
       </scroll-view>
 
@@ -38,7 +39,7 @@
       <view class="city_history">
       <view class="history_content">
       <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
-
+        <!-- 用户推荐 -->
         <!-- 瀑布流左边 -->
         <view class="left">
           <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">

@@ -16,7 +16,7 @@ Page({
     console.log(content)
     this.setData({
       content:content,
-      openid:app.globalData.openid,
+      openid:app.globalData.user_openid,
       modalHidden:false
     });
     var comment_id = Date.now()
@@ -61,7 +61,7 @@ Page({
       }, 1000);    
   },
 
-  test: function (){
+  // test: function (){
     // var comment_id = Date.now()
     // console.log(comment_id)
     // console.log(this.data.openid)
@@ -102,7 +102,7 @@ Page({
     //       Toast.clear();
     //     }
     //   }, 1000);      
- }, 
+//  }, 
 
 
   
