@@ -8,7 +8,8 @@ Page({
     start: 0,
     loading: false,
     currentIndex: 0,
-    followpushs:[],
+    followpushs:[],   //关注内容列表
+    trips:[],  //推荐内容列表
     user_id:app.globalData.user_openid,
     // followpushs: [
     //   {
@@ -18,62 +19,20 @@ Page({
     //     "desc": "热门游记"
     //   },
     // ],
-    trips: [
-    {
-        "cover_image": "/images/推荐1.jpg",
-        "cover_image_default": "/images/头像2.jpg",
-        "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐2.jpg",
-        "cover_image_default": "/images/头像3.jpg",
-        "name": "回到拉萨🇨🇳跟王小新一起去许愿",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐3.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "无人岛露营之鬼湾",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "不完全的跳岛之旅",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "薄荷味的杜马盖地",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "锡兰夏梦",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "意外？注定？之浪捷奥",
-        "desc": "热门游记"
-      },
-      {
-        "cover_image": "/images/推荐4.jpg",
-        "cover_image_default": "/images/头像1.jpg",
-        "name": "花园之国--哥斯达黎加",
-        "desc": "热门游记"
-      }
-    ],
-    pushs:[],
+    // trips: [
+    // {
+    //     "cover_image": "/images/推荐1.jpg",
+    //     "cover_image_default": "/images/头像2.jpg",
+    //     "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
+    //     "desc": "热门游记"
+    // ],
+    pushs:[],   //用户头像
     msg1:'超级好吃',
     msg2:'超级好吃',
     msg3:'超级好吃',
     msg4:'超级好吃 ',
-    value:0
+    value:0,
+    request_count:0
   },
 
   jump1:function(event){
@@ -179,8 +138,7 @@ titleClick: function (e) {
         })
       }
     });
-    wx.cloud.init()
-    this.request_focus().then(async(res)=>{  //加载首页关注的内容
+    this.request_focus().then(async(res)=>{               //加载首页关注的内容
       var user_id_image = {}
       for(var i=0;i<res.data['user_head'].length;i++){     //加载用户头像
       var tmp_dict={}
@@ -202,25 +160,68 @@ titleClick: function (e) {
       this.data.followpushs.push(tmp_dict)
       this.setData({followpushs:this.data.followpushs})
       }
-      // console.log(this.data.followpushs)
+    })
+    this.request_recommend().then(async(res)=>{              //加载首页推荐的内容
+      for(var j=0;j<res.data['note_id'].length;j++){
+        var tmp_dict={}
+        tmp_dict['note_id'] = res.data['note_id'][j]
+        tmp_dict['cover_image'] = res.data['note_image'][j]
+        tmp_dict['name'] = res.data['note_title'][j]
+        tmp_dict['cover_image_default'] = res.data['user_head'][j]
+        tmp_dict['publisher_id'] = res.data['user_id'][j]
+        tmp_dict['desc'] = res.data['user_name'][j]
+        this.data.trips.push(tmp_dict)
+        this.setData({trips:this.data.trips})
+      }
     })
   },
-  // 跳转至个人主页
+  // 点击关注的用户头像跳转至个人主页
   gotoHomePage: function (e)  {
     console.log(e.currentTarget.dataset)
       wx.navigateTo({
         url: '../zy/zy?user_id=' + e.currentTarget.dataset['user_id'] + '&user_name=' + e.currentTarget.dataset['user_name'] + '&user_head=' + e.currentTarget.dataset['headportrait']
       })
   },
-    //加载首页关注的内容
-    request_focus:function(){
+  //加载首页关注的内容
+  request_focus:function(){
+    return new Promise(function(resolve,reject){
+      wx.request({
+        url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/myfocus',
+        data: { user_id:"test_id"},
+        method:'GET',
+        header: { 'content-type': 'application/json' },
+        success: (res) => {resolve(res);console.log('加载首页关注的内容:',res)},
+        fail: function() {console.log('failure')},
+      })})
+  },
+    //加载首页推荐的内容
+    request_recommend:function(){
+      var that = this
+      if(this.data.request_count==0){    //如果向后端发起请求的次数为0次
+        var lastest = "null"
+        var earliest = "null"
+      }else{                            //如果不是第一次向后端发起请求
+        var earliest = this.data.trips['note_id'][0]
+        var lastest = this.data.trips['note_id'][0]
+        for(var k=0;k<this.data.trips.length;k++){
+        if(this.data.trips['note_id'][k]<earliest){earliest=this.data.trips['note_id'][k]}
+        if(this.data.trips['note_id'][k]>astest){lastest=this.data.trips['note_id'][k]}}
+        console.log(earliest,lastest)
+      }
       return new Promise(function(resolve,reject){
         wx.request({
-          url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/myfocus',
-          data: { user_id:"test_id"},
-          method:'GET',
+          url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/recommend/index',
+          data: {
+            times:that.data.request_count,
+            note_id_lastest:lastest,
+            note_id_earliest:earliest
+          },
           header: { 'content-type': 'application/json' },
-          success: (res) => {resolve(res);console.log('加载首页关注的内容:',res)},
+          success: (res) => {
+            resolve(res)
+            console.log('加载首页推荐的内容:',res)
+            that.setData({request_count:1})
+          },
           fail: function() {console.log('failure')},
         })})
     },
@@ -255,7 +256,19 @@ titleClick: function (e) {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.request_recommend().then(async(res)=>{   //用户划到底了
+      for(var j=0;j<res.data['note_id'].length;j++){
+        var tmp_dict={}
+        tmp_dict['note_id'] = res.data['note_id'][j]
+        tmp_dict['cover_image'] = res.data['note_image'][j]
+        tmp_dict['name'] = res.data['note_title'][j]
+        tmp_dict['cover_image_default'] = res.data['user_head'][j]
+        tmp_dict['publisher_id'] = res.data['user_id'][j]
+        tmp_dict['desc'] = res.data['user_name'][j]
+        this.data.trips.push(tmp_dict)
+        this.setData({trips:this.data.trips})
+      }
+    })
   },
 
   /**
