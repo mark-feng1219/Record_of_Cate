@@ -40,11 +40,10 @@ Page({
   share:function(){
     if(!this.data.shareshow){           //如果框中没有内容
     this.request_recommend().then(async(res)=>{
-      console.log(res.data)
-      const result = await this.downloadFile(res.data,function(){})
-      console.log(result.tempFilePath)
+      // const result = await this.downloadFile(res.data,function(){})
+      // console.log(result.tempFilePath)
       this.setData({
-        food:result.tempFilePath,
+        food:res.data,
         shareshow: !this.data.shareshow
       })
     })}else{                            //如果框中有内容,则清空掉
@@ -58,15 +57,9 @@ Page({
    request_recommend:function(){
     return new Promise(function(resolve,reject){
       wx.request({
-        url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/recommend/',
-        data: {
-          user_id:"test_id"
-        },
-        method: "GET",
+        url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/recommend/order_for_me',
         header: { 'content-type': 'application/json' },
-        success: (res) => {
-          resolve(res)
-        },
+        success: (res) => {resolve(res);console.log('点餐推荐:',res.data)},
         fail: function() {console.log('failure')},
       })})}
 })
