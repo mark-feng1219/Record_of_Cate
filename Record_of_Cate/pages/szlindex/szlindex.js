@@ -187,6 +187,7 @@ titleClick: function (e) {
       var tmp_dict={}
       tmp_dict['headportrait'] = result.tempFilePath
       tmp_dict['user_id'] = res.data['user_id'][i]
+      tmp_dict['user_name'] = res.data['user_name'][i]
       user_id_image[res.data['user_id'][i]] = result.tempFilePath
       this.data.pushs.push(tmp_dict)
       this.setData({pushs:this.data.pushs})
@@ -208,9 +209,8 @@ titleClick: function (e) {
   // 跳转至个人主页
   gotoHomePage: function (e)  {
     console.log(e.currentTarget.dataset)
-    var user_id = e.currentTarget.dataset['user_id']
       wx.navigateTo({
-        url: '../zy/zy?user_id=' + user_id,
+        url: '../zy/zy?user_id=' + e.currentTarget.dataset['user_id'] + '&user_name=' + e.currentTarget.dataset['user_name'] + '&user_head=' + e.currentTarget.dataset['headportrait']
       })
   },
     //加载首页关注的内容
