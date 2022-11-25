@@ -62,7 +62,7 @@ Page {
 .fontColorBox,
 .fontColorBox1 {
   /* 文字默认颜色 */
-  color: black;
+  color: white;
 }
 
 .navBox {
@@ -80,23 +80,50 @@ Page {
   padding-left: 20%;
 }
 
-.titleBox {
-  /* 未选中文字的样式 */
+.bar1{
   color: rgb(168, 170, 175);
-  font-size: 30rpx;
+  font-size: 36rpx;
+  font-weight: 350;
+  letter-spacing: 0.5mm;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  margin-left: -150rpx;
+}
+.bar2{
+  color: rgb(168, 170, 175);
+  font-size: 36rpx;
+  font-weight: 350;
+  letter-spacing: 0.5mm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  margin-top: 5rpx;
+  margin-left: 130rpx;
+}
+.search{
+  position:absolute;
+  right: 50rpx;
+}
+
+.good{
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  width: 50rpx;
+  height: 50rpx;
 }
 .lineBox,.notLineBox{
   /* 选中及未选中底线共同样式 */
-  width: 32rpx;
-  height: 8rpx;
+  width: 40rpx;
+  height: 6rpx;
 }
 
 .lineBox {
   /* 选中底线样式 */
-  background: rgb(43, 44, 45);
+  background: rgb(255, 255, 255);
   margin-top: 16rpx;
   border-radius: 4rpx;
 }

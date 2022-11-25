@@ -2,16 +2,17 @@
 <view>
     <!-- Tab布局 -->
     <view class='navBox'>
-        <view class='titleBox' bindtap='titleClick' data-idx='0'>
-            <text class="{{0 == currentIndex ? 'fontColorBox' : ''}}">关注</text>
+      <view class="bar1" bindtap='titleClick' data-idx='0'>
+            <text class="{{0 == currentIndex ? 'fontColorBox' : ''}}" >关注</text>
             <hr class="{{0 == currentIndex ? 'lineBox' : 'notLineBox'}}" />
-        </view>
-        <view class='titleBox' bindtap='titleClick' data-idx='1'>
+      </view>
+      <view class="bar2" bindtap='titleClick' data-idx='1'>
             <text class="{{1 == currentIndex ? 'fontColorBox1' : ''}}">推荐</text>
             <hr class="{{1 == currentIndex ? 'lineBox' : 'notLineBox'}} " />
-        </view>
-
-        
+      </view>
+      <navigator url="/pages/search/search" class="search">
+        <image src="/images/搜索.png" class="good" ></image>
+      </navigator>
     </view>
     <!-- 内容布局 -->
     <swiper class='swiperTtemBox' bindchange='pagechange' current='{{currentIndex}}'>
