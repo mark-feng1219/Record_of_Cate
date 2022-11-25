@@ -133,10 +133,9 @@ titleClick: function (e) {
 
   //请求后端获取笔记数据
   request_note:function(){
-    // 向后端请求笔记的note_id/note_title/photo_path并存储到本地缓存
     return new Promise(function(resolve,reject){
     wx.request({
-    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/user_note',
+    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/mynote',
     data: {
       user_id:"test_id"
     },

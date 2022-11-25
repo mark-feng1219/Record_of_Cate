@@ -40,8 +40,6 @@ Page({
   share:function(){
     if(!this.data.shareshow){           //如果框中没有内容
     this.request_recommend().then(async(res)=>{
-      // const result = await this.downloadFile(res.data,function(){})
-      // console.log(result.tempFilePath)
       this.setData({
         food:res.data,
         shareshow: !this.data.shareshow
@@ -59,7 +57,7 @@ Page({
       wx.request({
         url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/recommend/order_for_me',
         header: { 'content-type': 'application/json' },
-        success: (res) => {resolve(res);console.log('点餐推荐:',res.data)},
+        success: (res) => {resolve(res);console.log('点餐推荐:',res)},
         fail: function() {console.log('failure')},
       })})}
 })
