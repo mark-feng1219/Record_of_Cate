@@ -1,5 +1,5 @@
 // pages/details/details.js
-
+const app = getApp()
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 Page({
   /**
@@ -65,31 +65,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options)
+    var note_id = options.note_id
     loading: (options.loading == "true" ? true : false)
-    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
-      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/comment/return_note_comment',
+    wx.request({
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/note_details',
       data: {
-        note_id:"test_note_id"
+        note_id:note_id
       },
       method:"GET", 
       header: { 'content-type': 'application/json' },
-      success: (res) => {  //接口调用成功的回调函数
-      console.log(res)          // 收到https服务成功后返回
+      success: (res) => {
+      console.log(res)
       var note_info={}
       note_info['viewid'] = 1
-      note_info["imgdetailsrc"] = "/images/笔记详情照片.jpg"
-      note_info["headportrait"] = "/images/头像1.jpg"
-      note_info["name"] = "暖啊榆"
-      note_info['title'] = "这是什么菜"
+      note_info["imgdetailsrc"] = options.cover_image
+      note_info["headportrait"] = options.user_head
+      note_info["name"] = options.name
+      note_info['title'] = options.title
       note_info['content'] = res.data['note_content']
       this.data.cardTeams.push(note_info)
-      this.setData({
-        cardTeams:this.data.cardTeams
-      })
+      this.setData({cardTeams:this.data.cardTeams})
       },
       fail: function() {  //接口调用失败的回调函数
       console.log('failure')  // 发生网络错误等情况触发
-      },
+      }
     })
   },
   showcomment: function(){
@@ -157,13 +157,21 @@ Page({
     this.setData({ active: event.detail });
 
   },
-  test: function (){
-    Toast.success('点赞成功');
- }, 
-  goto:function(){
-    wx.navigateTo({
-      url: '/pages/pl/pl',
-    })
+  test: function (){        //点击点赞按钮时触发
+    if(app.globalData.login_state!=0){
+      Toast.success('点赞成功');
+    }else{
+      Toast.success('请先登录！');
+    }
+ },
+  goto:function(){          //点击评论按钮时触发
+    if(app.globalData.login_state!=0){
+      wx.navigateTo({
+        url: '/pages/pl/pl',
+      })
+    }else{
+      Toast.success('请先登录！');
+    }
   },
   /**
    * 用户点击右上角分享
@@ -172,7 +180,3 @@ Page({
 
   }
 });
-  
-
-
-  

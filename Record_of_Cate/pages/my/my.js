@@ -6,7 +6,7 @@ Page({
         desc: '必须授权才能继续使用',
         //成功后会返回
         success:(res)=>{
-          console.log('授权成功',res);
+          // console.log('授权成功',res);
           this.setData({
             name_tmp : res.userInfo.nickName,
             gender_tmp : res.userInfo.gender,
@@ -30,7 +30,7 @@ Page({
                     openid:this.data.openid,
                     Nickname:this.data.name_tmp,
                     gender:this.data.gender_tmp,
-                    head_image : this.data.head_tmp
+                    head_image:this.data.head_tmp
                   },
                   method:"POST",
                   header: { 'content-type': 'application/json' },
@@ -40,13 +40,15 @@ Page({
                     app.globalData.user_sex = r.data['user_sex']
                     app.globalData.user_name=r.data['user_name']
                     app.globalData.user_image_path=r.data['user_head']
-                    app.globalData.user_motto = r.data['user_motto']
+                    app.globalData.user_motto = r.data['motto']
                     app.globalData.login_state=1      //全局变量login_state变为1
+                    console.log(app.globalData.user_motto)
                     this.setData({
                       nickName : app.globalData.user_name,
                       avatarUrl : app.globalData.user_image_path,
                       motto : app.globalData.user_motto,     // 令等于一个undefine将不会发生改变
-                      login_state : app.globalData.login_state
+                      login_state : app.globalData.login_state,
+                      account:this.data.openid.slice(18,28)  //食珍录账号
                     })
                   }},
                   fail: function() {  //接口调用失败的回调函数
@@ -83,11 +85,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    openid:"",
+    openid:"食珍录账号:××××××",
     nickName:"请登录",
     avatarUrl:"/images/member.png",
     motto:"登陆后解锁功能",
-    login_state:0
+    login_state:0,
+    account:"食珍录账号:××××××"
   },
   onLoad(options) {
     wx.setNavigationBarColor({
@@ -103,11 +106,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {    //当从其他页面再回来的时候触发
-    this.setData({
-      nickName:app.globalData.user_name,
-      avatarUrl:app.globalData.user_image_path,
-      motto:app.globalData.user_motto,
-      openid:app.globalData.user_openid,
-    })
+    // this.setData({
+    //   nickName:app.globalData.user_name,
+    //   avatarUrl:app.globalData.user_image_path,
+    //   motto:app.globalData.user_motto,
+    //   openid:app.globalData.user_openid,
+    // })
   },
 })

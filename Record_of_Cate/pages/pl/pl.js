@@ -8,30 +8,27 @@ Page({
    */
   data: {
     content:"",
-    openid:""
   },
   onSubmit(e){
     console.log('提交成功',e);
     var content= e.detail.value;
+    console.log(content)
     this.setData({
       content:content,
-      openid:app.globalData.user_name,
       modalHidden:false
     });
-  },
-
-  test: function (){
     var comment_id = Date.now()
     console.log(comment_id)
-    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+    console.log(this.data.content)
+    wx.request({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/comment/insert_comment',
       data: {
         comment_id:comment_id,
-        comment_publisher_id:this.data.openid,
+        comment_publisher_id:app.globalData.user_openid,
         comment_content:this.data.content,
         publishAt_note_id:"1668432609"
       },
-      method:"GET", 
+      method:"POST", 
       header: { 'content-type': 'application/json' },
       success: function(res) {  //接口调用成功的回调函数
       console.log(res)          // 收到https服务成功后返回
@@ -58,7 +55,50 @@ Page({
           clearInterval(timer);
           Toast.clear();
         }
-      }, 1000);      
+      }, 1000);    
+  },
+
+  test: function (){
+    // var comment_id = Date.now()
+    // console.log(comment_id)
+    // console.log(this.data.openid)
+    // console.log(this.data.content)
+    // wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+    //   url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/comment/insert_comment',
+    //   data: {
+    //     comment_id:comment_id,
+    //     comment_publisher_id:this.data.openid,
+    //     comment_content:this.data.content,
+    //     publishAt_note_id:"1668432609"
+    //   },
+    //   method:"POST", 
+    //   header: { 'content-type': 'application/json' },
+    //   success: function(res) {  //接口调用成功的回调函数
+    //   console.log(res)          // 收到https服务成功后返回
+    //   },
+    //   fail: function() {  //接口调用失败的回调函数
+    //   console.log('failure')  // 发生网络错误等情况触发
+    //   },
+    // })
+    // const toast = Toast.loading({
+    //     duration: 0, // 持续展示 toast
+    //     forbidClick: true,
+    //     message: '发表倒数 3 秒',
+    //     selector: '#custom-selector',
+    //   });
+      
+    //   let second = 3;
+    //   const timer = setInterval(() => {
+    //     second--;
+    //     if (second) {
+    //       toast.setData({
+    //         message: `发表倒数 ${second} 秒`,
+    //       });
+    //     } else {
+    //       clearInterval(timer);
+    //       Toast.clear();
+    //     }
+    //   }, 1000);      
  }, 
 
 

@@ -18,7 +18,7 @@
   </view>
   <image src='/images/bj.png' style="width:100%;margin-top: 30rpx;"mode="widthFix"></image>
 </view>
-<navigator url='/pages/dc/dc' bindtap='share' hover-class="none">
-    <view class="advision1" style="float: left;margin-left: 30%;"><button class="btn1"  >点我</button>
-    </view>
-</navigator>
+<!-- 点击按钮触发点餐 -->
+<view class="advision1" style="float: left;margin-left: 30%;">
+<button class="btn1" bindtap="share">点我</button>
+</view>
