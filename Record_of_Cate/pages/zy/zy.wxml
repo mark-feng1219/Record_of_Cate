@@ -1,10 +1,10 @@
 <import src="../../components/history.wxml"/>
 <view class="header-info">
     <!--如果只是展示头像、昵称，可以使用<open-data/>组件  -->      
-    <image class="avatar" src="/images/头像1.jpg"></image>
-    <view class="nickname" >暖啊榆</view> 
+    <image class="avatar" src="{{blogger_head}}"></image>
+    <view class="nickname" >{{blogger_name}}</view> 
     <!--格言  -->
-    <view class="motto">食珍录账号：123456789</view>
+    <view class="motto">食珍录账号：{{blogger_id}}</view>
     <view class="boxgood" bindtap="onFollow"> 
     <image src="{{follow ? yesSrc : noSrc }}" class="good"></image>
     </view>
@@ -32,14 +32,14 @@
             <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
               <view class="left">
                 <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
-            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
+            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.user_id}}"></history>
           </view>
               </view>
         
           
               <view class="right">
                 <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
-                <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
+                <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.user_id}}"></history>
           </view>
               </view>
             </scroll-view>
@@ -52,35 +52,25 @@
   
  <!-- <view>2</view> -->
  <swiper-item class='swiperTtemBox'>
-              <view class="city_history">
-            
-            <view class="history_content">
-            
-              <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
-              <view class="left">
-                <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
-            <history cover_image="{{trip.cover_image}}" 
-            title="{{trip.name}}" 
-            cover_image_default="{{trip.cover_image_default}}"
-            name="{{trip.desc}}"></history>
+  <view class="city_history">
+    <view class="history_content">
+       <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
+        <!-- 瀑布流左边 -->
+        <view class="left">
+          <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
+            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
           </view>
-              </view>
-        
-          
-              <view class="right">
-                <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
-                <history cover_image="{{trip.cover_image}}" 
-                title="{{trip.name}}" 
-                cover_image_default="{{trip.cover_image_default}}"
-                name="{{trip.desc}}"></history>
-          </view>
-              </view>
-            </scroll-view>
-
-            </view>
-            
         </view>
-        </swiper-item>
+        <!-- 瀑布流右边 -->
+        <view class="right">
+          <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
+            <history cover_image="{{trip.cover_image}}"  title="{{trip.name}}"cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}"></history>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</swiper-item>
   <!-- <view>装备内容</view> -->     
     </swiper>
 </view>
