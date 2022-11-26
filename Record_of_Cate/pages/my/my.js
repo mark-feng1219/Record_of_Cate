@@ -32,13 +32,13 @@ Page({
                   method:"POST",
                   header: { 'content-type': 'application/json' },
                   success: (r) => {       // 接口调用成功的回调函数
+                  app.globalData.login_state=1      //全局变量login_state变为1
                   console.log('返回用户信息:',r)
                   if(r!="login success"){
                     app.globalData.user_sex = r.data['user_sex']
                     app.globalData.user_name=r.data['user_name']
                     app.globalData.user_image_path=r.data['user_head']
                     app.globalData.user_motto = r.data['motto']
-                    app.globalData.login_state=1      //全局变量login_state变为1
                     this.setData({
                       nickName : app.globalData.user_name,
                       avatarUrl : app.globalData.user_image_path,
@@ -89,6 +89,7 @@ Page({
     account:"食珍录账号:××××××"
   },
   onLoad(options) {
+    console.log(options)
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
       backgroundColor: '#FFC359',
@@ -103,10 +104,12 @@ Page({
    */
   onShow() {
     this.setData({
+      login_state:app.globalData.login_state,
       nickName:app.globalData.user_name,
       avatarUrl:app.globalData.user_image_path,
       motto:app.globalData.user_motto,
-      openid:app.globalData.user_openid,
+      account:"食珍录账号:"+app.globalData.user_openid.slice(18,28)
     })
+    console.log(app.globalData.user_openid)
   },
 })

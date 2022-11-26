@@ -25,7 +25,6 @@ Page({
     })
   },
   // 点击更换手机相册或者电脑本地图片
-
   headimage: function () {     //更改用户头像
     var that = this;
      wx.chooseImage({
@@ -35,9 +34,8 @@ Page({
 
        success: function (res) {
          app.globalData.head_image_path=res.tempFilePaths[0]
-         that.setData({
-           avatarUrl: res.tempFilePaths[0]
-        })
+         that.setData({avatarUrl: res.tempFilePaths[0]})
+         console.log('更改用户头像后的路径:',that.data.avatarUrl)
       }
     })
   },
@@ -55,7 +53,7 @@ Page({
     itemColor: '',
     success: function (res) {
         wx.chooseImage({
-          count: 1,//最多选2张
+          count: 1,
           sizeType: ['original', 'compressed'],
           sourceType: ['album', 'camera'],
           success (res) {
@@ -103,23 +101,18 @@ Page({
       title: '提交成功',
       icon:'success'
     })
-    this.setData({
-      modalHidden: true
-    })
-    // 修改全局变量
-    app.globalData.user_name = this.data.information['name']
-    app.globalData.user_motto = this.data.information['sign']
-    app.globalData.user_image_path = this.data.avatarUrl 
+    this.setData({modalHidden: true})
     //把用户头像存到微信云托管的对象存储之中
     wx.cloud.init()
-    const result = await this.uploadFile(this.data.avatarUrl, 'test_id/head_image/my_head.jpg', function(res){
+    var store_path = app.globalData.user_openid+'/head_image/my_head.jpg'
+    const result = await this.uploadFile(this.data.avatarUrl, store_path, function(res){
       console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
     })
     //把用户的信息上传到微信云托管的MySQL之中
     wx.request({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/modify', 
       data: {
-        user_id:"test_id",
+        user_id:app.globalData.user_openid,
         user_name:this.data.information['name'],
         user_sex:this.data.userSex,
         user_motto:this.data.information['sign'],
@@ -127,12 +120,17 @@ Page({
       },
       method:"POST",
       header: { 'content-type': 'application/json' },
-      success: (res) =>{  //接口调用成功的回调函数
-      console.log(res)
-      },
-      fail: function() {  //接口调用失败的回调函数
-      console.log('failure')  // 发生网络错误等情况触发
-      }
+      success: (res) =>{console.log(res)},
+      fail: function() {console.log('failure')}
+      })
+      // 修改全局变量
+      app.globalData.user_name = this.data.information['name']
+      app.globalData.user_motto = this.data.information['sign']
+      app.globalData.user_image_path = result
+      app.globalData.user_openid = app.globalData.user_openid
+      //跳转回my页面
+      wx.redirectTo({
+        url: '../my/my',
       })
   },
   //上传到微信云托管的对象存储
