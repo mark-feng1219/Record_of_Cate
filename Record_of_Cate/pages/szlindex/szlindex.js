@@ -100,20 +100,14 @@ titleClick: function (e) {
     var self = this;
     /*-------------------------------*/
     //修改导航栏颜色
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: '#FFC359',
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
-    })
-    /*-------------------------------*/
-    //设置页面标题
-    wx.setNavigationBarTitle({
-      title: '食珍录'
-    });
-    /*-------------------------------*/
+    // wx.setNavigationBarColor({
+    //   frontColor: '#ffffff',
+    //   backgroundColor: '#FFC359',
+    //   animation: {
+    //     duration: 400,
+    //     timingFunc: 'easeIn'
+    //   }
+    // })
     wx.getSystemInfo({
       success(res) {
         var widths = res.windowWidth;
@@ -206,7 +200,7 @@ titleClick: function (e) {
         for(var k=0;k<this.data.trips.length;k++){
         if(this.data.trips[k]['note_id']<earliest){earliest=this.data.trips[k]['note_id']}
         if(this.data.trips[k]['note_id'][k]>lastest){lastest=this.data.trips[k]['note_id']}}
-        console.log(earliest,lastest)
+        console.log('最早的:',earliest,'最新的:',lastest)
       }
       return new Promise(function(resolve,reject){
         wx.request({
@@ -256,6 +250,15 @@ titleClick: function (e) {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+    console.log("关注/推荐页上拉触底")
+    if(this.data.currentIndex==1){                //当且仅当它是推荐页
     this.request_recommend().then(async(res)=>{   //用户划到底了
       for(var j=0;j<res.data['note_id'].length;j++){
         var tmp_dict={}
@@ -268,14 +271,7 @@ titleClick: function (e) {
         this.data.trips.push(tmp_dict)
         this.setData({trips:this.data.trips})
       }
-    })
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-    console.log("关注/推荐页上拉触底")
+    })}
   },
 
   /**

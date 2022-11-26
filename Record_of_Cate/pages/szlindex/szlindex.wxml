@@ -32,9 +32,6 @@
       <history cover_image="{{followpush.cover_image}}"  title="{{followpush.name}}" cover_image_default="{{followpush.cover_image_default}}" name="{{followpush.desc}}" note_id="{{followpush.note_id}}" user_id="{{followpush.publisher_id}}"></history>
       </view>
       </view>
-      <!--解决导航栏覆盖界面问题-->
-      <van-divider border-color="#FFC359;" hairline/>
-      <van-divider border-color="#FFC359;" hairline/>
       </swiper-item>
 
       <swiper-item class='swiperTtemBox'>
@@ -56,9 +53,6 @@
           </view>
         </view>
       </scroll-view>
-      <!--解决导航栏覆盖界面问题-->
-      <van-divider border-color="#FFC359;" hairline/>
-      <van-divider border-color="#FFC359;" hairline/>
       </view>
   </view>
 </swiper-item>
