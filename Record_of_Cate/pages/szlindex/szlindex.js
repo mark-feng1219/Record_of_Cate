@@ -201,11 +201,11 @@ titleClick: function (e) {
         var lastest = "null"
         var earliest = "null"
       }else{                            //如果不是第一次向后端发起请求
-        var earliest = this.data.trips['note_id'][0]
-        var lastest = this.data.trips['note_id'][0]
+        var earliest = this.data.trips[0]['note_id']
+        var lastest = this.data.trips[0]['note_id']
         for(var k=0;k<this.data.trips.length;k++){
-        if(this.data.trips['note_id'][k]<earliest){earliest=this.data.trips['note_id'][k]}
-        if(this.data.trips['note_id'][k]>astest){lastest=this.data.trips['note_id'][k]}}
+        if(this.data.trips[k]['note_id']<earliest){earliest=this.data.trips[k]['note_id']}
+        if(this.data.trips[k]['note_id'][k]>lastest){lastest=this.data.trips[k]['note_id']}}
         console.log(earliest,lastest)
       }
       return new Promise(function(resolve,reject){
@@ -275,7 +275,7 @@ titleClick: function (e) {
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    console.log("关注/推荐页上拉触底")
   },
 
   /**

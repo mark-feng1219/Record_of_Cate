@@ -60,7 +60,7 @@ Page({
       for(var i=0;i<res.data['comment_content'].length;i++){
         var comment_info = {}
         comment_info['name'] = "暖啊榆",
-        comment_info['headportrait'] = 'null'
+        comment_info['headportrait'] = 'https://thirdwx.qlogo.cn/mmopen/vi_32/05XINsPDic2ELnfPnIiadmy4ytlSZW0Ew00XOwKnobTsWM8lkrMMVpaUvMladiaIo0J5kyyAv4EaeMQ4GXbnvGhNQ/132'
         comment_info['content'] = res.data['comment_content'][i]
         this.data.comments.push(comment_info)
       }
