@@ -150,6 +150,30 @@ titleClick: function (e) {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    this.onRefresh();
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+  //onRefresh生命周期函数
+  onRefresh:function(){      //现场一定会有那种闲着蛋疼一发表笔记就想看的
+    //导航条加载动画
+    wx.showNavigationBarLoading()
+    //loading 提示框
+    wx.showLoading({
+      title: 'Loading...',
+    })
+    console.log("笔记页下拉刷新");
+    setTimeout(function () {
+      wx.hideLoading();
+      wx.hideNavigationBarLoading();
+      //停止下拉刷新
+      wx.stopPullDownRefresh();
+    }, 2000)
     this.request_note().then(async(res)=>{        //用户刚发表完笔记想看结果
       this.setData({
         cardTeams:[],
@@ -187,19 +211,5 @@ titleClick: function (e) {
       }
       this.setData({card_like_Teams:this.data.card_like_Teams})
     })
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
   }
 })
