@@ -12,6 +12,7 @@ def return_comment(note_id):
         if counter is None:
             return 'failed'
         else:
+            #return counter
             return counter
     except OperationalError as e:
         logger.info("return_comment errorMsg= {} ".format(e))
