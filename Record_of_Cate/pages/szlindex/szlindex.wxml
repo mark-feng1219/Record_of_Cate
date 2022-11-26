@@ -42,14 +42,14 @@
         <!-- 瀑布流左边 -->
         <view class="left">
           <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
-            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="test_note_id" user_id="953463"></history>
+            <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.publisher_id}}"></history>
           </view>
         </view>
 
         <!-- 瀑布流右边 -->
         <view class="right">
           <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==1}}">
-          <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="test_note_id" user_id="953463"></history>
+          <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.publisher_id}}"></history>
           </view>
         </view>
       </scroll-view>

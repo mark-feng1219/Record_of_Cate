@@ -1,7 +1,7 @@
 <view class='setting'>
-  <image class='head' src='/images/小录头像.png' style="width:200rpx;height:200rpx;"></image>
+  <image class='head' src='/images/record_head.png' style="width:200rpx;height:200rpx;"></image>
   <view class="talks">
-    <image class='talking' src='/images/联合 1.png' ></image>
+    <image class='talking' src='/images/chat.png' ></image>
     <text class='talk' >不知道该吃什么！
 没关系！小录有办法！
 点击按钮让小录帮你选择！</text>
