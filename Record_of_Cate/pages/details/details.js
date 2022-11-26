@@ -7,6 +7,7 @@ Page({
    */
 
   data: {
+    like_count : 0,
     checked: true,
     active: 0,
     showShare: false,
@@ -40,6 +41,7 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
+    this.setData({note_id:options.note_id})
     loading: (options.loading == "true" ? true : false)
     wx.request({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/note_details',
@@ -129,7 +131,29 @@ Page({
     this.setData({ active: event.detail });
   },
   test: function (){        //点击点赞按钮时触发
-    if(app.globalData.login_state!=0){Toast.success('点赞成功');}
+    if(app.globalData.login_state!=0){
+      if(this.data.like_count==0){
+        Toast.success('点赞成功');
+        var choice = "insert"
+        this.setData({like_count:1})
+      }else{
+        Toast.success('取消点赞成功');
+        var choice = "delete"
+        this.setData({like_count:0})
+      }
+      console.log(app.globalData.user_openid,this.data.note_id)
+      wx.request({
+        url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/operate_note',
+        data: {
+          user_id:app.globalData.user_openid,
+          note_id: this.data.note_id,
+          choice:choice
+        },
+        header: { 'content-type': 'application/json' },
+        success: function(res) {console.log(res)},
+        fail: function() {console.log('failure')}
+        })
+    }
     else{Toast.success('请先登录！')}
  },
   goto:function(){          //点击评论按钮时触发
