@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "history": "/components/history/history"
+    "history": "/components/history/history",
+    "van-divider": "/miniprogram_npm/@vant/weapp/divider/index"
   }
 }

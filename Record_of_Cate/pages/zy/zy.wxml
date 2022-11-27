@@ -28,7 +28,7 @@
    <swiper-item class='swiperTtemBox'>
     <view class="city_history">            
       <view class="history_content">
-        <scroll-view scroll-y="true"  style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
+        <view style="height: {{ windowHeight }}px; width: {{ windowWidth }}px;" bindscrolltolower="loadMore" >
         <!-- 其他用户的笔记的瀑布流左边 -->
         <view class="left">
         <view wx:for="{{trips}}" wx:for-item="trip" wx:key="" wx:if="{{index%2==0}}">
@@ -41,7 +41,7 @@
          <history cover_image="{{trip.cover_image}}" title="{{trip.name}}" cover_image_default="{{trip.cover_image_default}}" name="{{trip.desc}}" note_id="{{trip.note_id}}" user_id="{{trip.user_id}}"></history>
         </view>
         </view>
-      </scroll-view>
+      </view>
     </view>
   </view>
 </swiper-item>

@@ -1,9 +1,6 @@
 Page {
-  /* 全局样式 */
   background-color: #FFF4D9;
-  /* background: rgb(244, 245, 249); */
   height: 100%;
-  position: fixed;
 }
 /**index.wxss**/
 .city_history{

@@ -4,9 +4,7 @@ Page({
   login() {
       wx.getUserProfile({
         desc: '必须授权才能继续使用',
-        //成功后会返回
         success:(res)=>{
-          // console.log('授权成功',res);
           this.setData({
             name_tmp : res.userInfo.nickName,
             gender_tmp : res.userInfo.gender,
@@ -22,9 +20,8 @@ Page({
                 secret : "1e74f746f419d6233288968cb00b0783"
               })
               this.request_openid().then(async(res)=>{
-                console.log(res)
-                wx.request({ 
-                  // url:"http://192.168.70.24/user/login",
+                console.log('获取openid:',res)
+                wx.request({
                   url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/login',
                   data: {
                     openid:this.data.openid,
@@ -35,20 +32,19 @@ Page({
                   method:"POST",
                   header: { 'content-type': 'application/json' },
                   success: (r) => {       // 接口调用成功的回调函数
-                  console.log(r)          // 收到https服务成功后返回
+                  app.globalData.login_state=1      //全局变量login_state变为1
+                  console.log('返回用户信息:',r)
                   if(r!="login success"){
                     app.globalData.user_sex = r.data['user_sex']
                     app.globalData.user_name=r.data['user_name']
                     app.globalData.user_image_path=r.data['user_head']
                     app.globalData.user_motto = r.data['motto']
-                    app.globalData.login_state=1      //全局变量login_state变为1
-                    console.log(app.globalData.user_motto)
                     this.setData({
                       nickName : app.globalData.user_name,
                       avatarUrl : app.globalData.user_image_path,
-                      motto : app.globalData.user_motto,     // 令等于一个undefine将不会发生改变
+                      motto : app.globalData.user_motto,     // 令等于一个undefine将不会发生改变!
                       login_state : app.globalData.login_state,
-                      account:this.data.openid.slice(18,28)  //食珍录账号
+                      account:'食珍录账号：'+this.data.openid.slice(18,28)  //食珍录账号
                     })
                   }},
                   fail: function() {  //接口调用失败的回调函数
@@ -93,6 +89,7 @@ Page({
     account:"食珍录账号:××××××"
   },
   onLoad(options) {
+    console.log(options)
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
       backgroundColor: '#FFC359',
@@ -105,12 +102,14 @@ Page({
     /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {    //当从其他页面再回来的时候触发
-    // this.setData({
-    //   nickName:app.globalData.user_name,
-    //   avatarUrl:app.globalData.user_image_path,
-    //   motto:app.globalData.user_motto,
-    //   openid:app.globalData.user_openid,
-    // })
+  onShow() {
+    this.setData({
+      login_state:app.globalData.login_state,
+      nickName:app.globalData.user_name,
+      avatarUrl:app.globalData.user_image_path,
+      motto:app.globalData.user_motto,
+      account:"食珍录账号:"+app.globalData.user_openid.slice(18,28)
+    })
+    console.log(app.globalData.user_openid)
   },
 })
