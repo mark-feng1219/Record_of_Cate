@@ -52,7 +52,7 @@ Page({
     }
   },
    //请求后端获取点餐选择
-   request_recommend:function(){
+   request_recommend:function(){            //从数据库里随机,不用用户的openid
     return new Promise(function(resolve,reject){
       wx.request({
         url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/recommend/order_for_me',

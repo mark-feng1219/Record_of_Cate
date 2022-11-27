@@ -17,6 +17,7 @@
   height: 100vh;
   overflow: scroll;
   margin: 12rpx 0rpx;
+  background: white;
   font-size: 28rpx;
 }
 .container {

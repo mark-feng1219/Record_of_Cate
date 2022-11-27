@@ -1,5 +1,5 @@
 <view class="history_item">
-  <image bindtap="getUrl" class="item-img" data-note_id="{{note_id}}" data-note_title="{{title}}" data-publisher="{{name}}" data-image="{{cover_image}}" src="{{cover_image}}" data-publisher_head="{{cover_image_default}}" mode="widthFix"></image>
+  <image bindtap="getUrl" class="item-img" data-note_id="{{note_id}}" data-note_title="{{title}}" data-publisher="{{name}}" data-image="{{cover_image}}" src="{{cover_image}}" data-publisher_head="{{cover_image_default}}" data-user_id="{{user_id}}" mode="widthFix"></image>
   <view class="item-title-box">
     <view url="url" class="item-title">{{title}}</view> 
   </view>
