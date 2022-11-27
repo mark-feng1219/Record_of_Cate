@@ -1,4 +1,4 @@
-var app = getApp()
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
@@ -103,8 +103,9 @@ Page({
     //把用户头像存到微信云托管的对象存储之中
     wx.cloud.init()
     var store_path = app.globalData.user_openid+'/head_image/my_head.jpg'
-    const result = await this.uploadFile(this.data.avatarUrl, store_path, function(res){
-      console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
+    const result = await this.uploadFile(this.data.avatarUrl, store_path, function(res)
+    {
+      console.log("用户头像上传完成")
     })
     //把用户的信息上传到微信云托管的MySQL之中
     wx.request({
@@ -125,6 +126,7 @@ Page({
       app.globalData.user_name = this.data.information['name']
       app.globalData.user_motto = this.data.information['sign']
       app.globalData.user_image_path = result
+      console.log('上传用户头像后的路径:',result)
       app.globalData.user_openid = app.globalData.user_openid
       //跳转回my页面
       wx.redirectTo({
@@ -159,6 +161,6 @@ Page({
     })
   },
   onLoad: function (options) {
-  
+    console.log(app.globalData.user_image_path)
   }
 })
