@@ -19,7 +19,8 @@ Component({
       value:''
     },
     note_id:'',
-    user_id:''
+    user_id:'',
+    self_id:''
   },
 
   /**
@@ -59,7 +60,7 @@ Component({
       wx.request({
         url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/operate_note',
         data: {
-          user_id:"834",
+          user_id:e.currentTarget.dataset['self_id'],
           note_id: this.data.note_id,
           choice:choice
         },

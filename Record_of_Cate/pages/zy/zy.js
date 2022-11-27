@@ -97,14 +97,17 @@ titleClick: function (e) {
       var like_image_array=res.data['photo_path']
       var like_id_array = res.data['note_id']
       var like_title_array = res.data['title']
+      var like_blogger_head_array = res.data['publisher_head_image']
+      var like_blogger_name_array = res.data['publisher_name']
+      var like_blogger_id_array = res.data['publisher_name']
       for(var i=0;i<like_id_array.length;i++){
         var tmp_dict={}
         tmp_dict['cover_image'] = like_image_array[i]      //居然可以从存储桶cloud里直接下
-        tmp_dict['cover_image_default'] = this.data.blogger_head
+        tmp_dict['cover_image_default'] = like_blogger_head_array[i]
         tmp_dict['name'] = like_title_array[i]
-        tmp_dict['desc'] = this.data.blogger_name
+        tmp_dict['desc'] = like_blogger_name_array[i]
         tmp_dict['note_id'] = like_id_array[i]
-        tmp_dict['user_id'] = this.data.blogger_id
+        tmp_dict['user_id'] = like_blogger_id_array[i]
         this.data.like_trips.push(tmp_dict)
       }
       this.setData({like_trips:this.data.like_trips})   //渲染到渲染层中

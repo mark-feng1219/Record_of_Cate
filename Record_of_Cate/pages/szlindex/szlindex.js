@@ -10,7 +10,7 @@ Page({
     currentIndex: 0,
     followpushs:[],   //关注内容列表
     trips:[],  //推荐内容列表
-    user_id:app.globalData.user_openid,
+    self_id:app.globalData.user_openid,
     pushs:[],   //用户头像
     msg1:'超级好吃',
     msg2:'超级好吃',
@@ -148,6 +148,7 @@ titleClick: function (e) {
         tmp_dict['name'] = res.data['note_title'][i]
         tmp_dict['note_id'] = res.data['note_id'][i]
         tmp_dict['publisher_id'] = res.data['publisher_id'][i]
+        tmp_dict['self_id'] = this.data.self_id
         this.data.followpushs.push(tmp_dict)
         this.setData({followpushs:this.data.followpushs})
         }
@@ -161,6 +162,7 @@ titleClick: function (e) {
           tmp_dict['cover_image_default'] = res.data['user_head'][j]
           tmp_dict['publisher_id'] = res.data['user_id'][j]
           tmp_dict['desc'] = res.data['user_name'][j]
+          tmp_dict['self_id'] = this.data.self_id
           this.data.trips.push(tmp_dict)
           this.setData({trips:this.data.trips})
         }
