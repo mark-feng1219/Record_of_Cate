@@ -12,9 +12,9 @@ Page({
     console.log("搜索用户的关键词")
     this.request_note().then(async(res)=>{
       this.setData({
-        image_array:res.data['photo_path'],
+        image_array:res.data['note_image'],
         note_id_array:res.data['note_id'],
-        title_array:res.data['title']
+        title_array:res.data['note_title']
       })
       for(var j=0;j<this.data.note_id_array.length;j++){
         var tmp_dict={}
@@ -27,16 +27,17 @@ Page({
       }
       this.setData({cardTeams:this.data.cardTeams})
       if(this.data.cardTeams==[]){this.setData({exist:false})}  //如果没有任何跟关键词有关的笔记时触发
-      else{this.setData({exist:true})}       //如果有任何跟关键词有关的笔记时触发
+      else{this.setData({exist:true})}                          //如果有任何跟关键词有关的笔记时触发
     })
   },
    //请求后端获取跟关键词有关的内容
    request_note:function(){
     return new Promise(function(resolve,reject){
     wx.request({
-    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/mynote',
+      url:'http://192.168.24.24/note/search',
+    // url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/mynote',
     data: {
-      user_id:"test_id"
+      key_words:'板栗'
     },
     header: { 'content-type': 'application/json' },
     success: (res) =>{resolve(res);console.log('获取笔记数据：',res)},
