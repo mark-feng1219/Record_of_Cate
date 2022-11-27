@@ -8,8 +8,9 @@ Page({
     exist:true,
     cardTeams:[]
   },
-  onSearch(){                //敲下回车触发搜索
-    console.log("搜索用户的关键词")
+  onSearch(e){                //敲下回车触发搜索
+    console.log(e.detail)
+    this.setData({key_words:e.detail})
     this.request_note().then(async(res)=>{
       this.setData({
         image_array:res.data['note_image'],
@@ -32,12 +33,12 @@ Page({
   },
    //请求后端获取跟关键词有关的内容
    request_note:function(){
+    var that = this
     return new Promise(function(resolve,reject){
     wx.request({
-      url:'http://192.168.24.24/note/search',
-    // url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/mynote',
+    url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/search',
     data: {
-      key_words:'板栗'
+      key_words:that.data.key_words
     },
     header: { 'content-type': 'application/json' },
     success: (res) =>{resolve(res);console.log('获取笔记数据：',res)},

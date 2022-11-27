@@ -135,19 +135,13 @@ Page({
   },
   test: function (){        //点击点赞按钮时触发
     if(app.globalData.login_state!=0){
+      console.log(this.data.publisher_id)
       if(this.data.publisher_id==app.globalData.user_openid){  //如果这篇笔记的拥有者是自己,就不能点赞
         Toast.success('不能点赞自己的笔记哦！')
-      }else{
-      if(this.data.like_count==0){
-        Toast.success('点赞成功');
-        var choice = "insert"
-        this.setData({like_count:1})
-      }else{
-        Toast.success('取消点赞成功');
-        var choice = "delete"
-        this.setData({like_count:0})
-      }
-      console.log(app.globalData.user_openid,this.data.note_id)
+      }else{                                                   //这篇笔记不是自己发表的
+      if(this.data.like_count==0){var choice = "insert";this.setData({like_count:1})}
+      else{choice = "delete";this.setData({like_count:0})}
+      console.log('用户'+app.globalData.user_openid+'点赞/取消点赞了'+this.data.note_id)
       wx.request({
         url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/operate_note',
         data: {
@@ -156,7 +150,12 @@ Page({
           choice:choice
         },
         header: { 'content-type': 'application/json' },
-        success: function(res) {console.log(res)},
+        success: function(res) {
+          console.log(res)
+          if(res.data=="like success"){Toast.success('点赞成功')}
+          if(res.data=="cancel success"){Toast.success('取消点赞成功')}
+          if(res.data=="you have already supported"){Toast.success('您已经点赞过了')}
+        },
         fail: function() {console.log('failure')}
         })
     }}
