@@ -1,6 +1,8 @@
 import json
 import logging
 from flask import request, Blueprint
+from sqlalchemy import and_
+
 from wxcloudrun.model import dbSupport, dbUser
 from wxcloudrun.support.support_function import delete_support, like_delete_1, like_add_1, add_support, \
     return_like_note, user_like_add, user_like_cancel
@@ -16,22 +18,27 @@ def operate_note():
     note_id = request.args.get('note_id')
     choice = request.args.get('choice')
     if choice == "insert":
-        # note的点赞数+1
-        res_1 = like_add_1(note_id)
+        #避免重复点赞
+        record = dbSupport.query.filter(and_(dbSupport.note_id== note_id, dbSupport.user_id == user_id)).first()
+        if record is None:
+            # note的点赞数+1
+            res_1 = like_add_1(note_id)
+            #用户喜欢数+1
+            res_2 = user_like_add(user_id)
 
-        #用户喜欢数+1
-        res_2 = user_like_add(user_id)
+            # support表增加记录
+            support = dbSupport()
+            support.note_id = note_id
+            support.user_id = user_id
+            res_3 = add_support(support)
 
-        # support表增加记录
-        support = dbSupport()
-        support.note_id = note_id
-        support.user_id = user_id
-        res_3 = add_support(support)
+            if res_1 and res_2 and res_3:
+                res = 'like success'
+            else:
+                res = 'like failed'
 
-        if res_1 and res_2 and res_3:
-            res = 'like success'
         else:
-            res = 'like failed'
+            res = 'you have already supported'
 
         return json.dumps(res)
 
@@ -71,7 +78,7 @@ def like_note_info():
         title_tmp.append(i.title)
         photo_path_tmp.append(i.photo_path)
         note_id_tmp.append(i.note_id)
-        publisher = dbUser.query.filter(dbUser.user_id == i.publisher_id)
+        publisher = dbUser.query.filter(dbUser.user_id == i.publisher_id).first()
         publisher_id_tmp.append(publisher.user_id)
         publisher_name_tmp.append(publisher.user_name)
         publisher_head_image_tmp.append(publisher.head_image_path)
