@@ -80,7 +80,7 @@ titleClick: function (e) {
     return new Promise(function(resolve,reject){
       wx.request({
         url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/myfocus',
-        data: { user_id:"test_id"},
+        data: { user_id:app.globalData.user_openid},
         method:'GET',
         header: { 'content-type': 'application/json' },
         success: (res) => {resolve(res);console.log('加载首页关注的内容:',res)},

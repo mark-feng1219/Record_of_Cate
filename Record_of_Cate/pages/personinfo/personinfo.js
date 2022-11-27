@@ -23,7 +23,6 @@ Page({
       avatarUrl:app.globalData.user_image_path,
       motto:app.globalData.user_motto
     })
-    console.log("用户头像路径",this.data.avatarUrl)
   },
   // 点击更换手机相册或者电脑本地图片
   headimage: function () {     //更改用户头像
@@ -35,7 +34,6 @@ Page({
        success: function (res) {
          app.globalData.head_image_path=res.tempFilePaths[0]
          that.setData({avatarUrl: res.tempFilePaths[0]})
-         console.log('更改用户头像后的路径:',that.data.avatarUrl)
       }
     })
   },
@@ -110,8 +108,7 @@ Page({
     })
     //把用户的信息上传到微信云托管的MySQL之中
     wx.request({
-      url:'http://192.168.24.24/user/modify',
-      // url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/modify', 
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/modify', 
       data: {
         user_id:app.globalData.user_openid,
         user_name:this.data.information['name'],

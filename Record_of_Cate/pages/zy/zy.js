@@ -18,30 +18,28 @@ Page({
     value:0
   },
   onFollow: function(e) {
-    let follow = this.data.follow
-    let count = this.data.count
-    var xc = Array('您已取消关注','感谢您的关注') 
+    var follow = this.data.follow
+    var count = this.data.count
     this.setData({ // 更新数据
       follow: !follow,
       count: (count+1)%2,
     })
-    wx.showToast({
-      title: `${xc[this.data.count]}`,
-      icon: 'none',
-    });
     if(this.data.count==1){var choice = 'follow'}
     else{var choice = 'cancel'}
-    console.log(choice)
     wx.request({                   //将关注或取消关注用户的数据上传至后端
-      url:'http://192.168.24.24/follow/operate_user',
-      // url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/operate_user',
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/operate_user',
       data: {
         fans_id:app.globalData.user_openid,
         blogger_id:this.data.blogger_id,
         choice:choice
       },
       header: { 'content-type': 'application/json' },
-      success: function(res) {console.log(res)},
+      success: function(res) {
+        console.log(res)
+        if(res.data=="follow success") {wx.showToast({title: '感谢您的关注',})}
+        else if(res.data=="you have alredy followed"){wx.showToast({title: '您已经关注过了',})}
+        else if(res.data=="cancel success") {wx.showToast({title: '您已取消关注',})}
+      },
       fail: function() {console.log('failure')},
     })
   },
