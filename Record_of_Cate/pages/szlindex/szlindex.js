@@ -98,16 +98,6 @@ titleClick: function (e) {
    */
   onLoad(options) {
     var self = this;
-    /*-------------------------------*/
-    //修改导航栏颜色
-    // wx.setNavigationBarColor({
-    //   frontColor: '#ffffff',
-    //   backgroundColor: '#FFC359',
-    //   animation: {
-    //     duration: 400,
-    //     timingFunc: 'easeIn'
-    //   }
-    // })
     wx.getSystemInfo({
       success(res) {
         var widths = res.windowWidth;
@@ -132,42 +122,6 @@ titleClick: function (e) {
         })
       }
     });
-    this.request_focus().then(async(res)=>{               //加载首页关注的内容
-      var user_id_image = {}
-      for(var i=0;i<res.data['user_head'].length;i++){     //加载用户头像
-      var tmp_dict={}
-      tmp_dict['headportrait'] = res.data['user_head'][i]
-      tmp_dict['user_id'] = res.data['user_id'][i]
-      tmp_dict['user_name'] = res.data['user_name'][i]
-      user_id_image[res.data['user_id'][i]] = res.data['user_head'][i]
-      this.data.pushs.push(tmp_dict)
-      this.setData({pushs:this.data.pushs})
-      }
-      for(var i=0;i<res.data['note_image'].length;i++){     //加载笔记图像
-      var tmp_dict={}
-      tmp_dict['cover_image'] = res.data['note_image'][i]   //事实证明,是可以直接从存储桶里下的
-      tmp_dict['cover_image_default'] = user_id_image[res.data['publisher_id'][i]]
-      tmp_dict['desc'] = res.data['publisher_name'][i]
-      tmp_dict['name'] = res.data['note_title'][i]
-      tmp_dict['note_id'] = res.data['note_id'][i]
-      tmp_dict['publisher_id'] = res.data['publisher_id'][i]
-      this.data.followpushs.push(tmp_dict)
-      this.setData({followpushs:this.data.followpushs})
-      }
-    })
-    this.request_recommend().then(async(res)=>{              //加载首页推荐的内容
-      for(var j=0;j<res.data['note_id'].length;j++){
-        var tmp_dict={}
-        tmp_dict['note_id'] = res.data['note_id'][j]
-        tmp_dict['cover_image'] = res.data['note_image'][j]
-        tmp_dict['name'] = res.data['note_title'][j]
-        tmp_dict['cover_image_default'] = res.data['user_head'][j]
-        tmp_dict['publisher_id'] = res.data['user_id'][j]
-        tmp_dict['desc'] = res.data['user_name'][j]
-        this.data.trips.push(tmp_dict)
-        this.setData({trips:this.data.trips})
-      }
-    })
   },
   // 点击关注的用户头像跳转至个人主页
   gotoHomePage: function (e)  {
@@ -229,7 +183,49 @@ titleClick: function (e) {
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+      if(app.globalData.login_state==1&&this.data.request_count==0){
+      this.request_focus().then(async(res)=>{               //加载首页关注的内容
+        var user_id_image = {}
+        for(var i=0;i<res.data['user_head'].length;i++){     //加载用户头像
+        var tmp_dict={}
+        tmp_dict['headportrait'] = res.data['user_head'][i]
+        tmp_dict['user_id'] = res.data['user_id'][i]
+        tmp_dict['user_name'] = res.data['user_name'][i]
+        user_id_image[res.data['user_id'][i]] = res.data['user_head'][i]
+        this.data.pushs.push(tmp_dict)
+        this.setData({pushs:this.data.pushs})
+        }
+        for(var i=0;i<res.data['note_image'].length;i++){     //加载笔记图像
+        var tmp_dict={}
+        tmp_dict['cover_image'] = res.data['note_image'][i]   //事实证明,是可以直接从存储桶里下的
+        tmp_dict['cover_image_default'] = user_id_image[res.data['publisher_id'][i]]
+        tmp_dict['desc'] = res.data['publisher_name'][i]
+        tmp_dict['name'] = res.data['note_title'][i]
+        tmp_dict['note_id'] = res.data['note_id'][i]
+        tmp_dict['publisher_id'] = res.data['publisher_id'][i]
+        this.data.followpushs.push(tmp_dict)
+        this.setData({followpushs:this.data.followpushs})
+        }
+      })
+      this.request_recommend().then(async(res)=>{              //加载首页推荐的内容
+        for(var j=0;j<res.data['note_id'].length;j++){
+          var tmp_dict={}
+          tmp_dict['note_id'] = res.data['note_id'][j]
+          tmp_dict['cover_image'] = res.data['note_image'][j]
+          tmp_dict['name'] = res.data['note_title'][j]
+          tmp_dict['cover_image_default'] = res.data['user_head'][j]
+          tmp_dict['publisher_id'] = res.data['user_id'][j]
+          tmp_dict['desc'] = res.data['user_name'][j]
+          this.data.trips.push(tmp_dict)
+          this.setData({trips:this.data.trips})
+        }
+      })
+      this.setData({request_count:1})
+    }else if(app.globalData.login_state==0){
+    wx.showToast({
+      title: '请先登录！',
+      duration: 2000
+    })}
   },
 
   /**
