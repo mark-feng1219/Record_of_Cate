@@ -11,21 +11,6 @@ Page({
     followpushs:[],   //关注内容列表
     trips:[],  //推荐内容列表
     user_id:app.globalData.user_openid,
-    // followpushs: [
-    //   {
-    //     "cover_image": "/images/推荐1.jpg",
-    //     "cover_image_default": "/images/头像2.jpg",
-    //     "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
-    //     "desc": "热门游记"
-    //   },
-    // ],
-    // trips: [
-    // {
-    //     "cover_image": "/images/推荐1.jpg",
-    //     "cover_image_default": "/images/头像2.jpg",
-    //     "name": "陪你去看世界NO.1：🇲🇾马来西亚透清凉",
-    //     "desc": "热门游记"
-    // ],
     pushs:[],   //用户头像
     msg1:'超级好吃',
     msg2:'超级好吃',
@@ -33,45 +18,6 @@ Page({
     msg4:'超级好吃 ',
     value:0,
     request_count:0
-  },
-
-  jump1:function(event){
-    this.setData({value:1}),
-    wx.navigateTo({
-      url: '/pages/page1/page1?value='+this.data.value,
-      success(){
-        console.log('页面one跳转成功')
-      }
-    })
-  },
-
-  jump2:function(event){
-    this.setData({value:2}),
-    wx.navigateTo({
-      url: '/pages/page1/page1?value='+this.data.value,
-      success(){
-        console.log('页面two跳转成功')
-      }
-    })
-  },
-
-  jump3:function(event){
-    this.setData({value:3}),
-    wx.navigateTo({
-      url: '/pages/page1/page1?value='+this.data.value,
-      success(){
-        console.log('页面three跳转成功')
-      }
-    })
-  },
-  jump4:function(event){
-    this.setData({value:4}),
-    wx.navigateTo({
-      url: '/pages/page1/page1?value='+this.data.value,
-      success(){
-        console.log('页面four跳转成功')
-      }
-    })
   },
   // 切换swiper-item触发bindchange事件
   pagechange: function (e) {
@@ -92,7 +38,6 @@ titleClick: function (e) {
     currentIndex: e.currentTarget.dataset.idx
   })
 },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -227,7 +172,18 @@ titleClick: function (e) {
       duration: 2000
     })}
   },
-
+  jump_search(){
+    if(app.globalData.login_state==0){   //如果用户没有登录
+      wx.showToast({
+        title: '请先登录！',
+        duration: 2000
+      })
+    }else{                               //如果用户已登录
+      wx.navigateTo({
+        url: '/pages/search/search',
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

@@ -129,7 +129,11 @@ titleClick: function (e) {
           this.setData({card_like_Teams:this.data.card_like_Teams})
         })
         this.setData({request_count:1})
-    }
+    }else if(app.globalData.login_state==0){
+      wx.showToast({
+        title: '请先登录！',
+        duration: 2000
+      })}
   },
 
   /**

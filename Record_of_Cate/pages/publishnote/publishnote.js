@@ -50,7 +50,6 @@ Page({
         urls: this.data.info.licensePicUrls
       })
     },
-
     async onSubmit(e){
       console.log(e);
       var value = e.detail.value
@@ -60,17 +59,19 @@ Page({
     });
     if(value.title && value.content && value.label) {   //如果标题以及内容不为空
       wx.cloud.init()
-      const result = await this.uploadFile(this.data.info.licensePicUrls[0], 'test/test_1.png', function(res){
+      var publisher_id = app.globalData.openid
+      var note_id = Date.now()
+      console.log('发布笔记的当前时间戳：',note_id)
+      var cloud_path = publisher_id + '/' + note_id + '/note_image.png'
+      const result = await this.uploadFile(this.data.info.licensePicUrls[0],cloud_path, function(res){
         console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
     })
-    console.log(result)
-    var note_id=Date.now()
-    console.log(note_id)
-    wx.request({ //多的参数服务器会忽略,少了服务器会报错Internal Server Error在接口中没有接收到对应的数据
+    console.log('放在存储桶里的路径：',result)
+    wx.request({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/upload_user_note',
       data: {
         note_id:note_id,
-        publisher_id:app.globalData.openid,
+        publisher_id:publisher_id,
         title:value.title,
         content:value.content,
         tag:value.label,
@@ -78,25 +79,9 @@ Page({
       },
       method:"POST",               //后续再改成POST
       header: { 'content-type': 'application/json' },
-      success: function(res) {  //接口调用成功的回调函数
-      console.log(res)          // 收到https服务成功后返回
-      },
-      fail: function() {  //接口调用失败的回调函数
-      console.log('failure')  // 发生网络错误等情况触发
-      },
+      success: function(res) {console.log(res)},
+      fail: function() {console.log('failure')},
       })
-    //  wx.cloud.callContainer({
-    //    "config": {
-    //      "env": "prod-1gzin06weddc0c77"
-    //    },
-    //    "path": "/note/upload_user_note?publisher_id=1232&note_id=426&title=DEBUG&photo_path=ugly.jpg&content=我讨厌BUG",
-    //    "header": {
-    //      "X-WX-SERVICE": "flask-ddml",
-    //      "content-type": "application/json"
-    //    },
-    //    "method": "POST",
-    //    "data": ""
-    //  })
   }
     else {
       wx.showModal({
