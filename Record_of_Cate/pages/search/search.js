@@ -43,6 +43,12 @@ Page({
     fail: function() {console.log('failure')},
     })})
   },
+  getUrl: function (e) {    //注意不要写options和console.log(options)
+    console.log(e.currentTarget.dataset)
+    wx.navigateTo({
+      url: '/pages/details/details?note_id='+e.currentTarget.dataset['note_id']+'&title='+e.currentTarget.dataset['title']+'&name='+e.currentTarget.dataset['publisher']+'&cover_image='+ e.currentTarget.dataset['cover_image']+'&user_head='+e.currentTarget.dataset['user_head']+'&publisher_id='+app.globalData.user_openid,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
