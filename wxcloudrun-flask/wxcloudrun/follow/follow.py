@@ -1,6 +1,8 @@
 import json
 import logging
 from flask import request,Blueprint
+from sqlalchemy import and_
+
 from wxcloudrun.follow.follow_function import return_user_follow, blogger_fans_add, fans_follow_add, add_follow, \
     cancel_follow
 from wxcloudrun.model import dbFollow
@@ -163,20 +165,27 @@ def operate_user():
     choice = request.args.get('choice')
 
     if choice == "follow":
-        # blogger的粉丝数+1
-        res_1 = blogger_fans_add(blogger_id)
-        #fans的关注数+1
-        res_2 = fans_follow_add(fans_id)
-        # follow表增加记录
-        follow = dbFollow()
-        follow.blogger_id = blogger_id
-        follow.fans_id = fans_id
-        res_3= add_follow(follow)
 
-        if res_1 and res_2 and res_3:
-            res = 'follow success'
+        #避免重复关注
+        record = dbFollow.query.filter(and_(dbFollow.blogger_id == blogger_id, dbFollow.fans_id == fans_id)).first()
+        if record is None:
+            # blogger的粉丝数+1
+            res_1 = blogger_fans_add(blogger_id)
+            #fans的关注数+1
+            res_2 = fans_follow_add(fans_id)
+            # follow表增加记录
+            follow = dbFollow()
+            follow.blogger_id = blogger_id
+            follow.fans_id = fans_id
+            res_3= add_follow(follow)
+
+            if res_1 and res_2 and res_3:
+                res = 'follow success'
+            else:
+                res = 'failed'
+
         else:
-            res = 'failed'
+            res = 'you have alredy followed'
 
         return json.dumps(res)
 
