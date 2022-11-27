@@ -186,7 +186,7 @@ titleClick: function (e) {
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 2000)
-    this.request_note().then(async(res)=>{        //用户刚发表完笔记想看结果
+    this.request_note().then(async(res)=>{
       this.setData({
         cardTeams:[],
         image_array:res.data['photo_path'],
@@ -200,23 +200,28 @@ titleClick: function (e) {
         tmp_dict['count'] = app.globalData.user_name,
         tmp_dict['name'] = this.data.title_array[j]
         tmp_dict['note_id'] = this.data.note_id_array[j]
+        tmp_dict['publisher_id'] = app.globalData.user_openid
         this.data.cardTeams.push(tmp_dict)
       }
       this.setData({cardTeams:this.data.cardTeams})
     })
 
-    this.request_like().then(async(res)=>{       //用户刚点赞完笔记想看结果
+    this.request_like().then(async(res)=>{
       this.setData({
         card_like_Teams:[],
         image_like_array:res.data['photo_path'],
         note_id_like_array:res.data['note_id'],
-        title_like_array:res.data['title']
+        title_like_array:res.data['title'],
+        publisher_id_array:res.data['publisher_id'],
+        publisher_name_array:res.data['publisher_name'],
+        publisher_head_array:res.data['publisher_head_image']
       })
       for(var j=0;j<this.data.note_id_like_array.length;j++){
         var tmp_dict={}
         tmp_dict['imgsrc'] = this.data.image_like_array[j]
-        tmp_dict['Head_picture'] = app.globalData.user_image_path
-        tmp_dict['count'] = app.globalData.user_name
+        tmp_dict['Head_picture'] = this.data.publisher_head_array[j]
+        tmp_dict['count'] = this.data.publisher_name_array[j]
+        tmp_dict['publisher_id'] = this.data.publisher_id_array[j]
         tmp_dict['name'] = this.data.title_like_array[j]
         tmp_dict['note_id'] = this.data.note_id_like_array[j]
         this.data.card_like_Teams.push(tmp_dict)

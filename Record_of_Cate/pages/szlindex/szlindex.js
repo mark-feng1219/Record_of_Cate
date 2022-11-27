@@ -128,6 +128,7 @@ titleClick: function (e) {
    * 生命周期函数--监听页面显示
    */
   onShow() {
+      this.setData({self_id:app.globalData.user_openid})  //该死的onLoad和onShow函数
       if(app.globalData.login_state==1&&this.data.request_count==0){
       this.request_focus().then(async(res)=>{               //加载首页关注的内容
         var user_id_image = {}
