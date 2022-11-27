@@ -17,8 +17,8 @@
         <!-- 笔记页面 -->
         <swiper-item class='swiperTtemBox'>
             <view class="container">
-            <view bindtap="getUrl" wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item" >
-            <view class="number-wrapper" style="margin-left: 2%;">
+            <view  bindtap="getUrl" class="item" wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" data-note_id="{{cardTeam.note_id}}" data-title="{{cardTeam.name}}" data-publisher="{{cardTeam.count}}" data-cover_image="{{cardTeam.imgsrc}}" data-user_head="{{cardTeam.Head_picture}}">
+            <view class="number-wrapper" style="margin-left: 2%;" >
             <text class="name">{{cardTeam.name}}</text>
             <view class="count-wrapper" style="margin-top: 10px;">
             <image src="{{cardTeam.Head_picture}}" mode="widthFix" style="width:20px;height:20px;margin-top:10px;border-radius:50%;" role="img"></image>

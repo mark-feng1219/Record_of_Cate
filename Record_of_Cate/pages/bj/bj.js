@@ -16,10 +16,10 @@ Page({
     title_like_array:[],
     request_count:0
   },
-    getUrl: function (e) {
-      console.log(this.data.note_id_array)
+    getUrl: function (e) {    //注意不要写options和console.log(options)
+      console.log(e.currentTarget.dataset)
       wx.navigateTo({
-        url: '/pages/details/details',
+        url: '/pages/details/details?note_id='+e.currentTarget.dataset['note_id']+'&title='+e.currentTarget.dataset['title']+'&name='+e.currentTarget.dataset['publisher']+'&cover_image='+ e.currentTarget.dataset['cover_image']+'&user_head='+e.currentTarget.dataset['user_head']+'&publisher_id='+app.globalData.user_openid,
       })
     },
     

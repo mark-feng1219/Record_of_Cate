@@ -41,7 +41,10 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
-    this.setData({note_id:options.note_id})
+    this.setData({
+      note_id:options.note_id,
+      publisher_id:options.publisher_id
+    })
     loading: (options.loading == "true" ? true : false)
     wx.request({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/note_details',
@@ -132,6 +135,9 @@ Page({
   },
   test: function (){        //点击点赞按钮时触发
     if(app.globalData.login_state!=0){
+      if(this.data.publisher_id==app.globalData.user_openid){  //如果这篇笔记的拥有者是自己,就不能点赞
+        Toast.success('不能点赞自己的笔记哦！')
+      }else{
       if(this.data.like_count==0){
         Toast.success('点赞成功');
         var choice = "insert"
@@ -153,7 +159,7 @@ Page({
         success: function(res) {console.log(res)},
         fail: function() {console.log('failure')}
         })
-    }
+    }}
     else{Toast.success('请先登录！')}
  },
   goto:function(){          //点击评论按钮时触发

@@ -1,7 +1,24 @@
 <van-search
   value="{{ value }}"
-  placeholder="请输入搜索关键词"
+  placeholder="请输入要搜索的美食"
   show-action
   bind:search="onSearch"
   bind:cancel="onCancel"
 />
+<view wx:if="{{exist}}">
+  <swiper-item class='swiperTtemBox'>
+    <view class="container">
+      <view bindtap="getUrl" wx:for="{{cardTeams}}" wx:key="{{index}}" wx:for-item="cardTeam" class="item" >
+        <view class="number-wrapper" style="margin-left: 2%;">
+          <text class="name">{{cardTeam.name}}</text>
+            <view class="count-wrapper" style="margin-top: 10px;">
+            <image src="{{cardTeam.Head_picture}}" mode="widthFix" style="width:20px;height:20px;margin-top:10px;border-radius:50%;" role="img"></image>
+            <text class="count" style="margin-top: 13px;">{{cardTeam.count}}</text>
+            </view>
+        </view>
+      <image class="imag" src="{{cardTeam.imgsrc}}" mode="aspectFill" ></image>
+    </view>
+   </view>
+  </swiper-item>
+</view>
+<view wx:if="{{!exist}}">当前用户发表的所有笔记中没有你要搜索的内容哦~</view>
