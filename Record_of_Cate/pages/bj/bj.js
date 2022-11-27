@@ -76,7 +76,10 @@ titleClick: function (e) {
     url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/like_note_info',
     data: {user_id:"test_id"},
     header: { 'content-type': 'application/json' },
-    success: (res) =>{resolve(res);console.log('获取点赞数据',res)},
+    success: (res) =>{
+      resolve(res)
+      console.log('获取点赞数据',res)
+    },
     fail: function() {console.log('failure')},
     })})
   },

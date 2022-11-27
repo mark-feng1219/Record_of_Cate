@@ -33,7 +33,8 @@ Page({
     else{var choice = 'cancel'}
     console.log(choice)
     wx.request({                   //将关注或取消关注用户的数据上传至后端
-      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/operate_user',
+      url:'http://192.168.24.24/follow/operate_user',
+      // url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/operate_user',
       data: {
         fans_id:app.globalData.user_openid,
         blogger_id:this.data.blogger_id,

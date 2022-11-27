@@ -10,6 +10,7 @@ Page({
             gender_tmp : res.userInfo.gender,
             head_tmp : res.userInfo.avatarUrl
           })
+          console.log('授权时的用户头像路径：',this.data.head_tmp)
           //获取openId（需要code来换取）这是用户的唯一标识符
           // 获取code值
           wx.login({
@@ -31,10 +32,34 @@ Page({
                   },
                   method:"POST",
                   header: { 'content-type': 'application/json' },
-                  success: (r) => {       // 接口调用成功的回调函数
+                  success: (async(r) => {
                   app.globalData.login_state=1      //全局变量login_state变为1
                   console.log('返回用户信息:',r)
-                  if(r!="login success"){
+                  if(r.data=="login success"){                              //用户是第一次登录时
+                    console.log("用户第一次登录")
+                    app.globalData.user_sex = this.data.gender_tmp
+                    app.globalData.user_name = this.data.name_tmp
+                    //上传用户头像
+                    wx.getImageInfo({
+                      src: this.data.head_tmp,
+                      success:(async(res)=>{
+                        console.log(res.path)
+                      wx.cloud.init()
+                      var store_path = app.globalData.user_openid+'/head_image/my_head.jpg'
+                      var result = await this.uploadFile(res.path, store_path, function(){})
+                      console.log('用户第一次登录将头像存到存储桶里的路径',result)
+                      app.globalData.user_image_path= result    //上传用户头像到存储桶里
+                      this.setData({
+                        nickName : app.globalData.user_name,
+                        avatarUrl : app.globalData.user_image_path,
+                        motto : app.globalData.user_motto,     // 令等于一个undefine将不会发生改变!
+                        login_state : app.globalData.login_state,
+                        account:'食珍录账号：'+this.data.openid.slice(18,28)  //食珍录账号
+                      })
+                      console.log('登录后头像路径：',this.data.avatarUrl)
+                    })})
+                  }else{           //用户不是第一次登录时
+                    console.log("用户不是第一次登录")
                     app.globalData.user_sex = r.data['user_sex']
                     app.globalData.user_name=r.data['user_name']
                     app.globalData.user_image_path=r.data['user_head']
@@ -46,10 +71,9 @@ Page({
                       login_state : app.globalData.login_state,
                       account:'食珍录账号：'+this.data.openid.slice(18,28)  //食珍录账号
                     })
-                  }},
-                  fail: function() {  //接口调用失败的回调函数
-                  console.log('failure')  // 发生网络错误等情况触发
-                  },
+                  }
+                }),
+                  fail: function() {console.log('failure')},
                   })
               })
             },
@@ -70,9 +94,7 @@ Page({
       success:(res)=>{
         resolve(res)
         app.globalData.user_openid=res.data.openid
-        that.setData({         
-          openid:app.globalData.user_openid,
-        })
+        that.setData({openid:app.globalData.user_openid})
       }
     })
     })
@@ -81,15 +103,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    openid:"食珍录账号:××××××",
-    nickName:"请登录",
-    avatarUrl:"/images/member.png",
-    motto:"登陆后解锁功能",
-    login_state:0,
-    account:"食珍录账号:××××××"
+
   },
   onLoad(options) {
-    console.log(options)
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
       backgroundColor: '#FFC359',
@@ -103,6 +119,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    console.log('my onShow：',app.globalData.login_state)
     this.setData({
       login_state:app.globalData.login_state,
       nickName:app.globalData.user_name,
@@ -110,6 +127,32 @@ Page({
       motto:app.globalData.user_motto,
       account:"食珍录账号:"+app.globalData.user_openid.slice(18,28)
     })
-    console.log(app.globalData.user_openid)
   },
+    //上传到微信云托管的对象存储
+    uploadFile(file, path, onCall = () => {}) {  
+      return new Promise((resolve, reject) => {
+        const task = wx.cloud.uploadFile({
+          cloudPath: path,
+          filePath: file,
+          config: {
+            env: 'prod-1gzin06weddc0c77' // 需要替换成自己的微信云托管环境ID
+          },
+          success: res => resolve(res.fileID),
+          fail: e => {
+            const info = e.toString()
+            console.log(info)
+            if (info.indexOf('abort') != -1) {
+              reject(new Error('【文件上传失败】中断上传'))
+            } else {
+              reject(new Error('【文件上传失败】网络或其他错误'))
+            }
+          }
+        })
+        task.onProgressUpdate((res) => {
+          if (onCall(res) == false) {
+            task.abort()
+          }
+        })
+      })
+    },
 })
