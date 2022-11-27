@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import request,Blueprint
 from wxcloudrun.comment.comment_function import return_comment
 from wxcloudrun.note.note_function import upload_note, return_user_note, return_note
-from wxcloudrun.model import dbNote
+from wxcloudrun.model import dbNote, dbUser
 
 note = Blueprint("note", __name__, url_prefix='/note')
 
@@ -76,6 +76,45 @@ def note_details():
 
     res.update(note_content)
     res.update(comment_content)
+
+    return json.dumps(res)
+
+#搜索
+@note.route('/search', methods=['GET'])
+def search():
+    key_words = request.args.get('key_words')
+    res_note = dbNote.query.filter(dbNote.tag.in_([key_words])).all()
+
+    res = {}
+    note_id_tmp = []
+    note_publisher_id_tmp = []
+    note_title_tmp = []
+    note_image_tmp = []
+    publisher_name_tmp = []
+    publisher_head_tmp = []
+
+    for i in res_note:
+        note_id_tmp.append(i.note_id)
+        note_publisher_id_tmp.append(i.publisher_id)
+        note_title_tmp.append(i.title)
+        note_image_tmp.append(i.photo_path)
+        publisher = dbUser.query.filter(dbUser.user_id == i.publisher_id).first()
+        publisher_name_tmp.append(publisher.user_name)
+        publisher_head_tmp.append(publisher.head_image_path)
+
+    note_id = {'note_id':note_id_tmp}
+    note_publisher_id = {'note_publisher_id':note_publisher_id_tmp}
+    note_title = {'note_title':note_title_tmp}
+    note_image = {'note_image':note_image_tmp}
+    publisher_name = {'publisher_name':publisher_name_tmp}
+    publisher_head = {'publisher_head':publisher_head_tmp}
+
+    res.update(note_id)
+    res.update(note_publisher_id)
+    res.update(note_title)
+    res.update(note_image)
+    res.update(publisher_name)
+    res.update(publisher_head)
 
     return json.dumps(res)
 
