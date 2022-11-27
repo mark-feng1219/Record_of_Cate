@@ -15,13 +15,15 @@ Page({
       this.setData({
         image_array:res.data['note_image'],
         note_id_array:res.data['note_id'],
-        title_array:res.data['note_title']
+        title_array:res.data['note_title'],
+        publisher_head_array:res.data['publisher_head'],
+        publisher_name_array:res.data['publisher_name']
       })
       for(var j=0;j<this.data.note_id_array.length;j++){
         var tmp_dict={}
         tmp_dict['imgsrc'] = this.data.image_array[j]
-        tmp_dict['Head_picture'] = app.globalData.user_image_path
-        tmp_dict['count'] = app.globalData.user_name,
+        tmp_dict['Head_picture'] = this.data.publisher_head_array[j]
+        tmp_dict['count'] = this.data.publisher_name_array[j]
         tmp_dict['name'] = this.data.title_array[j]
         tmp_dict['note_id'] = this.data.note_id_array[j]
         this.data.cardTeams.push(tmp_dict)
