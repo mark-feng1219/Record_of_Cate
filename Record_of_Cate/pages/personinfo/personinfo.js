@@ -4,9 +4,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    avatarUrl:"",
-    nickName:"",
-    mtoo:"",
     icon_r: 'https://manager.diandianxc.com/mine/enter.png',
     sex:[
       {name:'0',value:'男',checked:'true'},
@@ -19,58 +16,33 @@ Page({
   },
   onShow: function () {
     this.setData({
+      head_choice:"unchoosed",         //没有换头像
       nickName:app.globalData.user_name,
       avatarUrl:app.globalData.user_image_path,
       motto:app.globalData.user_motto
     })
   },
-  // 点击更换手机相册或者电脑本地图片
-  headimage: function () {     //更改用户头像
+  // 从相册中选择用户的新头像
+  headimage: function () {
     var that = this;
      wx.chooseImage({
        count: 1,
        sizeType: ['original', 'compressed'],
        sourceType: ['album', 'camera'],
        success: function (res) {
-         app.globalData.head_image_path=res.tempFilePaths[0]
-         that.setData({avatarUrl: res.tempFilePaths[0]})
+         that.setData({
+           avatarUrl: res.tempFilePaths[0],
+           head_choice: "choosed"       //如果更新了头像
+          })
       }
     })
   },
-  //单选按钮发生变化
+  //单选按钮性别发生变化
   radioChange(e){
     this.setData({
       isSex:e.detail.value
     })
   },
- // 图片显示
- buttonclick:function () {
-  var that = this
-  wx: wx.showActionSheet({
-    itemList: ['拍照', '从手机相册选择'],
-    itemColor: '',
-    success: function (res) {
-        wx.chooseImage({
-          count: 1,
-          sizeType: ['original', 'compressed'],
-          sourceType: ['album', 'camera'],
-          success (res) {
-            console.log('res',res)
-            const tempFilePaths = res.tempFilePaths
-            that.setData({
-              "info.licensePicUrls":tempFilePaths,
-              imgShow:true
-            })
-          }
-        })
-    },
-    fail: function (res) {
-      console.log('取消',res.errMsg);
-    },
-  })
-},
-
-
   //表单提交
   formSubmit(e){
     console.log(e);
@@ -102,11 +74,14 @@ Page({
     this.setData({modalHidden: true})
     //把用户头像存到微信云托管的对象存储之中
     wx.cloud.init()
+    app.globalData.user_image_path = this.data.avatarUrl
+    if(this.data.head_choice=="choosed"){   //如果用户更新了头像
     var store_path = app.globalData.user_openid+'/head_image/my_head.jpg'
-    const result = await this.uploadFile(this.data.avatarUrl, store_path, function(res)
-    {
-      console.log("用户头像上传完成")
-    })
+    var result = await this.uploadFile(this.data.avatarUrl, store_path, function(){
+      console.log("用户新头像上传完成")
+    })}else{                                //如果用户没有更新头像
+      var result = this.data.avatarUrl
+    }
     //把用户的信息上传到微信云托管的MySQL之中
     wx.request({
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/modify', 
@@ -125,9 +100,6 @@ Page({
       // 修改全局变量
       app.globalData.user_name = this.data.information['name']
       app.globalData.user_motto = this.data.information['sign']
-      app.globalData.user_image_path = result
-      console.log('上传用户头像后的路径:',result)
-      app.globalData.user_openid = app.globalData.user_openid
       //跳转回my页面
       wx.navigateBack()
   },

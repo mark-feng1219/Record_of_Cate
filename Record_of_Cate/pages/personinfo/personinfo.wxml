@@ -2,7 +2,7 @@
   <image src=''></image>
   <text>基本信息</text>
 </view>
- 
+
 <form bindsubmit="formSubmit">
 <view class='list'>
   <view class='icon'>
