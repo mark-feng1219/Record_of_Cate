@@ -69,13 +69,26 @@ def note_details():
     comment = return_comment(note_id)
     note = return_note(note_id)
 
-    comment_tmp = [i.comment_content for i in comment]
+    comment_content_tmp = []
+    publisher_user_head_tmp = []
+    publisher_user_name_tmp = []
+
+    for i in comment:
+        comment_content_tmp.append(i.comment_content)
+        publisher = dbUser.query.filter(dbUser.user_id == i.comment_publisher_idd).first()
+        publisher_user_head_tmp.append(publisher.head_image_path)
+        publisher_user_name_tmp.append(publisher.user_name)
+
 
     note_content = {'note_content': note.content}
-    comment_content = {'comment_content':comment_tmp}
+    comment_content = {'comment_content':comment_content_tmp}
+    publisher_user_head = {'publisher_user_head':publisher_user_head_tmp}
+    publisher_user_name = {'publisher_user_name':publisher_user_name_tmp}
 
     res.update(note_content)
     res.update(comment_content)
+    res.update(publisher_user_name)
+    res.update(publisher_user_head)
 
     return json.dumps(res)
 
