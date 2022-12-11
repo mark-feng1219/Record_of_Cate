@@ -5,7 +5,6 @@ Page({
   /**
    * 页面的初始数据
    */
-
   data: {
     like_count : 0,
     checked: true,
@@ -22,19 +21,6 @@ Page({
     ],
     cardTeams: [],
     comments: []
-    // cardTeams: [{
-    //   "viewid": "1",
-    //   "imgdetailsrc": "/images/笔记详情照片.jpg",
-    //   "headportrait": "/images/头像1.jpg",
-    //   "name": "暖啊榆",
-    //   "title": "这是什么菜",
-    //   "content": "虽然还没有吃，但是看起来好好吃呀！我好想吃好想吃",
-    //  }],
-    //  comments: [{
-    //    "name": "暖啊榆",
-    //    "headportrait": "/images/头像1.jpg",
-    //    "content": "哇！！发现宝藏啦！点开这个博主的主页根本出不来欸！"
-    //  }]
   },
   /**
    * 生命周期函数--监听页面加载
@@ -102,28 +88,6 @@ Page({
   onShow() {
     
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
   /**
    * 页面上拉触底事件的处理函数
    */

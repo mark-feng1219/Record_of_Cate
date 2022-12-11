@@ -186,6 +186,7 @@ titleClick: function (e) {
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 2000)
+    if(app.globalData.login_state==1){   //避免用户不登录直接下拉刷新显示内容
     this.request_note().then(async(res)=>{
       this.setData({
         cardTeams:[],
@@ -227,6 +228,6 @@ titleClick: function (e) {
         this.data.card_like_Teams.push(tmp_dict)
       }
       this.setData({card_like_Teams:this.data.card_like_Teams})
-    })
+    })}
   }
 })

@@ -17,7 +17,8 @@ Page({
         note_id_array:res.data['note_id'],
         title_array:res.data['note_title'],
         publisher_head_array:res.data['publisher_head'],
-        publisher_name_array:res.data['publisher_name']
+        publisher_name_array:res.data['publisher_name'],
+        publisher_id_array:res.data['note_publisher_id']
       })
       for(var j=0;j<this.data.note_id_array.length;j++){
         var tmp_dict={}
@@ -26,6 +27,7 @@ Page({
         tmp_dict['count'] = this.data.publisher_name_array[j]
         tmp_dict['name'] = this.data.title_array[j]
         tmp_dict['note_id'] = this.data.note_id_array[j]
+        tmp_dict['publisher_id'] = this.data.publisher_id_array[j]
         this.data.cardTeams.push(tmp_dict)
       }
       this.setData({cardTeams:this.data.cardTeams})
@@ -50,7 +52,7 @@ Page({
   getUrl: function (e) {    //注意不要写options和console.log(options)
     console.log(e.currentTarget.dataset)
     wx.navigateTo({
-      url: '/pages/details/details?note_id='+e.currentTarget.dataset['note_id']+'&title='+e.currentTarget.dataset['title']+'&name='+e.currentTarget.dataset['publisher']+'&cover_image='+ e.currentTarget.dataset['cover_image']+'&user_head='+e.currentTarget.dataset['user_head']+'&publisher_id='+app.globalData.user_openid,
+      url: '/pages/details/details?note_id='+e.currentTarget.dataset['note_id']+'&title='+e.currentTarget.dataset['title']+'&name='+e.currentTarget.dataset['publisher']+'&cover_image='+ e.currentTarget.dataset['cover_image']+'&user_head='+e.currentTarget.dataset['user_head']+'&publisher_id='+e.currentTarget.dataset['publisher_id'],
     })
   },
   /**
@@ -59,7 +61,6 @@ Page({
   onLoad(options) {
     wx.setNavigationBarTitle({
       title: '搜索-食珍录'
-      
     });
   },
   /**
@@ -75,39 +76,4 @@ Page({
   onShow() {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })

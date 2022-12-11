@@ -229,6 +229,7 @@ titleClick: function (e) {
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 2000)
+    if(app.globalData.login_state==1){   //避免用户不登录直接下拉刷新显示内容
     this.request_focus().then(async(res)=>{               //加载首页关注的内容
       var user_id_image = {}
       for(var i=0;i<res.data['user_head'].length;i++){     //加载用户头像
@@ -266,14 +267,14 @@ titleClick: function (e) {
         this.data.trips.push(tmp_dict)
         this.setData({trips:this.data.trips})
       }
-    })
+    })}
   },
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
     console.log("关注/推荐页上拉触底")
-    if(this.data.currentIndex==1){                //当且仅当它是推荐页
+    if(this.data.currentIndex==1&&app.globalData.login_state==1){//推荐页下拉触底且用户登录
     this.request_recommend().then(async(res)=>{   //用户划到底了
       for(var j=0;j<res.data['note_id'].length;j++){
         var tmp_dict={}
