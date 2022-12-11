@@ -75,7 +75,7 @@ def note_details():
 
     for i in comment:
         comment_content_tmp.append(i.comment_content)
-        publisher = dbUser.query.filter(dbUser.user_id == i.comment_publisher_idd).first()
+        publisher = dbUser.query.filter(dbUser.user_id == i.comment_publisher_id).first()
         publisher_user_head_tmp.append(publisher.head_image_path)
         publisher_user_name_tmp.append(publisher.user_name)
 
