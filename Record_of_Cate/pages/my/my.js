@@ -11,7 +11,6 @@ Page({
             head_tmp : res.userInfo.avatarUrl
           })
           //获取openId（需要code来换取）这是用户的唯一标识符
-          // 获取code值
           wx.login({
             success:(res)=>{
               this.setData({
@@ -31,10 +30,23 @@ Page({
                   },
                   method:"POST",
                   header: { 'content-type': 'application/json' },
-                  success: (r) => {       // 接口调用成功的回调函数
+                  success: (async(r) => {
                   app.globalData.login_state=1      //全局变量login_state变为1
                   console.log('返回用户信息:',r)
-                  if(r!="login success"){
+                  if(r.data=="login success"){                             //用户是第一次登录时
+                    console.log("用户第一次登录")
+                    app.globalData.user_sex = this.data.gender_tmp
+                    app.globalData.user_name = this.data.name_tmp
+                    app.globalData.user_image_path= this.data.head_tmp
+                    app.globalData.user_motto = "这个人很懒~，什么都没留下"
+                    this.setData({
+                      nickName : app.globalData.user_name,
+                      avatarUrl : app.globalData.user_image_path,
+                      motto : app.globalData.user_motto,     // 令等于一个undefine将不会发生改变!
+                      login_state : app.globalData.login_state,
+                      account:'食珍录账号：'+this.data.openid.slice(18,28)  //食珍录账号
+                    })}else{           //用户不是第一次登录时
+                    console.log("用户不是第一次登录")
                     app.globalData.user_sex = r.data['user_sex']
                     app.globalData.user_name=r.data['user_name']
                     app.globalData.user_image_path=r.data['user_head']
@@ -46,10 +58,9 @@ Page({
                       login_state : app.globalData.login_state,
                       account:'食珍录账号：'+this.data.openid.slice(18,28)  //食珍录账号
                     })
-                  }},
-                  fail: function() {  //接口调用失败的回调函数
-                  console.log('failure')  // 发生网络错误等情况触发
-                  },
+                  }
+                }),
+                  fail: function() {console.log('failure')},
                   })
               })
             },
@@ -63,16 +74,14 @@ Page({
   // 请求得到用户的openid
   request_openid:function(){
     var that = this
-    return new Promise(function(resolve,reject){  //同步
+    return new Promise(function(resolve){  //同步
     // 通过code换取openId
     wx.request({
       url: `https://api.weixin.qq.com/sns/jscode2session?appid=${that.data.appid}&secret=${that.data.secret}&js_code=${that.data.code}&grant_type=authorization_code`,
       success:(res)=>{
         resolve(res)
         app.globalData.user_openid=res.data.openid
-        that.setData({         
-          openid:app.globalData.user_openid,
-        })
+        that.setData({openid:app.globalData.user_openid})
       }
     })
     })
@@ -81,28 +90,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    openid:"食珍录账号:××××××",
-    nickName:"请登录",
-    avatarUrl:"/images/member.png",
-    motto:"登陆后解锁功能",
-    login_state:0,
-    account:"食珍录账号:××××××"
-  },
-  onLoad(options) {
-    console.log(options)
-    wx.setNavigationBarColor({
-      frontColor: '#ffffff',
-      backgroundColor: '#FFC359',
-      animation: {
-        duration: 400,
-        timingFunc: 'easeIn'
-      }
-    })
+
   },
     /**
-   * 生命周期函数--监听页面显示
+   * 生命周期函数--监听页面
    */
   onShow() {
+    console.log(app.globalData.user_openid)
+    console.log(app.globalData.user_image_path)
     this.setData({
       login_state:app.globalData.login_state,
       nickName:app.globalData.user_name,
@@ -110,6 +105,5 @@ Page({
       motto:app.globalData.user_motto,
       account:"食珍录账号:"+app.globalData.user_openid.slice(18,28)
     })
-    console.log(app.globalData.user_openid)
-  },
+  }
 })

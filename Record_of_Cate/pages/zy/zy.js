@@ -18,20 +18,14 @@ Page({
     value:0
   },
   onFollow: function(e) {
-    let follow = this.data.follow
-    let count = this.data.count
-    var xc = Array('您已取消关注','感谢您的关注') 
+    var follow = this.data.follow
+    var count = this.data.count
     this.setData({ // 更新数据
       follow: !follow,
       count: (count+1)%2,
     })
-    wx.showToast({
-      title: `${xc[this.data.count]}`,
-      icon: 'none',
-    });
     if(this.data.count==1){var choice = 'follow'}
     else{var choice = 'cancel'}
-    console.log(choice)
     wx.request({                   //将关注或取消关注用户的数据上传至后端
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/operate_user',
       data: {
@@ -40,7 +34,12 @@ Page({
         choice:choice
       },
       header: { 'content-type': 'application/json' },
-      success: function(res) {console.log(res)},
+      success: function(res) {
+        console.log(res)
+        if(res.data=="follow success") {wx.showToast({title: '感谢您的关注',})}
+        else if(res.data=="you have alredy followed"){wx.showToast({title: '您已经关注过了',})}
+        else if(res.data=="cancel success") {wx.showToast({title: '您已取消关注',})}
+      },
       fail: function() {console.log('failure')},
     })
   },
@@ -70,7 +69,7 @@ titleClick: function (e) {
   onLoad(options) {
     console.log(options)
     this.setData({
-      blogger_id:options.user_id,    //博主ID
+      blogger_id:options.user_id,      //博主ID
       blogger_name:options.user_name,  //博主昵称
       blogger_head:options.user_head,  //博主头像
     })
@@ -98,14 +97,17 @@ titleClick: function (e) {
       var like_image_array=res.data['photo_path']
       var like_id_array = res.data['note_id']
       var like_title_array = res.data['title']
+      var like_blogger_head_array = res.data['publisher_head_image']
+      var like_blogger_name_array = res.data['publisher_name']
+      var like_blogger_id_array = res.data['publisher_name']
       for(var i=0;i<like_id_array.length;i++){
         var tmp_dict={}
         tmp_dict['cover_image'] = like_image_array[i]      //居然可以从存储桶cloud里直接下
-        tmp_dict['cover_image_default'] = this.data.blogger_head
+        tmp_dict['cover_image_default'] = like_blogger_head_array[i]
         tmp_dict['name'] = like_title_array[i]
-        tmp_dict['desc'] = this.data.blogger_name
+        tmp_dict['desc'] = like_blogger_name_array[i]
         tmp_dict['note_id'] = like_id_array[i]
-        tmp_dict['user_id'] = this.data.blogger_id
+        tmp_dict['user_id'] = like_blogger_id_array[i]
         this.data.like_trips.push(tmp_dict)
       }
       this.setData({like_trips:this.data.like_trips})   //渲染到渲染层中

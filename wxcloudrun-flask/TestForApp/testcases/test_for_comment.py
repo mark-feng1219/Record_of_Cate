@@ -1,7 +1,6 @@
 import pytest
 import allure
 from wxcloudrun.model import dbComment
-from TestForApp.data.test_comment_data import *
 from TestForApp.conftest import *
 from wxcloudrun.comment.comment_function import return_comment
 from wxcloudrun.comment.comment_function import insert_comment

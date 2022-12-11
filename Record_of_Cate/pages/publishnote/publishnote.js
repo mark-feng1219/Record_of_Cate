@@ -59,19 +59,21 @@ Page({
     });
     if(value.title && value.content && value.label) {   //如果标题以及内容不为空
       wx.cloud.init()
-      var publisher_id = app.globalData.openid
+      var publisher_id = app.globalData.user_openid
       var note_id = Date.now()
       console.log('发布笔记的当前时间戳：',note_id)
       var cloud_path = publisher_id + '/' + note_id + '/note_image.png'
       const result = await this.uploadFile(this.data.info.licensePicUrls[0],cloud_path, function(res){
         console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
-    })
+      })
+      console.log('发布笔记前图像的路径',this.data.info.licensePicUrls[0])
     console.log('放在存储桶里的路径：',result)
     wx.request({
+      // url:'http://192.168.24.24/note/upload_user_note',
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/upload_user_note',
       data: {
         note_id:note_id,
-        publisher_id:publisher_id,
+        publisher_id:app.globalData.user_openid,
         title:value.title,
         content:value.content,
         tag:value.label,

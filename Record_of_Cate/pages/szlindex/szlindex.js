@@ -10,7 +10,7 @@ Page({
     currentIndex: 0,
     followpushs:[],   //关注内容列表
     trips:[],  //推荐内容列表
-    user_id:app.globalData.user_openid,
+    self_id:app.globalData.user_openid,
     pushs:[],   //用户头像
     msg1:'超级好吃',
     msg2:'超级好吃',
@@ -80,7 +80,7 @@ titleClick: function (e) {
     return new Promise(function(resolve,reject){
       wx.request({
         url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/follow/myfocus',
-        data: { user_id:"test_id"},
+        data: { user_id:app.globalData.user_openid},
         method:'GET',
         header: { 'content-type': 'application/json' },
         success: (res) => {resolve(res);console.log('加载首页关注的内容:',res)},
@@ -128,6 +128,7 @@ titleClick: function (e) {
    * 生命周期函数--监听页面显示
    */
   onShow() {
+      this.setData({self_id:app.globalData.user_openid})  //该死的onLoad和onShow函数
       if(app.globalData.login_state==1&&this.data.request_count==0){
       this.request_focus().then(async(res)=>{               //加载首页关注的内容
         var user_id_image = {}
@@ -148,6 +149,7 @@ titleClick: function (e) {
         tmp_dict['name'] = res.data['note_title'][i]
         tmp_dict['note_id'] = res.data['note_id'][i]
         tmp_dict['publisher_id'] = res.data['publisher_id'][i]
+        tmp_dict['self_id'] = this.data.self_id
         this.data.followpushs.push(tmp_dict)
         this.setData({followpushs:this.data.followpushs})
         }
@@ -161,6 +163,7 @@ titleClick: function (e) {
           tmp_dict['cover_image_default'] = res.data['user_head'][j]
           tmp_dict['publisher_id'] = res.data['user_id'][j]
           tmp_dict['desc'] = res.data['user_name'][j]
+          tmp_dict['self_id'] = this.data.self_id
           this.data.trips.push(tmp_dict)
           this.setData({trips:this.data.trips})
         }
@@ -202,15 +205,76 @@ titleClick: function (e) {
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.onRefresh();
   },
-
+  //onRefresh生命周期函数
+  onRefresh:function(){      //现场一定会有那种闲着蛋疼一发表笔记就想看的
+    //导航条加载动画
+    wx.showNavigationBarLoading()
+    //loading 提示框
+    wx.showLoading({
+      title: 'Loading...',
+    })
+    this.setData({
+      request_count:0,
+      pushs:[],
+      followpushs:[],
+      trips:[]
+    })
+    console.log(this.data.request_count)
+    console.log("笔记页下拉刷新");
+    setTimeout(function () {
+      wx.hideLoading();
+      wx.hideNavigationBarLoading();
+      //停止下拉刷新
+      wx.stopPullDownRefresh();
+    }, 2000)
+    if(app.globalData.login_state==1){   //避免用户不登录直接下拉刷新显示内容
+    this.request_focus().then(async(res)=>{               //加载首页关注的内容
+      var user_id_image = {}
+      for(var i=0;i<res.data['user_head'].length;i++){     //加载用户头像
+      var tmp_dict={}
+      tmp_dict['headportrait'] = res.data['user_head'][i]
+      tmp_dict['user_id'] = res.data['user_id'][i]
+      tmp_dict['user_name'] = res.data['user_name'][i]
+      user_id_image[res.data['user_id'][i]] = res.data['user_head'][i]
+      this.data.pushs.push(tmp_dict)
+      this.setData({pushs:this.data.pushs})
+      }
+      for(var i=0;i<res.data['note_image'].length;i++){     //加载笔记图像
+      var tmp_dict={}
+      tmp_dict['cover_image'] = res.data['note_image'][i]   //事实证明,是可以直接从存储桶里下的
+      tmp_dict['cover_image_default'] = user_id_image[res.data['publisher_id'][i]]
+      tmp_dict['desc'] = res.data['publisher_name'][i]
+      tmp_dict['name'] = res.data['note_title'][i]
+      tmp_dict['note_id'] = res.data['note_id'][i]
+      tmp_dict['publisher_id'] = res.data['publisher_id'][i]
+      tmp_dict['self_id'] = this.data.self_id
+      this.data.followpushs.push(tmp_dict)
+      this.setData({followpushs:this.data.followpushs})
+      }
+    })
+    this.request_recommend().then(async(res)=>{              //加载首页推荐的内容
+      for(var j=0;j<res.data['note_id'].length;j++){
+        var tmp_dict={}
+        tmp_dict['note_id'] = res.data['note_id'][j]
+        tmp_dict['cover_image'] = res.data['note_image'][j]
+        tmp_dict['name'] = res.data['note_title'][j]
+        tmp_dict['cover_image_default'] = res.data['user_head'][j]
+        tmp_dict['publisher_id'] = res.data['user_id'][j]
+        tmp_dict['desc'] = res.data['user_name'][j]
+        tmp_dict['self_id'] = this.data.self_id
+        this.data.trips.push(tmp_dict)
+        this.setData({trips:this.data.trips})
+      }
+    })}
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
     console.log("关注/推荐页上拉触底")
-    if(this.data.currentIndex==1){                //当且仅当它是推荐页
+    if(this.data.currentIndex==1&&app.globalData.login_state==1){//推荐页下拉触底且用户登录
     this.request_recommend().then(async(res)=>{   //用户划到底了
       for(var j=0;j<res.data['note_id'].length;j++){
         var tmp_dict={}

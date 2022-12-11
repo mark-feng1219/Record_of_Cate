@@ -19,7 +19,7 @@ Page({
     getUrl: function (e) {    //注意不要写options和console.log(options)
       console.log(e.currentTarget.dataset)
       wx.navigateTo({
-        url: '/pages/details/details?note_id='+e.currentTarget.dataset['note_id']+'&title='+e.currentTarget.dataset['title']+'&name='+e.currentTarget.dataset['publisher']+'&cover_image='+ e.currentTarget.dataset['cover_image']+'&user_head='+e.currentTarget.dataset['user_head']+'&publisher_id='+app.globalData.user_openid,
+        url: '/pages/details/details?note_id='+e.currentTarget.dataset['note_id']+'&title='+e.currentTarget.dataset['title']+'&name='+e.currentTarget.dataset['publisher']+'&cover_image='+ e.currentTarget.dataset['cover_image']+'&user_head='+e.currentTarget.dataset['user_head']+'&publisher_id='+e.currentTarget.dataset['publisher_id'],
       })
     },
     
@@ -62,7 +62,7 @@ titleClick: function (e) {
     return new Promise(function(resolve,reject){
     wx.request({
     url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/mynote',
-    data: {user_id:"test_id"},
+    data: {user_id:app.globalData.user_openid},
     header: { 'content-type': 'application/json' },
     success: (res) =>{resolve(res);console.log('获取笔记数据：',res)},
     fail: function() {console.log('failure')},
@@ -74,9 +74,12 @@ titleClick: function (e) {
     return new Promise(function(resolve,reject){
     wx.request({
     url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/like_note_info',
-    data: {user_id:"test_id"},
+    data: {user_id:app.globalData.user_openid},
     header: { 'content-type': 'application/json' },
-    success: (res) =>{resolve(res);console.log('获取点赞数据',res)},
+    success: (res) =>{
+      resolve(res)
+      console.log('获取点赞数据',res)
+    },
     fail: function() {console.log('failure')},
     })})
   },
@@ -106,6 +109,7 @@ titleClick: function (e) {
             tmp_dict['count'] = app.globalData.user_name,
             tmp_dict['name'] = this.data.title_array[j]
             tmp_dict['note_id'] = this.data.note_id_array[j]
+            tmp_dict['publisher_id'] = app.globalData.user_openid
             this.data.cardTeams.push(tmp_dict)
           }
           this.setData({cardTeams:this.data.cardTeams})
@@ -115,13 +119,17 @@ titleClick: function (e) {
           this.setData({
             image_like_array:res.data['photo_path'],
             note_id_like_array:res.data['note_id'],
-            title_like_array:res.data['title']
+            title_like_array:res.data['title'],
+            publisher_id_array:res.data['publisher_id'],
+            publisher_name_array:res.data['publisher_name'],
+            publisher_head_array:res.data['publisher_head_image']
           })
           for(var j=0;j<this.data.note_id_like_array.length;j++){
             var tmp_dict={}
             tmp_dict['imgsrc'] = this.data.image_like_array[j]
-            tmp_dict['Head_picture'] = app.globalData.user_image_path
-            tmp_dict['count'] = app.globalData.user_name
+            tmp_dict['Head_picture'] = this.data.publisher_head_array[j]
+            tmp_dict['count'] = this.data.publisher_name_array[j]
+            tmp_dict['publisher_id'] = this.data.publisher_id_array[j]
             tmp_dict['name'] = this.data.title_like_array[j]
             tmp_dict['note_id'] = this.data.note_id_like_array[j]
             this.data.card_like_Teams.push(tmp_dict)
@@ -178,7 +186,8 @@ titleClick: function (e) {
       //停止下拉刷新
       wx.stopPullDownRefresh();
     }, 2000)
-    this.request_note().then(async(res)=>{        //用户刚发表完笔记想看结果
+    if(app.globalData.login_state==1){   //避免用户不登录直接下拉刷新显示内容
+    this.request_note().then(async(res)=>{
       this.setData({
         cardTeams:[],
         image_array:res.data['photo_path'],
@@ -192,28 +201,33 @@ titleClick: function (e) {
         tmp_dict['count'] = app.globalData.user_name,
         tmp_dict['name'] = this.data.title_array[j]
         tmp_dict['note_id'] = this.data.note_id_array[j]
+        tmp_dict['publisher_id'] = app.globalData.user_openid
         this.data.cardTeams.push(tmp_dict)
       }
       this.setData({cardTeams:this.data.cardTeams})
     })
 
-    this.request_like().then(async(res)=>{       //用户刚点赞完笔记想看结果
+    this.request_like().then(async(res)=>{
       this.setData({
         card_like_Teams:[],
         image_like_array:res.data['photo_path'],
         note_id_like_array:res.data['note_id'],
-        title_like_array:res.data['title']
+        title_like_array:res.data['title'],
+        publisher_id_array:res.data['publisher_id'],
+        publisher_name_array:res.data['publisher_name'],
+        publisher_head_array:res.data['publisher_head_image']
       })
       for(var j=0;j<this.data.note_id_like_array.length;j++){
         var tmp_dict={}
         tmp_dict['imgsrc'] = this.data.image_like_array[j]
-        tmp_dict['Head_picture'] = app.globalData.user_image_path
-        tmp_dict['count'] = app.globalData.user_name
+        tmp_dict['Head_picture'] = this.data.publisher_head_array[j]
+        tmp_dict['count'] = this.data.publisher_name_array[j]
+        tmp_dict['publisher_id'] = this.data.publisher_id_array[j]
         tmp_dict['name'] = this.data.title_like_array[j]
         tmp_dict['note_id'] = this.data.note_id_like_array[j]
         this.data.card_like_Teams.push(tmp_dict)
       }
       this.setData({card_like_Teams:this.data.card_like_Teams})
-    })
+    })}
   }
 })
