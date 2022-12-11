@@ -27,8 +27,8 @@ Component({
   data: {
     like: false,
     count:0,
-    yesSrc: '../images/点赞点亮.png', // 点赞时的图片路径
-    noSrc: '../images/点赞未点亮.png' // 没有点赞时的图片路径
+    yesSrc: '../images/like.png', // 点赞时的图片路径
+    noSrc: '../images/unlike.png' // 没有点赞时的图片路径
   },
 
   /**

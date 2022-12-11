@@ -10,7 +10,10 @@ Page({
   },
   onSearch(e){                //敲下回车触发搜索
     console.log(e.detail)
-    this.setData({key_words:e.detail})
+    this.setData({
+      key_words:e.detail,
+      cardTeams:[]       //避免用户连续搜索导致追加写
+    })
     this.request_note().then(async(res)=>{
       this.setData({
         image_array:res.data['note_image'],
@@ -49,6 +52,7 @@ Page({
     fail: function() {console.log('failure')},
     })})
   },
+  //跳转至详情页
   getUrl: function (e) {    //注意不要写options和console.log(options)
     console.log(e.currentTarget.dataset)
     wx.navigateTo({
@@ -62,18 +66,5 @@ Page({
     wx.setNavigationBarTitle({
       title: '搜索-食珍录'
     });
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
   },
 })

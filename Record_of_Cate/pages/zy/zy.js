@@ -11,8 +11,8 @@ Page({
     loading: false,
     follow: false,
     count: 0,
-    yesSrc: '/images/已关注.png', // 已关注时的图片路径
-    noSrc: '/images/关注.png', // 没有关注时的图片路径
+    yesSrc: '/images/focused.png', // 已关注时的图片路径
+    noSrc: '/images/unfocus.png', // 没有关注时的图片路径
     trips: [],
     like_trips: [],
     value:0

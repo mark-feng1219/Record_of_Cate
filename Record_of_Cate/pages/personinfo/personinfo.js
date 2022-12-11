@@ -119,7 +119,7 @@ Page({
       },
       method:"POST",
       header: { 'content-type': 'application/json' },
-      success: (res) =>{console.log(res)},
+      success: (res) =>{console.log('更新用户信息：',res)},
       fail: function() {console.log('failure')}
       })
       // 修改全局变量
@@ -129,9 +129,7 @@ Page({
       console.log('上传用户头像后的路径:',result)
       app.globalData.user_openid = app.globalData.user_openid
       //跳转回my页面
-      wx.redirectTo({
-        url: '../my/my',
-      })
+      wx.navigateBack()
   },
   //上传到微信云托管的对象存储
   uploadFile(file, path, onCall = () => {}) {  
