@@ -48,8 +48,8 @@ Page({
       this.setData({cardTeams:this.data.cardTeams})
       for(var i=0;i<res.data['comment_content'].length;i++){
         var comment_info = {}
-        comment_info['name'] = "暖啊榆",
-        comment_info['headportrait'] = 'https://thirdwx.qlogo.cn/mmopen/vi_32/05XINsPDic2ELnfPnIiadmy4ytlSZW0Ew00XOwKnobTsWM8lkrMMVpaUvMladiaIo0J5kyyAv4EaeMQ4GXbnvGhNQ/132'
+        comment_info['name'] = res.data['publisher_user_name'][i],
+        comment_info['headportrait'] = res.data['publisher_user_head'][i],
         comment_info['content'] = res.data['comment_content'][i]
         this.data.comments.push(comment_info)
       }

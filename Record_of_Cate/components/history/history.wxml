@@ -6,7 +6,7 @@
   <view class="history_auth_name">
     <image bindtap="getUrl1" class="item-ava" src="{{cover_image_default}}" data-user_id="{{user_id}}" data-publisher="{{name}}" data-publisher_head="{{cover_image_default}}"></image>
     <text class="name-title">{{name}}</text>
-    <view class="boxgood" bind:tap="onLike" data-note_id="{{note_id}}" data-user_id="{{user_id}}" data-self_id="{{self_id}}"> 
+    <view class="boxgood" bind:tap="onLike" data-note_id="{{note_id}}" data-user_id="{{user_id}}"> 
     <image src="{{like ? yesSrc : noSrc }}" class="good"></image>
     </view>
   </view>

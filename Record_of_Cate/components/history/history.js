@@ -1,5 +1,4 @@
-// components/history/history.js
-const app = getApp()
+const app = getApp()  //组件里也是可以使用全局变量的
 Component({
   /**
    * 组件的属性列表
@@ -20,7 +19,6 @@ Component({
     },
     note_id:'',
     user_id:'',
-    self_id:''
   },
 
   /**
@@ -31,7 +29,6 @@ Component({
     count:0,
     yesSrc: '../images/点赞点亮.png', // 点赞时的图片路径
     noSrc: '../images/点赞未点亮.png' // 没有点赞时的图片路径
-
   },
 
   /**
@@ -60,7 +57,7 @@ Component({
       wx.request({
         url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/operate_note',
         data: {
-          user_id:e.currentTarget.dataset['self_id'],
+          user_id:app.globalData.user_openid,
           note_id: this.data.note_id,
           choice:choice
         },
@@ -76,7 +73,7 @@ Component({
     },
     getUrl1: function (e) {    //跳转至用户的个人主页
       wx.navigateTo({
-        url: '/pages/zy/zy?user_id='+ e.currentTarget.dataset['user_id'] + '&user_name=' + e.currentTarget.dataset['publisher'] + '&user_head=' + e.currentTarget.dataset['publisher_head'] 
+        url: '/pages/zy/zy?user_id='+ e.currentTarget.dataset['user_id'] + '&user_name=' + e.currentTarget.dataset['publisher'] + '&user_head=' + e.currentTarget.dataset['publisher_head'] + '&self_id='+app.globalData.user_openid
       })
     },
 
