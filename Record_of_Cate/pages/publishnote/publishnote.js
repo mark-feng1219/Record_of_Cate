@@ -66,10 +66,8 @@ Page({
       const result = await this.uploadFile(this.data.info.licensePicUrls[0],cloud_path, function(res){
         console.log(`上传进度：${res.progress}%，已上传${res.totalBytesSent}B，共${res.totalBytesExpectedToSend}B`)     //result是存储在对象存储的路径
       })
-      console.log('发布笔记前图像的路径',this.data.info.licensePicUrls[0])
     console.log('放在存储桶里的路径：',result)
     wx.request({
-      // url:'http://192.168.24.24/note/upload_user_note',
       url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/note/upload_user_note',
       data: {
         note_id:note_id,
@@ -81,9 +79,13 @@ Page({
       },
       method:"POST",               //后续再改成POST
       header: { 'content-type': 'application/json' },
-      success: function(res) {console.log(res)},
+      success: function(res) {
+        console.log(res)
+        wx.navigateBack()
+      },
       fail: function() {console.log('failure')},
       })
+
   }
     else {
       wx.showModal({
@@ -92,8 +94,8 @@ Page({
         showCancel: false
       });
     }
-    },
-    uploadFile(file, path, onCall = () => {}) {  //上传到微信云托管的对象存储
+  },
+  uploadFile(file, path, onCall = () => {}) {  //上传到微信云托管的对象存储
       return new Promise((resolve, reject) => {
         const task = wx.cloud.uploadFile({
           cloudPath: path,
@@ -125,25 +127,10 @@ Page({
   onLoad(options) {
 
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
 
   },
 
@@ -153,25 +140,4 @@ Page({
   onUnload() {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })

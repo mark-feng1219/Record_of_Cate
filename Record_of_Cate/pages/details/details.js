@@ -126,7 +126,11 @@ Page({
     else{Toast.success('请先登录！')}
  },
   goto:function(){          //点击评论按钮时触发
-    if(app.globalData.login_state!=0){wx.navigateTo({url: '/pages/pl/pl',})}
+    if(app.globalData.login_state!=0){
+      wx.navigateTo({
+        url: '/pages/pl/pl?publishAt_note_id='+this.data.note_id,
+      })
+    }
     else{Toast.success('请先登录！');}
   }
 });
