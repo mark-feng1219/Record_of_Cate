@@ -21,7 +21,7 @@
       <image mode="widthFix" data-src="{{item}}" src="{{item}}" wx:if="{{imgShow}}" bindtap="previewImage" ></image>
     </view>
     <view class="img-list" bindtap='buttonclick'>
-      <image mode="widthFix" src="/images/上传图片.png" class="img"></image>
+      <image mode="widthFix" src="/images/upload_cover.png" class="img"></image>
     </view>
   </view>
   <button class="btn2" form-type="submit">提交</button>

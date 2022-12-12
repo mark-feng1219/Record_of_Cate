@@ -2,7 +2,6 @@ Page {
   /* 全局样式 */
   background: rgb(244, 245, 249);
   height: 100%;
-  position: fixed;
 }
 
 .fontColorBox,
@@ -61,8 +60,6 @@ Page {
   font-size: 28rpx;
 }
 
-
-
 page {
   width: 100%;
   background-color: rgb(240, 239, 239);
@@ -82,67 +79,6 @@ page {
   background-color: rgb(255, 255, 255);
   font-size: 16px;
 }
-
-/*-----------------------------------------------------*/
-.itmTitle {
-  width: 100%;
-  margin-bottom: 5px;
-  border-style: solid;
-  border: solid rgb(203, 179, 226) 1px;
-  border-left-width: 0px;
-  border-right-width: 0px;  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-}
-
-.itmAmt {
-  width: 100%;
-  height: 60rpx;
-  float: left;
-  border: solid rgb(203, 179, 226) 0px;
-  font-size: 12px;
-}
-
-.itmSale {
-  width: 50%;
-  height: 60rpx;
-  float: right;
-  border: solid rgb(203, 179, 226) 0px;
-}
-
-/*------------------------*/
-
-.itmTitle1 {
-  height: 100%;
-  width: 90%;
-}
-
-.itmAmt1 {
-  width: 35px;
-  height: 100%;
-  line-height: 100%;
-  float: left;
-  text-decoration: line-through;
-  font-style: oblique;
-  color: #FFC359;
-  padding-left: 6px;
-  border: solid rgb(203, 179, 226) 1px;  
-  display: flex;  justify-content: center;  align-items: center;
-}
-
-.itmAmt2 {
-  width: 35px;
-  height: 100%;
-  line-height: 100%;
-  float: left;
-  padding-left: 6px;
-  border: solid rgb(203, 179, 226) 1px;
-  display: flex;  justify-content: center;  align-items: center;
-} 
-
-
 
 .container {
   padding-top: 0;
