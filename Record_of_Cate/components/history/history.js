@@ -39,32 +39,36 @@ Component({
       console.log(e.currentTarget.dataset)
       let like = this.properties.like
       let count = this.properties.count
-      var lc = Array('您已取消点赞','您的点赞是我创作的鼓励！') 
-      this.setData({ // 更新数据
+      this.setData({
         like: !like,
         count: (count+1)%2,
         note_id:e.currentTarget.dataset['note_id'],
-        user_id:e.currentTarget.dataset['user_id']
+        user_id:e.currentTarget.dataset['user_id']  //发布此笔记的用户ID
       })
-      wx.showToast({
-        title: `${lc[this.properties.count]}`,
-        icon: 'none',
-      })
-      // 将用户点赞或取消点赞的动作上传至微信云托管
-      console.log(this.data.like)
-      if(this.data.like){var choice = "insert"}
-      else{var choice = "delete"}
-      wx.request({
-        url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/operate_note',
-        data: {
-          user_id:app.globalData.user_openid,
-          note_id: this.data.note_id,
-          choice:choice
-        },
-        header: { 'content-type': 'application/json' },
-        success: function(res) {console.log(res)},
-        fail: function() {console.log('failure')}
-        })
+      if(this.data.user_id==app.globalData.user_openid){ //如果这篇笔记的拥有者是自己,就不能点赞
+        wx.showToast({title: '不能点赞自己的笔记',icon: 'none'})
+      }else{
+        // 将用户点赞或取消点赞的动作上传至微信云托管
+        console.log('用户是否选择点赞：',this.data.like)
+        if(this.data.like){var choice = "insert"}
+        else{var choice = "delete"}
+        wx.request({
+          url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/support/operate_note',
+          data: {
+            user_id:app.globalData.user_openid,//用户自己的ID
+            note_id: this.data.note_id,        //用户要点赞的笔记ID
+            choice:choice
+          },
+          header: { 'content-type': 'application/json' },
+          success: function(res) {
+            console.log(res)
+            if(res.data=="like success"){wx.showToast({title: '您的点赞是我创作的鼓励！',icon: 'none'})}
+            if(res.data=="cancel success"){wx.showToast({title: '取消点赞成功',icon: 'none'})}
+            if(res.data=="you have already supported"){wx.showToast({title: '您已经点赞过了',icon: 'none'})}
+          },
+          fail: function() {console.log('failure')}
+          })
+      }
     },
     getUrl: function (e) {     //跳转至笔记的详情页
       wx.navigateTo({

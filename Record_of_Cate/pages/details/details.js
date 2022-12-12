@@ -99,7 +99,7 @@ Page({
   },
   test: function (){        //点击点赞按钮时触发
     if(app.globalData.login_state!=0){
-      console.log(this.data.publisher_id)
+      console.log('发布笔记的用户ID：',this.data.publisher_id)
       if(this.data.publisher_id==app.globalData.user_openid){  //如果这篇笔记的拥有者是自己,就不能点赞
         Toast.success('不能点赞自己的笔记哦！')
       }else{                                                   //这篇笔记不是自己发表的
