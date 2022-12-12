@@ -74,7 +74,7 @@ def index():
 def order_for_me():
     all_note = dbNote.query.order_by(desc(dbNote.publish_time)).all()
     all_num = len(all_note)
-    chosen = random.randint(0, all_num)
+    chosen = random.randint(0, all_num-1)
     res = all_note[chosen]
     res_photo = res.photo_path
 
