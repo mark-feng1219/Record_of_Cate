@@ -72,6 +72,7 @@ titleClick: function (e) {
       blogger_id:options.user_id,      //博主ID
       blogger_name:options.user_name,  //博主昵称
       blogger_head:options.user_head,  //博主头像
+      account:options.user_id.slice(18,28)
     })
     wx.setNavigationBarTitle({
       title: ' ',

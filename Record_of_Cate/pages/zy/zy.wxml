@@ -1,10 +1,10 @@
 <import src="../../components/history.wxml"/>
 <view class="header-info">
-    <!--如果只是展示头像、昵称，可以使用<open-data/>组件  -->      
+    <!--如果只是展示头像、昵称，可以使用<open-data/>组件  -->
     <image class="avatar" src="{{blogger_head}}"></image>
     <view class="nickname" >{{blogger_name}}</view> 
     <!--格言  -->
-    <view class="motto">食珍录账号：{{blogger_id}}</view>
+    <view class="motto">食珍录账号：{{account}}</view>
     <view class="boxgood" bindtap="onFollow"> 
     <image src="{{follow ? yesSrc : noSrc }}" class="good"></image>
     </view>

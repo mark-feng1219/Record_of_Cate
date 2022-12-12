@@ -71,11 +71,10 @@ Component({
         url: '/pages/details/details?note_id=' + e.currentTarget.dataset['note_id'] + '&title=' + e.currentTarget.dataset['note_title'] + '&name=' + e.currentTarget.dataset['publisher'] + '&cover_image=' + e.currentTarget.dataset['image'] + '&user_head=' + e.currentTarget.dataset['publisher_head'] + '&publisher_id=' + e.currentTarget.dataset['user_id']
       })
     },
-    getUrl1: function (e) {    //跳转至用户的个人主页
+    getUrl1: function (e) {    //跳转至用户的个人主页,用户起名字为???时会出bug,跳转至自己主页时没有头像和名称
       wx.navigateTo({
         url: '/pages/zy/zy?user_id='+ e.currentTarget.dataset['user_id'] + '&user_name=' + e.currentTarget.dataset['publisher'] + '&user_head=' + e.currentTarget.dataset['publisher_head'] + '&self_id='+app.globalData.user_openid
       })
     },
-
   }
 })

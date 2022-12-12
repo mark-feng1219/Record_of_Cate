@@ -12,10 +12,6 @@ Page({
     trips:[],  //推荐内容列表
     self_id:app.globalData.user_openid,
     pushs:[],   //用户头像
-    msg1:'超级好吃',
-    msg2:'超级好吃',
-    msg3:'超级好吃',
-    msg4:'超级好吃 ',
     value:0,
     request_count:0
   },
@@ -119,12 +115,6 @@ titleClick: function (e) {
         })})
     },
   /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
@@ -173,6 +163,7 @@ titleClick: function (e) {
       duration: 2000
     })}
   },
+  //跳转至查询页面search
   jump_search(){
     if(app.globalData.login_state==0){   //如果用户没有登录
       wx.showToast({
@@ -185,20 +176,6 @@ titleClick: function (e) {
       })
     }
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
@@ -270,26 +247,25 @@ titleClick: function (e) {
    */
   onReachBottom() {
     console.log("关注/推荐页上拉触底")
-    if(this.data.currentIndex==1&&app.globalData.login_state==1){//推荐页下拉触底且用户登录
-    this.request_recommend().then(async(res)=>{   //用户划到底了
-      for(var j=0;j<res.data['note_id'].length;j++){
-        var tmp_dict={}
-        tmp_dict['note_id'] = res.data['note_id'][j]
-        tmp_dict['cover_image'] = res.data['note_image'][j]
-        tmp_dict['name'] = res.data['note_title'][j]
-        tmp_dict['cover_image_default'] = res.data['user_head'][j]
-        tmp_dict['publisher_id'] = res.data['user_id'][j]
-        tmp_dict['desc'] = res.data['user_name'][j]
-        this.data.trips.push(tmp_dict)
-        this.setData({trips:this.data.trips})
-      }
-    })}
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
+  scrolltoupper:function(){
+    console.log("滚动到顶部");
+  },
+  scrolltolower:function(){          //无感加载
+    console.log("滚动到底部");
+    if(this.data.currentIndex==1&&app.globalData.login_state==1){//推荐页下拉触底且用户登录
+      this.request_recommend().then(async(res)=>{   //用户划到底了
+        for(var j=0;j<res.data['note_id'].length;j++){
+          var tmp_dict={}
+          tmp_dict['note_id'] = res.data['note_id'][j]
+          tmp_dict['cover_image'] = res.data['note_image'][j]
+          tmp_dict['name'] = res.data['note_title'][j]
+          tmp_dict['cover_image_default'] = res.data['user_head'][j]
+          tmp_dict['publisher_id'] = res.data['user_id'][j]
+          tmp_dict['desc'] = res.data['user_name'][j]
+          this.data.trips.push(tmp_dict)
+          this.setData({trips:this.data.trips})
+        }
+      })}
+  },
 })
