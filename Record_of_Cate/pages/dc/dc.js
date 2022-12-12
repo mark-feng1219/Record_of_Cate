@@ -4,36 +4,13 @@ Page({
     food:''
   },
 
-
   onLoad: function(options) {
     wx.setNavigationBarTitle({
       title: '食珍录-帮我点餐'
     });
 
   },
-  // 下载微信云托管对象存储中的图片到本地
-  downloadFile(fileID, onCall = () => {}) {
-    return new Promise((resolve, reject) => {
-      const task = wx.cloud.downloadFile({
-        fileID,
-        success: res => resolve(res),
-        fail: e => {
-          const info = e.toString()
-          console.log(info)
-          if (info.indexOf('abort') != -1) {
-            reject(new Error('【文件下载失败】中断下载'))
-          } else {
-            reject(new Error('【文件下载失败】网络或其他错误'))
-          }
-        }
-      })
-      task.onProgressUpdate((res) => {
-        if (onCall(res) == false) {
-          task.abort()
-        }
-      })
-    })
-  },
+
   onShow: function() {
 
   },
