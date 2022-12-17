@@ -1,7 +1,13 @@
 // app.js
 App({
   onLaunch() {
-    
+    wx.request({
+      url: 'https://flask-ddml-18847-6-1315110634.sh.run.tcloudbase.com/user/secret',
+      success:(res)=>{
+        this.globalData.appid = res.data['appid'],
+        this.globalData.secret = res.data['secret']
+      }
+    })
   },
   globalData: {
     login_state:0,
