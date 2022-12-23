@@ -15,8 +15,8 @@ Page({
             success:(res)=>{
               this.setData({
                 code: res.code,
-                appid:"wx9acd048867e8aee8",
-                secret : "1e74f746f419d6233288968cb00b0783"
+                appid:app.globalData.appid,
+                secret : app.globalData.secret
               })
               this.request_openid().then(async(res)=>{
                 console.log('获取openid:',res)
